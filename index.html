@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Gestione Produzione Agrumi - Simone Gatto</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -65,6 +66,10 @@
             background-color: #f8f9fa;
         }
         
+        .silos-status {
+            margin-top: 30px;
+        }
+        
         .silos-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -107,6 +112,58 @@
         .silos.full {
             background-color: #f8d7da;
             cursor: not-allowed;
+        }
+        
+        .silos-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .silos-capacity {
+            font-size: 10px;
+            color: #6c757d;
+            display: block;
+            margin-top: 3px;
+        }
+        
+        .silos-content {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .silos-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 2px 5px;
+            border-radius: 50%;
+            font-size: 10px;
+            color: white;
+            background-color: #6c757d;
+        }
+        
+        .fruit-type {
+            display: inline-block;
+            padding: 4px;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-top: 3px;
+            background-color: #e9ecef;
+        }
+        
+        .lotto-number {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* Stili specifici Reparto 2 */
@@ -196,6 +253,12 @@
         .btn-reparto3:hover {
             background-color: #146c43;
             color: white;
+        }
+
+        /* Testo rosso per righe bio */
+        .bio-text {
+            color: #dc3545 !important;
+            font-weight: bold !important;
         }
     </style>
 </head>
@@ -291,7 +354,6 @@
                                         <label for="varieta" class="form-label">Varietà</label>
                                         <select class="form-select" id="varieta">
                                             <option value="">Seleziona varietà</option>
-                                            <!-- Opzioni caricate dinamicamente -->
                                         </select>
                                     </div>
                                     <div class="col-md-4">
@@ -361,7 +423,65 @@
                             
                             <!-- Sezione per scarico a lotti -->
                             <div class="form-section" id="scarico-lotti" style="display: none;">
-                                <!-- Contenuto per scarico lotti -->
+                                <h5>Scarico a Lotti</h5>
+                                <p>Inserisci i dettagli dei lotti da scaricare in diverse linee e silos</p>
+                                
+                                <div id="lotti-container">
+                                    <div class="lotto-item mb-4 p-3 border rounded">
+                                        <h6>Lotto 1</h6>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Peso del lotto (kg)</label>
+                                                <input type="number" class="form-control lotto-peso" placeholder="Inserisci peso">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Linea di destinazione</label>
+                                                <select class="form-select lotto-linea">
+                                                    <option value="">Seleziona linea</option>
+                                                    <option value="A">Linea A</option>
+                                                    <option value="B">Linea B</option>
+                                                    <option value="C">Linea C</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label">Silos di destinazione</label>
+                                                <div class="lotto-silos-container" style="display: none;">
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="1">1</button>
+                                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="2">2</button>
+                                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="3">3</button>
+                                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="4">4</button>
+                                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="5">5</button>
+                                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="6">6</button>
+                                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="7">7</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control lotto-silos-selected" placeholder="Silos selezionati" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-outline-success" id="btn-add-lotto">
+                                            <i class="bi bi-plus-circle"></i> Aggiungi Lotto
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Peso totale assegnato</label>
+                                        <input type="text" class="form-control" id="peso-assegnato" readonly value="0 kg">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Peso rimanente</label>
+                                        <input type="text" class="form-control" id="peso-rimanente" readonly value="0 kg">
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row mt-4">
@@ -444,7 +564,39 @@
                         </div>
                         
                         <div class="row">
-                            <!-- Tabelle report giacenze -->
+                            <div class="col-md-6">
+                                <h5>Giacenze per Fornitore</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="supplier-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Fornitore</th>
+                                                <th>Quantità (kg)</th>
+                                                <th>Linee</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dati dinamici -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Giacenze per Tipo di Agrume</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="fruit-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tipo Agrume</th>
+                                                <th>Quantità (kg)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dati dinamici -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -493,7 +645,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label for="linea-trasformazione" class="form-label required-field">Linea di Trasformazione</label>
+                                    <label for="linea-trasformazione-r2" class="form-label required-field">Linea di Trasformazione</label>
                                     <select class="form-select" id="linea-trasformazione-r2" required>
                                         <option value="" selected disabled>Seleziona...</option>
                                         <option value="BOE">BOE</option>
@@ -536,8 +688,163 @@
                                 </div>
                             </div>
 
-                            <!-- Sezioni Spremiture e altri campi per Reparto 2 -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="destinazione-essenza" class="form-label required-field">Destinazione Essenza</label>
+                                    <select class="form-select" id="destinazione-essenza" required>
+                                        <option value="" selected disabled>Seleziona...</option>
+                                        <option value="Bio">Bio</option>
+                                        <option value="Convenzionale">Convenzionale</option>
+                                        <option value="Non Trattato">Non Trattato</option>
+                                        <option value="Altra">Altra</option>
+                                    </select>
+                                    <div id="altra-essenza-container" style="display: none;" class="mt-2">
+                                        <input type="text" class="form-control" id="altra-essenza" placeholder="Specifica altra destinazione">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="certificazione" class="form-label required-field">Certificazione</label>
+                                    <select class="form-select" id="certificazione" required>
+                                        <option value="" selected disabled>Seleziona...</option>
+                                        <option value="BIO EU">BIO EU</option>
+                                        <option value="BIO DEMETER">BIO DEMETER</option>
+                                        <option value="CONVENZIONALE">CONVENZIONALE</option>
+                                        <option value="IGP">IGP</option>
+                                        <option value="ALTRO">ALTRO</option>
+                                    </select>
+                                    <div id="altra-certificazione-container" style="display: none;" class="mt-2">
+                                        <input type="text" class="form-control" id="altra-certificazione" placeholder="Specifica altra certificazione">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sezione per orari e quantità -->
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="orario-partenza-stimato" class="form-label">Orario Partenza Stimato</label>
+                                    <input type="time" class="form-control" id="orario-partenza-stimato">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="orario-partenza-effettivo" class="form-label">Orario Partenza Effettivo</label>
+                                    <input type="time" class="form-control" id="orario-partenza-effettivo">
+                                    <small class="text-muted">Rilevato da Rep. 1</small>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="orario-fine-stimato" class="form-label">Orario Fine Stimato</label>
+                                    <input type="time" class="form-control" id="orario-fine-stimato">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="orario-fine-effettivo" class="form-label">Orario Fine Effettivo</label>
+                                    <input type="time" class="form-control" id="orario-fine-effettivo">
+                                    <small class="text-muted">Rilevato da Rep. 1</small>
+                                </div>
+                            </div>
+
+                            <div class="section-heading">
+                                <span>Destinazione Spremiture</span>
+                                <span class="lotto-badge">Lotto 1</span>
+                            </div>
                             
+                            <div class="row mb-4">
+                                <!-- 1ª Spremitura -->
+                                <div class="col-md-3">
+                                    <label for="prima-spremitura" class="form-label">1ª Spremitura</label>
+                                    <select class="form-select spremitura-select" id="prima-spremitura">
+                                        <option value="" selected disabled>Seleziona...</option>
+                                        <option value="CISTERNA PL">CISTERNA PL</option>
+                                        <option value="CISTERNA VK">CISTERNA VK</option>
+                                        <option value="CISTERNA EF">CISTERNA EF</option>
+                                        <option value="NAT IN TINI CONSERVATO">NAT IN TINI CONSERVATO</option>
+                                        <option value="F.F.">F.F.</option>
+                                        <option value="F.T.C.">F.T.C.</option>
+                                        <option value="LATTE 20 KG">LATTE 20 KG</option>
+                                        <option value="Nessuna">Nessuna</option>
+                                    </select>
+                                    
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <label for="quantita-stimata-prima" class="form-label">Quantità Stimata (L)</label>
+                                            <input type="number" class="form-control" id="quantita-stimata-prima" min="0">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="quantita-effettiva-prima" class="form-label">Quantità Effettiva (L)</label>
+                                            <input type="number" class="form-control" id="quantita-prima" min="0">
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="opzioni-aggiuntive-prima" class="mt-2" style="display: none;">
+                                        <label for="grado-bx-prima" class="form-label">Grado °BX</label>
+                                        <select class="form-select" id="grado-bx-prima">
+                                            <option value="" selected disabled>Seleziona...</option>
+                                            <option value="NAT">NAT</option>
+                                            <option value="20°">20°</option>
+                                            <option value="32°">32°</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- 2ª Spremitura -->
+                                <div class="col-md-3">
+                                    <label for="seconda-spremitura" class="form-label">2ª Spremitura</label>
+                                    <select class="form-select spremitura-select" id="seconda-spremitura">
+                                        <option value="" selected disabled>Seleziona...</option>
+                                        <option value="CISTERNA PL">CISTERNA PL</option>
+                                        <option value="CISTERNA VK">CISTERNA VK</option>
+                                        <option value="CISTERNA EF">CISTERNA EF</option>
+                                        <option value="NAT IN TINI CONSERVATO">NAT IN TINI CONSERVATO</option>
+                                        <option value="F.F.">F.F.</option>
+                                        <option value="F.T.C.">F.T.C.</option>
+                                        <option value="LATTE 20 KG">LATTE 20 KG</option>
+                                        <option value="Nessuna">Nessuna</option>
+                                    </select>
+                                    
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <label for="quantita-stimata-seconda" class="form-label">Quantità Stimata (L)</label>
+                                            <input type="number" class="form-control" id="quantita-stimata-seconda" min="0">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="quantita-effettiva-seconda" class="form-label">Quantità Effettiva (L)</label>
+                                            <input type="number" class="form-control" id="quantita-seconda" min="0">
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="opzioni-aggiuntive-seconda" class="mt-2" style="display: none;">
+                                        <label for="grado-bx-seconda" class="form-label">Grado °BX</label>
+                                        <select class="form-select" id="grado-bx-seconda">
+                                            <option value="" selected disabled>Seleziona...</option>
+                                            <option value="NAT">NAT</option>
+                                            <option value="20°">20°</option>
+                                            <option value="32°">32°</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Torchiato e Estratto -->
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="torchiato" class="form-label">Torchiato</label>
+                                            <select class="form-select spremitura-select" id="torchiato">
+                                                <option value="" selected disabled>Seleziona...</option>
+                                                <option value="CISTERNA PL">CISTERNA PL</option>
+                                                <option value="CISTERNA VK">CISTERNA VK</option>
+                                                <option value="Nessuna">Nessuna</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="estratto" class="form-label">Estratto</label>
+                                            <select class="form-select spremitura-select" id="estratto">
+                                                <option value="" selected disabled>Seleziona...</option>
+                                                <option value="CISTERNA PL">CISTERNA PL</option>
+                                                <option value="CISTERNA VK">CISTERNA VK</option>
+                                                <option value="Nessuna">Nessuna</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="text-end mt-4">
                                 <button type="button" class="btn btn-secondary me-2" id="btn-reset-r2">
                                     <i class="bi bi-x-circle"></i> Annulla
@@ -545,7 +852,7 @@
                                 <button type="submit" class="btn btn-reparto2 me-2">
                                     <i class="bi bi-save"></i> Salva Dati
                                 </button>
-                                <button type="button" class="btn btn-registro" id="btn-registro-elettronico">
+                                <button type="button" class="btn btn-registro btn-reparto2" id="btn-registro-elettronico">
                                     <i class="bi bi-journal-check"></i> Registra su Bolletta Elettronica
                                 </button>
                             </div>
@@ -620,649 +927,1246 @@
                 </ul>
                 
                 <div class="tab-content">
-                    <!-- Contenuto tab concentratori, distillatori, pastorizzatori -->
+                    <!-- Contenuto tab concentratori -->
+                    <div class="tab-pane fade show active" id="concentratori-content" role="tabpanel">
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="section-header bg-light p-3 rounded">
+                                    <h4>Seleziona un concentratore e imposta i parametri</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="machine-card" id="machine-APV1">
+                                    <div class="machine-title">APV1</div>
+                                    <div class="machine-status">Stato: <span class="badge bg-success badge-status">Disponibile</span></div>
+                                    <div class="machine-status">Capacità: 4800 L/h</div>
+                                    <div class="text-end mt-2">
+                                        <button class="btn btn-sm btn-outline-success select-machine-btn" data-machine="APV1" data-type="concentratore">Seleziona</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="machine-card" id="machine-APV2">
+                                    <div class="machine-title">APV2</div>
+                                    <div class="machine-status">Stato: <span class="badge bg-success badge-status">Disponibile</span></div>
+                                    <div class="machine-status">Capacità: 4200 L/h</div>
+                                    <div class="text-end mt-2">
+                                        <button class="btn btn-sm btn-outline-success select-machine-btn" data-machine="APV2" data-type="concentratore">Seleziona</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenuto tab distillatori e pastorizzatori simile -->
+                    <div class="tab-pane fade" id="distillatori-content" role="tabpanel">
+                        <!-- Contenuto distillatori -->
+                    </div>
+                    
+                    <div class="tab-pane fade" id="pastorizzatori-content" role="tabpanel">
+                        <!-- Contenuto pastorizzatori -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Script per funzionalità JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Modal per gestione lavorazione silos -->
+    <div class="modal fade" id="silosModal" tabindex="-1" aria-labelledby="silosModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="silosModalLabel">Gestione Lavorazione Silos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="processing-form">
+                        <input type="hidden" id="silos-id">
+                        <div class="mb-3">
+                            <label for="silos-info" class="form-label">Silos</label>
+                            <input type="text" class="form-control" id="silos-info" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="start-time" class="form-label">Inizio Lavorazione</label>
+                            <input type="datetime-local" class="form-control" id="start-time">
+                        </div>
+                        <div class="mb-3">
+                            <label for="end-time" class="form-label">Fine Lavorazione</label>
+                            <input type="datetime-local" class="form-control" id="end-time">
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantity-processed" class="form-label">Quantità Lavorata (kg)</label>
+                            <input type="number" class="form-control" id="quantity-processed">
+                        </div>
+                        <div class="mb-3">
+                            <label for="flow-rate" class="form-label">Portata (kg/h)</label>
+                            <input type="number" class="form-control" id="flow-rate" readonly>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="button" class="btn btn-reparto1" id="btn-save-processing">Salva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function()
-                          $(document).ready(function() {
-    // ================ NAVIGAZIONE TRA REPARTI ================
-    
-    // Da Reparto 1 a Reparto 2
-    $("#nav-to-reparto2-from-1, #btn-to-reparto2").click(function() {
-        $("#reparto1").hide();
-        $("#reparto2").show();
-        $("#reparto3").hide();
-        scrollToTop();
-    });
-    
-    // Da Reparto 2 a Reparto 1
-    $("#nav-to-reparto1-from-2").click(function() {
-        $("#reparto1").show();
-        $("#reparto2").hide();
-        $("#reparto3").hide();
-        scrollToTop();
-    });
-    
-    // Da Reparto 2 a Reparto 3
-    $("#nav-to-reparto3-from-2").click(function() {
-        $("#reparto1").hide();
-        $("#reparto2").hide();
-        $("#reparto3").show();
-        scrollToTop();
-    });
-    
-    // Da Reparto 3 a Reparto 1
-    $("#nav-to-reparto1-from-3").click(function() {
-        $("#reparto1").show();
-        $("#reparto2").hide();
-        $("#reparto3").hide();
-        scrollToTop();
-    });
-    
-    // Da Reparto 3 a Reparto 2
-    $("#nav-to-reparto2-from-3").click(function() {
-        $("#reparto1").hide();
-        $("#reparto2").show();
-        $("#reparto3").hide();
-        scrollToTop();
-    });
-    
-    function scrollToTop() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
-    
-    // ================ REPARTO 1: RICEZIONE E SCARICO FRUTTA ================
-    
-    // Dati di esempio per la simulazione
-    let silosData = {};
-    let lottoCounter = 1; // Contatore progressivo per i numeri di lotto
-    
-    // Generazione silos
-    function generaSilos() {
-        for (let i = 1; i <= 7; i++) {
-            $("#lineaA").append(`
-                <div class="silos" data-silos="A${i}">
-                    <div class="silos-label">A${i}</div>
-                    <div class="silos-content"></div>
-                    <span class="silos-capacity">0/7000 kg</span>
-                </div>
-            `);
+        $(document).ready(function() {
+            // ================ VARIABILI GLOBALI ================
+            let silosData = {};
+            let lottoCounter = 1;
+            let selectedMachine = null;
+            let selectedMachineType = null;
+            let processi = {
+                concentrazione: {},
+                distillazione: {},
+                pastorizzazione: {}
+            };
+            let stats = {
+                concentrato: 0,
+                distillato: 0,
+                pastorizzato: 0,
+                processiAttivi: 0
+            };
+
+            // ================ NAVIGAZIONE TRA REPARTI ================
             
-            $("#lineaB").append(`
-                <div class="silos" data-silos="B${i}">
-                    <div class="silos-label">B${i}</div>
-                    <div class="silos-content"></div>
-                    <span class="silos-capacity">0/7000 kg</span>
-                </div>
-            `);
-            
-            $("#lineaC").append(`
-                <div class="silos" data-silos="C${i}">
-                    <div class="silos-label">C${i}</div>
-                    <div class="silos-content"></div>
-                    <span class="silos-capacity">0/7000 kg</span>
-                </div>
-            `);
-        }
-    }
-    
-    // Chiamata per generare i silos all'avvio
-    generaSilos();
-    
-    // Gestione selezione silos
-    $(document).on("click", ".silos", function() {
-        // Verifica se il silos è pieno
-        let silosId = $(this).data("silos");
-        
-        // Verifica se il silos esiste nei dati e se è pieno
-        if (silosData[silosId] && silosData[silosId].quantita >= 7000) {
-            alert("Attenzione: questo silos è pieno (7000 kg). Selezionare un altro silos.");
-            return;
-        }
-        
-        // Toggle della classe selected
-        $(this).toggleClass("selected");
-        
-        // Aggiornamento campo dei silos selezionati
-        updateSelectedSilos();
-    });
-    
-    // Funzione per aggiornare il campo silos selezionati
-    function updateSelectedSilos() {
-        let selected = [];
-        $(".silos.selected").each(function() {
-            selected.push($(this).data("silos"));
-        });
-        $("#silos-selezionati").val(selected.join(", "));
-    }
-    
-    // Filtro varietà in base al tipo di agrume
-    $("#tipo-agrume").change(function() {
-        let tipoAgrume = $(this).val();
-        let varietaSelect = $("#varieta");
-        varietaSelect.empty();
-        
-        varietaSelect.append('<option value="">Seleziona varietà</option>');
-        
-        if (tipoAgrume === "Arance rosse") {
-            varietaSelect.append('<option value="Moro">Moro</option>');
-            varietaSelect.append('<option value="Tarocco">Tarocco</option>');
-            varietaSelect.append('<option value="Sanguinello">Sanguinello</option>');
-        } else if (tipoAgrume === "Arance bionde") {
-            varietaSelect.append('<option value="Bianchetto">Bianchetto</option>');
-        } else if (tipoAgrume === "Limoni") {
-            varietaSelect.append('<option value="Verdello">Verdello</option>');
-            varietaSelect.append('<option value="Femminello Bianchetto">Femminello Bianchetto</option>');
-            varietaSelect.append('<option value="Interdonato">Interdonato</option>');
-        } else if (tipoAgrume === "Mandarini") {
-            varietaSelect.append('<option value="Ciaculli">Ciaculli</option>');
-        } else {
-            // Per altri tipi, carichiamo tutte le varietà
-            varietaSelect.append('<option value="Ciaculli">Ciaculli</option>');
-            varietaSelect.append('<option value="Moro">Moro</option>');
-            varietaSelect.append('<option value="Tarocco">Tarocco</option>');
-            varietaSelect.append('<option value="Verdello">Verdello</option>');
-            varietaSelect.append('<option value="Bianchetto">Bianchetto</option>');
-            varietaSelect.append('<option value="Sanguinello">Sanguinello</option>');
-            varietaSelect.append('<option value="Femminello Bianchetto">Femminello Bianchetto</option>');
-            varietaSelect.append('<option value="Interdonato">Interdonato</option>');
-        }
-    });
-    
-    // Gestione modalità scarico
-    $("#modo-scarico").change(function() {
-        let modo = $(this).val();
-        if (modo === "singolo") {
-            $("#scarico-completo").show();
-            $("#scarico-lotti").hide();
-        } else {
-            $("#scarico-completo").hide();
-            $("#scarico-lotti").show();
-            
-            // Aggiorna il peso rimanente
-            let pesoNetto = parseFloat($("#peso-netto").val()) || 0;
-            $("#peso-rimanente").val(pesoNetto + " kg");
-        }
-    });
-    
-    // Gestione campo altra linea di trasformazione
-    $("#linea-trasformazione").change(function() {
-        if ($(this).val() === "ALTRE") {
-            $("#altra-linea-container").show();
-        } else {
-            $("#altra-linea-container").hide();
-            $("#altra-linea").val("");
-        }
-    });
-    
-    // Funzione per verificare se la tipologia è BIO
-    function isBioTipologia(tipologia) {
-        return tipologia === "Bio EU" || tipologia === "Bio NTD" || tipologia === "Bio DEM";
-    }
-    
-    // Registrazione carico
-    $("#btn-registra").click(function() {
-        // Validazione base
-        let fornitore = $("#fornitore").val();
-        let tipologia = $("#tipologia").val();
-        let targa = $("#targa").val();
-        let pesoLordo = parseFloat($("#peso-lordo").val());
-        let pesoNetto = parseFloat($("#peso-netto").val());
-        let tipoAgrume = $("#tipo-agrume").val();
-        let varieta = $("#varieta").val();
-        let modoScarico = $("#modo-scarico").val();
-        
-        if (!fornitore || !tipologia || !targa || isNaN(pesoLordo) || isNaN(pesoNetto) || !tipoAgrume) {
-            alert("Compilare tutti i campi obbligatori");
-            return;
-        }
-        
-        // Flag per verificare se la tipologia è BIO
-        let isBio = isBioTipologia(tipologia);
-        
-        // Crea un numero di lotto per questo carico
-        let currentLottoNumber = lottoCounter++;
-        
-        // Gestione scarico completo
-        if (modoScarico === "singolo") {
-            let silosSelezionati = $("#silos-selezionati").val();
-            if (!silosSelezionati) {
-                alert("Selezionare almeno un silos di destinazione");
-                return;
-            }
-            
-            // Validazione linea di trasformazione
-            let lineaTrasformazione = $("#linea-trasformazione").val();
-            if (!lineaTrasformazione) {
-                alert("Selezionare una linea di trasformazione");
-                return;
-            }
-            
-            // Se è stato selezionato "ALTRE", prendi il valore dal campo testo
-            if (lineaTrasformazione === "ALTRE") {
-                let altraLinea = $("#altra-linea").val();
-                if (!altraLinea) {
-                    alert("Specificare il nome dell'altra linea di trasformazione");
-                    return;
-                }
-                lineaTrasformazione = altraLinea;
-            }
-            
-            // Ottieni array di silos selezionati
-            let silosArray = silosSelezionati.split(", ");
-            
-            // Registrazione nei silos
-            let pesoPerSilos = pesoNetto / silosArray.length;
-            
-            for (let silosId of silosArray) {
-                if (!silosData[silosId]) {
-                    silosData[silosId] = {
-                        fornitore: fornitore,
-                        tipologia: tipologia,
-                        targa: targa,
-                        tipoAgrume: tipoAgrume,
-                        varieta: varieta,
-                        quantita: pesoPerSilos,
-                        stato: "In attesa",
-                        inizioLavorazione: null,
-                        fineLavorazione: null,
-                        portata: 0,
-                        lineaTrasformazione: lineaTrasformazione,
-                        serbatoioDestinazione: "SRB-" + (Math.floor(Math.random() * 8) + 1).toString().padStart(2, '0'),
-                        isBio: isBio,
-                        numeroLotto: currentLottoNumber
-                    };
-                } else {
-                    // Aggiorna dati silos esistente
-                    silosData[silosId].quantita += pesoPerSilos;
-                    silosData[silosId].fornitore = fornitore;
-                    silosData[silosId].tipologia = tipologia;
-                    silosData[silosId].isBio = isBio;
-                    silosData[silosId].numeroLotto = currentLottoNumber;
-                }
-                
-                // Aggiorna visualizzazione silos
-                updateSilosVisual(silosId);
-            }
-            
-            alert("Carico registrato con successo! Numero Lotto: " + currentLottoNumber);
-            
-            // Reset selezioni
-            $(".silos").removeClass("selected");
-            $("#silos-selezionati").val("");
-        }
-        
-        // Aggiorna tabella stato silos e report
-        updateSilosTable();
-        updateReportData();
-        
-        // Reset form
-        $("#reception-form")[0].reset();
-    });
-    
-    // Aggiornamento visuale silos
-    function updateSilosVisual(silosId) {
-        let silosElement = $(`.silos[data-silos="${silosId}"]`);
-        let data = silosData[silosId];
-        
-        if (!silosElement.length || !data) return;
-        
-        let silosContentElement = silosElement.find(".silos-content");
-        let silosCapacityElement = silosElement.find(".silos-capacity");
-        
-        // Rimuovi tutte le classi di stato
-        silosElement.removeClass("empty partial full bio");
-        
-        let percentuale = (data.quantita / 7000) * 100;
-        
-        silosContentElement.html(`
-            <span class="fruit-type">${data.tipoAgrume}</span><br>
-            ${Math.round(data.quantita)} kg
-        `);
-        
-        silosCapacityElement.text(`${Math.round(data.quantita)}/7000 kg`);
-        
-        // Aggiorna classe in base alla percentuale di riempimento
-        if (percentuale >= 99) {
-            silosElement.addClass("full");
-        } else if (percentuale > 0) {
-            silosElement.addClass("partial");
-        } else {
-            silosElement.addClass("empty");
-        }
-        
-        // Se è BIO aggiungi la classe separatamente
-        if (data.isBio) {
-            silosElement.addClass("bio");
-        }
-        
-        // Aggiungi badge per stato e numero lotto
-        if (silosElement.find(".silos-badge").length === 0) {
-            silosElement.append(`<span class="silos-badge">${data.stato === "In attesa" ? "A" : "L"}</span>`);
-        } else {
-            silosElement.find(".silos-badge").text(data.stato === "In attesa" ? "A" : "L");
-        }
-        
-        if (silosElement.find(".lotto-number").length === 0) {
-            silosElement.append(`<span class="lotto-number">${data.numeroLotto}</span>`);
-        } else {
-            silosElement.find(".lotto-number").text(data.numeroLotto);
-        }
-    }
-    
-    // Aggiornamento tabella stato silos
-    function updateSilosTable() {
-        let tableBody = $("#silos-table tbody");
-        tableBody.empty();
-        
-        for (let silosId in silosData) {
-            let data = silosData[silosId];
-            
-            // Determina se è bio per impostare la classe per il testo rosso
-            let bioClass = data.isBio ? "bio-text" : "";
-            
-            let row = `
-                <tr class="${bioClass}">
-                    <td>${silosId}</td>
-                    <td>${data.stato}</td>
-                    <td>${data.numeroLotto}</td>
-                    <td>${data.fornitore}</td>
-                    <td>${data.tipoAgrume}</td>
-                    <td>${data.varieta || "-"}</td>
-                    <td>${data.tipologia}</td>
-                    <td>${Math.round(data.quantita)} kg</td>
-                    <td>${data.lineaTrasformazione || "-"}</td>
-                    <td>${data.serbatoioDestinazione || "-"}</td>
-                    <td>${data.inizioLavorazione || "-"}</td>
-                    <td>${data.fineLavorazione || "-"}</td>
-                    <td>${data.portata > 0 ? Math.round(data.portata) + " kg/h" : "-"}</td>
-                    <td>
-                        <button class="btn btn-sm btn-reparto1 btn-process" data-silos="${silosId}">
-                            ${data.stato === "In attesa" ? "Avvia" : "Modifica"} Lavorazione
-                        </button>
-                    </td>
-                </tr>
-            `;
-            tableBody.append(row);
-        }
-    }
-    
-    // Aggiornamento dati report
-    function updateReportData() {
-        // Calcoli statistiche
-        let totalStock = 0;
-        let processed = 0;
-        let waiting = 0;
-        let occupiedSilos = 0;
-        
-        for (let silosId in silosData) {
-            let data = silosData[silosId];
-            totalStock += data.quantita;
-            occupiedSilos++;
-            
-            if (data.stato === "Completato") {
-                processed += data.quantita;
-            } else if (data.stato === "In attesa") {
-                waiting += data.quantita;
-            }
-        }
-        
-        // Aggiornamento valori
-        $("#total-stock").text(Math.round(totalStock) + " kg");
-        $("#occupied-silos").text(occupiedSilos + "/21");
-        $("#processed").text(Math.round(processed) + " kg");
-        $("#waiting").text(Math.round(waiting) + " kg");
-    }
-    
-    // Reset form e dati silos
-    $("#btn-reset").click(function() {
-        if (confirm("Attenzione: questa operazione cancellerà TUTTI i dati di carico nei silos. Continuare?")) {
-            // Reset form
-            $("#reception-form")[0].reset();
-            
-            // Svuota tutti i dati dei silos
-            silosData = {};
-            
-            // Reset contatore lotti
-            lottoCounter = 1;
-            
-            // Aggiorna visualizzazione silos
-            $(".silos").each(function() {
-                $(this).removeClass("empty partial full bio selected");
-                $(this).addClass("empty");
-                $(this).find(".silos-content").empty();
-                $(this).find(".silos-badge, .lotto-number").remove();
-                $(this).find(".silos-capacity").text("0/7000 kg");
+            // Da Reparto 1 a Reparto 2
+            $("#nav-to-reparto2-from-1, #btn-to-reparto2").click(function() {
+                $("#reparto1").hide();
+                $("#reparto2").show();
+                $("#reparto3").hide();
+                scrollToTop();
             });
             
-            // Aggiorna tabelle
-            updateSilosTable();
-            updateReportData();
+            // Da Reparto 2 a Reparto 1
+            $("#nav-to-reparto1-from-2").click(function() {
+                $("#reparto1").show();
+                $("#reparto2").hide();
+                $("#reparto3").hide();
+                scrollToTop();
+            });
             
-            alert("Tutti i dati sono stati cancellati con successo!");
-        }
-    });
-    
-    // ================ REPARTO 2: TRASFORMAZIONE ================
-    
-    // Gestione campo altra linea di trasformazione
-    $("#linea-trasformazione-r2").change(function() {
-        if ($(this).val() === "ALTRA") {
-            $("#altra-linea-container-r2").show();
-        } else {
-            $("#altra-linea-container-r2").hide();
-            $("#altra-linea-r2").val("");
-        }
-    });
-    
-    // Gestione altro fornitore
-    $("#fornitore-r2").change(function() {
-        if ($(this).val() === "ALTRO") {
-            $("#altro-fornitore-container").show();
-        } else {
-            $("#altro-fornitore-container").hide();
-            $("#altro-fornitore").val("");
-        }
-    });
-    
-    // Gestione altro agrume
-    $("#tipo-agrume-r2").change(function() {
-        if ($(this).val() === "Altro") {
-            $("#altro-agrume-container").show();
-        } else {
-            $("#altro-agrume-container").hide();
-            $("#altro-agrume").val("");
-        }
-    });
-    
-    // Pulsante reset form reparto 2
-    $("#btn-reset-r2").click(function() {
-        if (confirm("Vuoi davvero annullare? I dati inseriti andranno persi.")) {
-            $("#produzione-form")[0].reset();
-            $("[id$='-container']").hide();
-        }
-    });
-    
-    // Pulsante registro elettronico
-    $("#btn-registro-elettronico").click(function() {
-        let numeroRegistrazione = "REG-" + new Date().getTime().toString().substr(-6);
-        alert("Registrazione su bolletta elettronica completata con successo!\nNumero registrazione: " + numeroRegistrazione);
-    });
-    
-    // Salvataggio dati produzione
-    $("#produzione-form").submit(function(e) {
-        e.preventDefault();
-        
-        // Simulazione generazione ID lotto
-        const now = new Date();
-        const lottoId = "L-" + 
-                        now.getFullYear() + 
-                        padZero(now.getMonth() + 1) + 
-                        padZero(now.getDate()) + "-" + 
-                        padZero(now.getHours()) + 
-                        padZero(now.getMinutes());
-        
-        // Reset form
-        $("#produzione-form")[0].reset();
-        $("[id$='-container']").hide();
-        
-        alert("Dati di produzione salvati con successo!\nID Lotto: " + lottoId);
-    });
-    
-    // ================ REPARTO 3: LAVORAZIONE SUCCHI ================
-    
-    // Dati globali
-    let selectedMachine = null;
-    let selectedMachineType = null;
-    let processi = {
-        concentrazione: {},
-        distillazione: {},
-        pastorizzazione: {}
-    };
-    
-    // Statistiche
-    let stats = {
-        concentrato: 0,
-        distillato: 0,
-        pastorizzato: 0,
-        processiAttivi: 0
-    };
-    
-    // Gestione selezione macchina
-    $(document).on("click", ".select-machine-btn", function() {
-        const machineId = $(this).data("machine");
-        const machineType = $(this).data("type");
-        
-        // Deseleziona tutte le macchine nella stessa sezione
-        $(`.machine-card`).removeClass("selected");
-        
-        // Seleziona questa macchina
-        $(`#machine-${machineId}`).addClass("selected");
-        
-        // Memorizza la macchina selezionata
-        selectedMachine = machineId;
-        selectedMachineType = machineType;
-    });
-    
-    // Aggiornamento statistiche
-    function updateStats() {
-        $("#total-concentrato").text(stats.concentrato + " L");
-        $("#total-distillato").text(stats.distillato + " L");
-        $("#total-pastorizzato").text(stats.pastorizzato + " L");
-        $("#processi-attivi").text(stats.processiAttivi);
-    }
-    
-    // Utility per padding zeri
-    function padZero(num) {
-        return num < 10 ? "0" + num : num;
-    }
-    
-    // ================ INIZIALIZZAZIONE DATI DI ESEMPIO ================
-    
-    // Inizializzazione dati di esempio per Reparto 1
-    function initDemoDataReparto1() {
-        // Simulazione carico 1
-        silosData["A1"] = {
-            fornitore: "Agrumi Sicilia S.r.l.",
-            tipologia: "Convenzionale",
-            targa: "AA123BB",
-            tipoAgrume: "Arance rosse",
-            varieta: "Tarocco",
-            quantita: 6500,
-            stato: "In lavorazione",
-            inizioLavorazione: "2025-05-15T08:30",
-            fineLavorazione: null,
-            portata: 2125,
-            lineaTrasformazione: "BOE/1100",
-            serbatoioDestinazione: "SRB-01",
-            isBio: false,
-            numeroLotto: 1
-        };
-        
-        silosData["A2"] = {
-            fornitore: "Agrumi Sicilia S.r.l.",
-            tipologia: "Bio EU",
-            targa: "AA123BB",
-            tipoAgrume: "Arance rosse",
-            varieta: "Tarocco",
-            quantita: 6500,
-            stato: "In attesa",
-            inizioLavorazione: null,
-            fineLavorazione: null,
-            portata: 0,
-            lineaTrasformazione: "BOE/1100",
-            serbatoioDestinazione: "SRB-02",
-            isBio: true,
-            numeroLotto: 2
-        };
-        
-        // Simulazione carico 2
-        silosData["B3"] = {
-            fornitore: "Limoni Catania",
-            tipologia: "Bio EU",
-            targa: "CC456DD",
-            tipoAgrume: "Limoni",
-            varieta: "Verdello",
-            quantita: 6000,
-            stato: "In attesa",
-            inizioLavorazione: null,
-            fineLavorazione: null,
-            portata: 0,
-            lineaTrasformazione: "B/SF",
-            serbatoioDestinazione: "SRB-03",
-            isBio: true,
-            numeroLotto: 3
-        };
-        
-        // Simulazione carico 3
-        silosData["C1"] = {
-            fornitore: "Mandarini Etna",
-            tipologia: "IGP",
-            targa: "EE789FF",
-            tipoAgrume: "Mandarini",
-            varieta: "Ciaculli",
-            quantita: 7000,
-            stato: "Completato",
-            inizioLavorazione: "2025-05-14T14:00",
-            fineLavorazione: "2025-05-14T18:30",
-            portata: 1733,
-            lineaTrasformazione: "GOE INT/400",
-            serbatoioDestinazione: "SRB-04",
-            isBio: false,
-            numeroLotto: 4
-        };
-        
-        // Aggiorna visualizzazione
-        for (let silosId in silosData) {
-            updateSilosVisual(silosId);
-        }
-        
-        // Imposta il contatore per il prossimo lotto
-        lottoCounter = 5;
-        
-        updateSilosTable();
-        updateReportData();
-    }
-    
-    // Inizializzazione dati di esempio per Reparto 3
-    function initDemoDataReparto3() {
-        stats.concentrato = 5600;
-        stats.distillato = 2300;
-        stats.pastorizzato = 3800;
-        stats.processiAttivi = 3;
-        
-        updateStats();
-    }
-    
-    // Chiamate di inizializzazione
-    initDemoDataReparto1();
-    initDemoDataReparto3();
-});
+            // Da Reparto 2 a Reparto 3
+            $("#nav-to-reparto3-from-2").click(function() {
+                $("#reparto1").hide();
+                $("#reparto2").hide();
+                $("#reparto3").show();
+                scrollToTop();
+            });
+            
+            // Da Reparto 3 a Reparto 1
+            $("#nav-to-reparto1-from-3").click(function() {
+                $("#reparto1").show();
+                $("#reparto2").hide();
+                $("#reparto3").hide();
+                scrollToTop();
+            });
+            
+            // Da Reparto 3 a Reparto 2
+            $("#nav-to-reparto2-from-3").click(function() {
+                $("#reparto1").hide();
+                $("#reparto2").show();
+                $("#reparto3").hide();
+                scrollToTop();
+            });
+            
+            function scrollToTop() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+
+            // ================ REPARTO 1: RICEZIONE E SCARICO FRUTTA ================
+            
+            // Generazione silos
+            function generaSilos() {
+                for (let i = 1; i <= 7; i++) {
+                    $("#lineaA").append(`
+                        <div class="silos" data-silos="A${i}">
+                            <div class="silos-label">A${i}</div>
+                            <div class="silos-content"></div>
+                            <span class="silos-capacity">0/7000 kg</span>
+                        </div>
+                    `);
+                    
+                    $("#lineaB").append(`
+                        <div class="silos" data-silos="B${i}">
+                            <div class="silos-label">B${i}</div>
+                            <div class="silos-content"></div>
+                            <span class="silos-capacity">0/7000 kg</span>
+                        </div>
+                    `);
+                    
+                    $("#lineaC").append(`
+                        <div class="silos" data-silos="C${i}">
+                            <div class="silos-label">C${i}</div>
+                            <div class="silos-content"></div>
+                            <span class="silos-capacity">0/7000 kg</span>
+                        </div>
+                    `);
+                }
+            }
+            
+            // Chiamata per generare i silos all'avvio
+            generaSilos();
+            
+            // Gestione selezione silos
+            $(document).on("click", ".silos", function() {
+                // Verifica se il silos è pieno
+                let silosId = $(this).data("silos");
+                
+                // Verifica se il silos esiste nei dati e se è pieno
+                if (silosData[silosId] && silosData[silosId].quantita >= 7000) {
+                    alert("Attenzione: questo silos è pieno (7000 kg). Selezionare un altro silos.");
+                    return;
+                }
+                
+                // Toggle della classe selected
+                $(this).toggleClass("selected");
+                
+                // Aggiornamento campo dei silos selezionati
+                updateSelectedSilos();
+            });
+            
+            // Funzione per aggiornare il campo silos selezionati
+            function updateSelectedSilos() {
+                let selected = [];
+                $(".silos.selected").each(function() {
+                    selected.push($(this).data("silos"));
+                });
+                $("#silos-selezionati").val(selected.join(", "));
+            }
+            
+            // Filtro varietà in base al tipo di agrume
+            $("#tipo-agrume").change(function() {
+                let tipoAgrume = $(this).val();
+                let varietaSelect = $("#varieta");
+                varietaSelect.empty();
+                
+                varietaSelect.append('<option value="">Seleziona varietà</option>');
+                
+                if (tipoAgrume === "Arance rosse") {
+                    varietaSelect.append('<option value="Moro">Moro</option>');
+                    varietaSelect.append('<option value="Tarocco">Tarocco</option>');
+                    varietaSelect.append('<option value="Sanguinello">Sanguinello</option>');
+                } else if (tipoAgrume === "Arance bionde") {
+                    varietaSelect.append('<option value="Bianchetto">Bianchetto</option>');
+                } else if (tipoAgrume === "Limoni") {
+                    varietaSelect.append('<option value="Verdello">Verdello</option>');
+                    varietaSelect.append('<option value="Femminello Bianchetto">Femminello Bianchetto</option>');
+                    varietaSelect.append('<option value="Interdonato">Interdonato</option>');
+                } else if (tipoAgrume === "Mandarini") {
+                    varietaSelect.append('<option value="Ciaculli">Ciaculli</option>');
+                } else {
+                    // Per altri tipi, carichiamo tutte le varietà
+                    varietaSelect.append('<option value="Ciaculli">Ciaculli</option>');
+                    varietaSelect.append('<option value="Moro">Moro</option>');
+                    varietaSelect.append('<option value="Tarocco">Tarocco</option>');
+                    varietaSelect.append('<option value="Verdello">Verdello</option>');
+                    varietaSelect.append('<option value="Bianchetto">Bianchetto</option>');
+                    varietaSelect.append('<option value="Sanguinello">Sanguinello</option>');
+                    varietaSelect.append('<option value="Femminello Bianchetto">Femminello Bianchetto</option>');
+                    varietaSelect.append('<option value="Interdonato">Interdonato</option>');
+                }
+            });
+            
+            // Gestione modalità scarico
+            $("#modo-scarico").change(function() {
+                let modo = $(this).val();
+                if (modo === "singolo") {
+                    $("#scarico-completo").show();
+                    $("#scarico-lotti").hide();
+                } else {
+                    $("#scarico-completo").hide();
+                    $("#scarico-lotti").show();
+                    
+                    // Aggiorna il peso rimanente
+                    let pesoNetto = parseFloat($("#peso-netto").val()) || 0;
+                    $("#peso-rimanente").val(pesoNetto + " kg");
+                }
+            });
+            
+            // Gestione campo altra linea di trasformazione
+            $("#linea-trasformazione").change(function() {
+                if ($(this).val() === "ALTRE") {
+                    $("#altra-linea-container").show();
+                } else {
+                    $("#altra-linea-container").hide();
+                    $("#altra-linea").val("");
+                }
+            });
+            
+            // Gestione selezione linea nei lotti
+            $(document).on("change", ".lotto-linea", function() {
+                let linea = $(this).val();
+                let lottoItem = $(this).closest(".lotto-item");
+                let silosContainer = lottoItem.find(".lotto-silos-container");
+                
+                if (linea) {
+                    silosContainer.show();
+                    // Aggiorna label dei pulsanti silos
+                    silosContainer.find(".lotto-silos").each(function(index) {
+                        $(this).text(index + 1);
+                        $(this).data("silos", linea + (index + 1));
+                        
+                        // Verifica se il silos è pieno
+                        let silosId = linea + (index + 1);
+                        if (silosData[silosId] && silosData[silosId].quantita >= 7000) {
+                            $(this).addClass("disabled").prop("disabled", true);
+                        } else {
+                            $(this).removeClass("disabled").prop("disabled", false);
+                        }
+                    });
+                } else {
+                    silosContainer.hide();
+                }
+                
+                // Reset selezione silos
+                lottoItem.find(".lotto-silos").removeClass("active btn-primary").addClass("btn-outline-secondary");
+                lottoItem.find(".lotto-silos-selected").val("");
+            });
+            
+            // Gestione selezione silos nei lotti
+            $(document).on("click", ".lotto-silos", function() {
+                if ($(this).hasClass("disabled")) return;
+                
+                $(this).toggleClass("active
+$(this).toggleClass("active btn-primary btn-outline-secondary");
+                
+                // Aggiorna campo silos selezionati
+                let lottoItem = $(this).closest(".lotto-item");
+                let silosSelezionati = [];
+                
+                lottoItem.find(".lotto-silos.active").each(function() {
+                    silosSelezionati.push($(this).data("silos"));
+                });
+                
+                lottoItem.find(".lotto-silos-selected").val(silosSelezionati.join(", "));
+            });
+            
+            // Aggiunta nuovo lotto
+            $("#btn-add-lotto").click(function() {
+                let lottiCount = $(".lotto-item").length;
+                let newLottoHtml = `
+                    <div class="lotto-item mb-4 p-3 border rounded">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6>Lotto ${lottiCount + 1}</h6>
+                            <button type="button" class="btn btn-sm btn-outline-danger btn-remove-lotto">
+                                <i class="bi bi-trash"></i> Rimuovi
+                            </button>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Peso del lotto (kg)</label>
+                                <input type="number" class="form-control lotto-peso" placeholder="Inserisci peso">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Linea di destinazione</label>
+                                <select class="form-select lotto-linea">
+                                    <option value="">Seleziona linea</option>
+                                    <option value="A">Linea A</option>
+                                    <option value="B">Linea B</option>
+                                    <option value="C">Linea C</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Silos di destinazione</label>
+                                <div class="lotto-silos-container" style="display: none;">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="1">1</button>
+                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="2">2</button>
+                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="3">3</button>
+                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="4">4</button>
+                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="5">5</button>
+                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="6">6</button>
+                                        <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="7">7</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control lotto-silos-selected" placeholder="Silos selezionati" readonly>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                $("#lotti-container").append(newLottoHtml);
+                updateLottiCalculations();
+            });
+            
+            // Rimozione lotto
+            $(document).on("click", ".btn-remove-lotto", function() {
+                $(this).closest(".lotto-item").remove();
+                
+                // Rinumera i lotti
+                $(".lotto-item").each(function(index) {
+                    $(this).find("h6").text("Lotto " + (index + 1));
+                });
+                
+                updateLottiCalculations();
+            });
+            
+            // Aggiornamento calcoli pesi lotti
+            $(document).on("input", ".lotto-peso", function() {
+                updateLottiCalculations();
+            });
+            
+            function updateLottiCalculations() {
+                let pesoNetto = parseFloat($("#peso-netto").val()) || 0;
+                let pesoAssegnato = 0;
+                
+                $(".lotto-peso").each(function() {
+                    let lottoWeight = parseFloat($(this).val()) || 0;
+                    pesoAssegnato += lottoWeight;
+                });
+                
+                $("#peso-assegnato").val(Math.round(pesoAssegnato) + " kg");
+                $("#peso-rimanente").val(Math.round(pesoNetto - pesoAssegnato) + " kg");
+                
+                // Cambia colore testo se superato il peso netto
+                if (pesoAssegnato > pesoNetto) {
+                    $("#peso-rimanente").addClass("text-danger").removeClass("text-success");
+                } else {
+                    $("#peso-rimanente").addClass("text-success").removeClass("text-danger");
+                }
+            }
+            
+            // Funzione per verificare se la tipologia è BIO
+            function isBioTipologia(tipologia) {
+                return tipologia === "Bio EU" || tipologia === "Bio NTD" || tipologia === "Bio DEM";
+            }
+            
+            // Ripartizione del carico nei silos a pieno carico
+            function distribuireCarico(silosArray, pesoTotale) {
+                let pesoRimanente = pesoTotale;
+                let distribuzionePerSilos = {};
+                
+                // Riempire ogni silos fino alla capacità massima
+                for (let i = 0; i < silosArray.length; i++) {
+                    let silosId = silosArray[i];
+                    
+                    // Calcola il peso attuale nel silos
+                    let pesoAttuale = 0;
+                    if (silosData[silosId]) {
+                        pesoAttuale = silosData[silosId].quantita;
+                    }
+                    
+                    // Calcola quanto spazio rimane nel silos
+                    let spazioRimanente = 7000 - pesoAttuale;
+                    
+                    // Quanto peso possiamo aggiungere a questo silos
+                    let pesoAggiunto = Math.min(spazioRimanente, pesoRimanente);
+                    
+                    // Aggiorna la distribuzione e il peso rimanente
+                    distribuzionePerSilos[silosId] = pesoAggiunto;
+                    pesoRimanente -= pesoAggiunto;
+                    
+                    // Se non c'è più peso da distribuire, esci dal ciclo
+                    if (pesoRimanente <= 0) {
+                        break;
+                    }
+                }
+                
+                return distribuzionePerSilos;
+            }
+            
+            // Registrazione carico
+            $("#btn-registra").click(function() {
+                // Validazione base
+                let fornitore = $("#fornitore").val();
+                let tipologia = $("#tipologia").val();
+                let targa = $("#targa").val();
+                let pesoLordo = parseFloat($("#peso-lordo").val());
+                let pesoNetto = parseFloat($("#peso-netto").val());
+                let tipoAgrume = $("#tipo-agrume").val();
+                let varieta = $("#varieta").val();
+                let modoScarico = $("#modo-scarico").val();
+                
+                if (!fornitore || !tipologia || !targa || isNaN(pesoLordo) || isNaN(pesoNetto) || !tipoAgrume) {
+                    alert("Compilare tutti i campi obbligatori");
+                    return;
+                }
+                
+                // Flag per verificare se la tipologia è BIO
+                let isBio = isBioTipologia(tipologia);
+                
+                // Crea un numero di lotto per questo carico
+                let currentLottoNumber = lottoCounter++;
+                
+                // Gestione scarico completo vs. scarico a lotti
+                if (modoScarico === "singolo") {
+                    // Scarico completo
+                    let silosSelezionati = $("#silos-selezionati").val();
+                    if (!silosSelezionati) {
+                        alert("Selezionare almeno un silos di destinazione");
+                        return;
+                    }
+                    
+                    // Validazione linea di trasformazione
+                    let lineaTrasformazione = $("#linea-trasformazione").val();
+                    if (!lineaTrasformazione) {
+                        alert("Selezionare una linea di trasformazione");
+                        return;
+                    }
+                    
+                    // Se è stato selezionato "ALTRE", prendi il valore dal campo testo
+                    if (lineaTrasformazione === "ALTRE") {
+                        let altraLinea = $("#altra-linea").val();
+                        if (!altraLinea) {
+                            alert("Specificare il nome dell'altra linea di trasformazione");
+                            return;
+                        }
+                        lineaTrasformazione = altraLinea;
+                    }
+                    
+                    // Ottieni i silos selezionati
+                    let silosArray = silosSelezionati.split(", ");
+                    if (silosArray.length === 0) {
+                        alert("Selezionare almeno un silos");
+                        return;
+                    }
+                    
+                    // Distribuzione del carico
+                    let distribuzioneCarico = distribuireCarico(silosArray, pesoNetto);
+                    
+                    // Verifica se abbiamo abbastanza silos per tutto il carico
+                    let totalePesoDistribuito = 0;
+                    for (let silosId in distribuzioneCarico) {
+                        totalePesoDistribuito += distribuzioneCarico[silosId];
+                    }
+                    
+                    if (totalePesoDistribuito < pesoNetto) {
+                        if (!confirm(`Attenzione: la capacità dei silos selezionati non è sufficiente per tutto il carico (${Math.round(totalePesoDistribuito)}/${Math.round(pesoNetto)} kg). Selezionare più silos o ridurre il carico. Continuare comunque?`)) {
+                            return;
+                        }
+                    }
+                    
+                    // Assegnazione peso ai silos
+                    for (let silosId in distribuzioneCarico) {
+                        let pesoAssegnato = distribuzioneCarico[silosId];
+                        
+                        // Se il peso è 0, salta questo silos
+                        if (pesoAssegnato <= 0) continue;
+                        
+                        // Se il silos non esiste già nei dati, lo creiamo
+                        if (!silosData[silosId]) {
+                            silosData[silosId] = {
+                                fornitore: fornitore,
+                                tipologia: tipologia,
+                                targa: targa,
+                                tipoAgrume: tipoAgrume,
+                                varieta: varieta,
+                                quantita: pesoAssegnato,
+                                stato: "In attesa",
+                                inizioLavorazione: null,
+                                fineLavorazione: null,
+                                portata: 0,
+                                lineaTrasformazione: lineaTrasformazione,
+                                serbatoioDestinazione: "SRB-" + (Math.floor(Math.random() * 8) + 1).toString().padStart(2, '0'),
+                                isBio: isBio,
+                                numeroLotto: currentLottoNumber
+                            };
+                        } else {
+                            // Aggiorniamo i dati esistenti (aggiungiamo peso)
+                            silosData[silosId].quantita += pesoAssegnato;
+                            silosData[silosId].fornitore = fornitore;
+                            silosData[silosId].targa = targa;
+                            silosData[silosId].tipologia = tipologia;
+                            silosData[silosId].isBio = isBio;
+                            silosData[silosId].lineaTrasformazione = lineaTrasformazione;
+                            silosData[silosId].numeroLotto = currentLottoNumber;
+                        }
+                        
+                        // Aggiorna visualizzazione silos
+                        updateSilosVisual(silosId);
+                    }
+                    
+                    alert("Carico registrato con successo! Numero Lotto: " + currentLottoNumber);
+                    
+                    // Rimuovi selezione dai silos dopo il salvataggio
+                    $(".silos").removeClass("selected");
+                    $("#silos-selezionati").val("");
+                } else {
+                    // Scarico a lotti
+                    let lottiValidi = true;
+                    let pesoTotaleAssegnato = 0;
+                    let lottiData = [];
+                    
+                    // Validazione linea di trasformazione
+                    let lineaTrasformazione = $("#linea-trasformazione").val();
+                    if (!lineaTrasformazione) {
+                        alert("Selezionare una linea di trasformazione");
+                        return;
+                    }
+                    
+                    // Se è stato selezionato "ALTRE", prendi il valore dal campo testo
+                    if (lineaTrasformazione === "ALTRE") {
+                        let altraLinea = $("#altra-linea").val();
+                        if (!altraLinea) {
+                            alert("Specificare il nome dell'altra linea di trasformazione");
+                            return;
+                        }
+                        lineaTrasformazione = altraLinea;
+                    }
+                    
+                    // Valida ogni lotto
+                    $(".lotto-item").each(function(index) {
+                        let pesoLotto = parseFloat($(this).find(".lotto-peso").val());
+                        let lineaLotto = $(this).find(".lotto-linea").val();
+                        let silosLotto = $(this).find(".lotto-silos-selected").val();
+                        
+                        if (isNaN(pesoLotto) || pesoLotto <= 0) {
+                            alert(`Inserire un peso valido per il Lotto ${index + 1}`);
+                            lottiValidi = false;
+                            return false; // break
+                        }
+                        
+                        if (!lineaLotto) {
+                            alert(`Selezionare una linea per il Lotto ${index + 1}`);
+                            lottiValidi = false;
+                            return false; // break
+                        }
+                        
+                        if (!silosLotto) {
+                            alert(`Selezionare almeno un silos per il Lotto ${index + 1}`);
+                            lottiValidi = false;
+                            return false; // break
+                        }
+                        
+                        pesoTotaleAssegnato += pesoLotto;
+                        
+                        // Raccogliamo i dati del lotto
+                        lottiData.push({
+                            peso: pesoLotto,
+                            silosArray: silosLotto.split(", ")
+                        });
+                    });
+                    
+                    if (!lottiValidi) return;
+                    
+                    // Verifica peso totale
+                    if (Math.abs(pesoTotaleAssegnato - pesoNetto) > 1) {
+                        if (!confirm(`Il peso totale assegnato (${Math.round(pesoTotaleAssegnato)} kg) è diverso dal peso netto (${Math.round(pesoNetto)} kg). Vuoi continuare comunque?`)) {
+                            return;
+                        }
+                    }
+                    
+                    // Registrazione dei lotti con logica di distribuzione
+                    lottiData.forEach((lotto, index) => {
+                        // Usa la logica di distribuzione
+                        let distribuzioneCarico = distribuireCarico(lotto.silosArray, lotto.peso);
+                        
+                        // Assegnazione peso ai silos
+                        for (let silosId in distribuzioneCarico) {
+                            let pesoAssegnato = distribuzioneCarico[silosId];
+                            
+                            // Se il peso è 0, salta questo silos
+                            if (pesoAssegnato <= 0) continue;
+                            
+                            // Se il silos non esiste già nei dati, lo creiamo
+                            if (!silosData[silosId]) {
+                                silosData[silosId] = {
+                                    fornitore: fornitore,
+                                    tipologia: tipologia,
+                                    targa: targa,
+                                    tipoAgrume: tipoAgrume,
+                                    varieta: varieta,
+                                    quantita: pesoAssegnato,
+                                    stato: "In attesa",
+                                    inizioLavorazione: null,
+                                    fineLavorazione: null,
+                                    portata: 0,
+                                    lineaTrasformazione: lineaTrasformazione,
+                                    serbatoioDestinazione: "SRB-" + (Math.floor(Math.random() * 8) + 1).toString().padStart(2, '0'),
+                                    isBio: isBio,
+                                    numeroLotto: currentLottoNumber
+                                };
+                            } else {
+                                // Aggiorniamo i dati esistenti (aggiungiamo peso)
+                                silosData[silosId].quantita += pesoAssegnato;
+                                silosData[silosId].fornitore = fornitore;
+                                silosData[silosId].targa = targa;
+                                silosData[silosId].tipologia = tipologia;
+                                silosData[silosId].isBio = isBio;
+                                silosData[silosId].lineaTrasformazione = lineaTrasformazione;
+                                silosData[silosId].numeroLotto = currentLottoNumber;
+                            }
+                            
+                            // Aggiorna visualizzazione silos
+                            updateSilosVisual(silosId);
+                        }
+                    });
+                    
+                    alert("Carico a lotti registrato con successo! Numero Lotto: " + currentLottoNumber);
+                }
+                
+                // Aggiorna tabella stato silos e report
+                updateSilosTable();
+                updateReportData();
+                
+                // Reset form e selezioni
+                resetFormOnly();
+            });
+
+            // Funzione per resettare solo il form senza cancellare i dati silos
+            function resetFormOnly() {
+                $("#reception-form")[0].reset();
+                $(".silos").removeClass("selected");
+                $("#silos-selezionati").val("");
+                $("#altra-linea-container").hide();
+                $("#scarico-completo").show();
+                $("#scarico-lotti").hide();
+            }
+            
+            // Aggiornamento visuale silos
+            function updateSilosVisual(silosId) {
+                // Seleziona tutti gli elementi silos con lo stesso ID
+                let silosElements = $(`.silos[data-silos="${silosId}"]`);
+                
+                if (!silosElements.length) {
+                    console.error(`Nessun elemento trovato per silosId: ${silosId}`);
+                    return;
+                }
+                
+                if (!silosData[silosId]) {
+                    console.error(`Nessun dato trovato per silosId: ${silosId}`);
+                    return;
+                }
+                
+                let data = silosData[silosId];
+                
+                silosElements.each(function() {
+                    let silosElement = $(this);
+                    let silosContentElement = silosElement.find(".silos-content");
+                    let silosCapacityElement = silosElement.find(".silos-capacity");
+                    
+                    // Rimuovi tutte le classi di stato
+                    silosElement.removeClass("empty partial full bio");
+                    
+                    let percentuale = (data.quantita / 7000) * 100;
+                    
+                    silosContentElement.html(`
+                        <span class="fruit-type">${data.tipoAgrume}</span><br>
+                        ${Math.round(data.quantita)} kg
+                    `);
+                    
+                    silosCapacityElement.text(`${Math.round(data.quantita)}/7000 kg`);
+                    
+                    // Aggiorna classe in base alla percentuale di riempimento
+                    if (percentuale >= 99) {
+                        silosElement.addClass("full");
+                    } else if (percentuale > 0) {
+                        silosElement.addClass("partial");
+                    } else {
+                        silosElement.addClass("empty");
+                    }
+                    
+                    // Se è BIO aggiungi la classe separatamente
+                    if (data.isBio) {
+                        silosElement.addClass("bio");
+                    }
+                    
+                    // Aggiungi badge per stato
+                    if (silosElement.find(".silos-badge").length === 0) {
+                        silosElement.append(`<span class="silos-badge">${data.stato === "In attesa" ? "A" : "L"}</span>`);
+                    } else {
+                        silosElement.find(".silos-badge").text(data.stato === "In attesa" ? "A" : "L");
+                    }
+                    
+                    // Aggiungi badge per numero lotto se non esiste già
+                    if (silosElement.find(".lotto-number").length === 0) {
+                        silosElement.append(`<span class="lotto-number">${data.numeroLotto}</span>`);
+                    } else {
+                        silosElement.find(".lotto-number").text(data.numeroLotto);
+                    }
+                });
+            }
+            
+            // Aggiornamento tabella stato silos
+            function updateSilosTable() {
+                let tableBody = $("#silos-table tbody");
+                tableBody.empty();
+                
+                for (let silosId in silosData) {
+                    let data = silosData[silosId];
+                    
+                    // Determina se è bio per impostare la classe per il testo rosso
+                    let bioClass = data.isBio ? "bio-text" : "";
+                    
+                    let row = `
+                        <tr class="${bioClass}">
+                            <td>${silosId}</td>
+                            <td>${data.stato}</td>
+                            <td>${data.numeroLotto}</td>
+                            <td>${data.fornitore}</td>
+                            <td>${data.tipoAgrume}</td>
+                            <td>${data.varieta || "-"}</td>
+                            <td>${data.tipologia}</td>
+                            <td>${Math.round(data.quantita)} kg</td>
+                            <td>${data.lineaTrasformazione || "-"}</td>
+                            <td>${data.serbatoioDestinazione || "-"}</td>
+                            <td>${data.inizioLavorazione || "-"}</td>
+                            <td>${data.fineLavorazione || "-"}</td>
+                            <td>${data.portata > 0 ? Math.round(data.portata) + " kg/h" : "-"}</td>
+                            <td>
+                                <button class="btn btn-sm btn-reparto1 btn-process" data-silos="${silosId}">
+                                    ${data.stato === "In attesa" ? "Avvia" : "Modifica"} Lavorazione
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.append(row);
+                }
+                
+                // Aggiungi event listener per i pulsanti
+                $(".btn-process").click(function() {
+                    let silosId = $(this).data("silos");
+                    openProcessingModal(silosId);
+                });
+            }
+            
+            // Apertura modal per gestione lavorazione
+            function openProcessingModal(silosId) {
+                let data = silosData[silosId];
+                
+                $("#silos-id").val(silosId);
+                $("#silos-info").val(`${silosId} - ${data.tipoAgrume} (${Math.round(data.quantita)} kg) - Lotto #${data.numeroLotto}`);
+                
+                if (data.inizioLavorazione) {
+                    $("#start-time").val(data.inizioLavorazione);
+                } else {
+                    // Imposta l'ora corrente come ora di inizio predefinita
+                    let now = new Date();
+                    let formattedNow = now.toISOString().slice(0, 16);
+                    $("#start-time").val(formattedNow);
+                }
+                
+                if (data.fineLavorazione) {
+                    $("#end-time").val(data.fineLavorazione);
+                } else {
+                    $("#end-time").val("");
+                }
+                
+                if (data.portata > 0) {
+                    $("#quantity-processed").val(Math.round(data.quantita));
+                    $("#flow-rate").val(Math.round(data.portata));
+                } else {
+                    $("#quantity-processed").val(Math.round(data.quantita));
+                    $("#flow-rate").val("");
+                }
+                
+                // Mostra il modal
+                new bootstrap.Modal(document.getElementById('silosModal')).show();
+            }
+            
+            // Calcolo portata di lavorazione
+            function calculateFlowRate() {
+                let startTime = new Date($("#start-time").val());
+                let endTime = new Date($("#end-time").val());
+                let quantity = parseFloat($("#quantity-processed").val());
+                
+                if (!isNaN(startTime) && !isNaN(endTime) && !isNaN(quantity) && startTime < endTime) {
+                    let durationHours = (endTime - startTime) / (1000 * 60 * 60); // Durata in ore
+                    let flowRate = quantity / durationHours;
+                    $("#flow-rate").val(Math.round(flowRate));
+                } else {
+                    $("#flow-rate").val("");
+                }
+            }
+            
+            // Aggiornamento automatico della portata
+            $("#start-time, #end-time, #quantity-processed").change(function() {
+                calculateFlowRate();
+            });
+            
+            // Salvataggio dati lavorazione
+            $("#btn-save-processing").click(function() {
+                let silosId = $("#silos-id").val();
+                let startTime = $("#start-time").val();
+                let endTime = $("#end-time").val();
+                let quantity = parseFloat($("#quantity-processed").val());
+                let flowRate = parseFloat($("#flow-rate").val());
+                
+                if (!startTime || isNaN(quantity)) {
+                    alert("Inserire almeno l'orario di inizio e la quantità");
+                    return;
+                }
+                
+                // Aggiorna i dati del silos
+                silosData[silosId].inizioLavorazione = startTime;
+                silosData[silosId].fineLavorazione = endTime || null;
+                silosData[silosId].quantita = quantity;
+                silosData[silosId].portata = flowRate || 0;
+                silosData[silosId].stato = endTime ? "Completato" : "In lavorazione";
+                
+                // Aggiorna visualizzazione
+                updateSilosVisual(silosId);
+                updateSilosTable();
+                updateReportData();
+                
+                // Chiudi il modal
+                bootstrap.Modal.getInstance(document.getElementById('silosModal')).hide();
+                
+                alert("Dati lavorazione salvati con successo!");
+            });
+            
+            // Reset form e dati silos
+            $("#btn-reset").click(function() {
+                if (confirm("Attenzione: questa operazione cancellerà TUTTI i dati di carico nei silos. Continuare?")) {
+                    resetFormOnly();
+                    
+                    // Svuota tutti i dati dei silos
+                    silosData = {};
+                    
+                    // Reset contatore lotti
+                    lottoCounter = 1;
+                    
+                    // Aggiorna visualizzazione silos
+                    $(".silos").each(function() {
+                        $(this).removeClass("empty partial full bio selected");
+                        $(this).addClass("empty");
+                        $(this).find(".silos-content").empty();
+                        $(this).find(".silos-badge").remove();
+                        $(this).find(".lotto-number").remove();
+                        $(this).find(".silos-capacity").text("0/7000 kg");
+                    });
+                    
+                    // Aggiorna tabelle
+                    updateSilosTable();
+                    updateReportData();
+                    
+                    alert("Tutti i dati sono stati cancellati con successo!");
+                }
+            });
+            
+            // Aggiornamento dati report
+            function updateReportData() {
+                // Calcoli statistiche
+                let totalStock = 0;
+                let processed = 0; // Frutta lavorata (completata)
+                let waiting = 0;
+                let occupiedSilos = 0;
+                let supplierData = {};
+                let fruitData = {};
+                
+                for (let silosId in silosData) {
+                    let data = silosData[silosId];
+                    totalStock += data.quantita;
+                    occupiedSilos++;
+                    
+                    if (data.stato === "Completato") {
+                        processed += data.quantita;
+                    } else if (data.stato === "In attesa") {
+                        waiting += data.quantita;
+                    }
+                    
+                    // Aggregazione per fornitore
+                    if (!supplierData[data.fornitore]) {
+                        supplierData[data.fornitore] = {
+                            quantita: 0,
+                            linee: new Set()
+                        };
+                    }
+                    supplierData[data.fornitore].quantita += data.quantita;
+                    supplierData[data.fornitore].linee.add(silosId.charAt(0));
+                    
+                    // Aggregazione per tipo agrume
+                    if (!fruitData[data.tipoAgrume]) {
+                        fruitData[data.tipoAgrume] = 0;
+                    }
+                    fruitData[data.tipoAgrume] += data.quantita;
+                }
+                
+                // Aggiornamento valori
+                $("#total-stock").text(Math.round(totalStock) + " kg");
+                $("#occupied-silos").text(occupiedSilos + "/21");
+                $("#processed").text(Math.round(processed) + " kg");
+                $("#waiting").text(Math.round(waiting) + " kg");
+                
+                // Aggiornamento tabelle
+                updateSupplierTable(supplierData);
+                updateFruitTable(fruitData);
+            }
+            
+            // Aggiornamento tabella fornitori con linee di stoccaggio
+            function updateSupplierTable(data) {
+                let tableBody = $("#supplier-table tbody");
+                tableBody.empty();
+                
+                for (let supplier in data) {
+                    let lineeFornitore = Array.from(data[supplier].linee).sort().join(", ");
+                    let row = `
+                        <tr>
+                            <td>${supplier}</td>
+                            <td>${Math.round(data[supplier].quantita)} kg</td>
+                            <td>${lineeFornitore}</td>
+                        </tr>
+                    `;
+                    tableBody.append(row);
+                }
+            }
+            
+            // Aggiornamento tabella tipi agrumi
+            function updateFruitTable(data) {
+                let tableBody = $("#fruit-table tbody");
+                tableBody.empty();
+                
+                for (let fruit in data) {
+                    let row = `
+                        <tr>
+                            <td>${fruit}</td>
+                            <td>${Math.round(data[fruit])} kg</td>
+                        </tr>
+                    `;
+                    tableBody.append(row);
+                }
+            }
+            
+            // ================ REPARTO 2: TRASFORMAZIONE ================
+            
+            // Gestione campo altra linea di trasformazione
+            $("#linea-trasformazione-r2").change(function() {
+                if ($(this).val() === "ALTRA") {
+                    $("#altra-linea-container-r2").show();
+                } else {
+                    $("#altra-linea-container-r2").hide();
+                    $("#altra-linea-r2").val("");
+                }
+            });
+            
+            // Gestione altro fornitore
+            $("#fornitore-r2").change(function() {
+                if ($(this).val() === "ALTRO") {
+                    $("#altro-fornitore-container").show();
+                } else {
+                    $("#altro-fornitore-container").hide();
+                    $("#altro-fornitore").val("");
+                }
+            });
+            
+            // Gestione altro agrume
+            $("#tipo-agrume-r2").change(function() {
+                if ($(this).val() === "Altro") {
+                    $("#altro-agrume-container").show();
+                } else {
+                    $("#altro-agrume-container").hide();
+                    $("#altro-agrume").val("");
+                }
+            });
+            
+            // Gestione altra destinazione essenza
+            $("#destinazione-essenza").change(function() {
+                if ($(this).val() === "Altra") {
+                    $("#altra-essenza-container").show();
+                } else {
+                    $("#altra-essenza-container").hide();
+                    $("#altra-essenza").val("");
+                }
+            });
+            
+            // Gestione altra certificazione
+            $("#certificazione").change(function() {
+                if ($(this).val() === "ALTRO") {
+                    $("#altra-certificazione-container").show();
+                } else {
+                    $("#altra-certificazione-container").hide();
+                    $("#altra-certificazione").val("");
+                }
+            });
+            
+            // Gestione opzioni aggiuntive per prima spremitura
+            $("#prima-spremitura").change(function() {
+                if ($(this).val() && $(this).val() !== "Nessuna") {
+                    $("#opzioni-aggiuntive-prima").slideDown();
+                } else {
+                    $("#opzioni-aggiuntive-prima").slideUp();
+                }
+            });
+            
+            // Gestione opzioni aggiuntive per seconda spremitura
+            $("#seconda-spremitura").change(function() {
+                if ($(this).val() && $(this).val() !== "Nessuna") {
+                    $("#opzioni-aggiuntive-seconda").slideDown();
+                } else {
+                    $("#opzioni-aggiuntive-seconda").slideUp();
+                }
+            });
+            
+            // Pulsante reset form reparto 2
+            $("#btn-reset-r2").click(function() {
+                if (confirm("Vuoi davvero annullare? I dati inseriti andranno persi.")) {
+                    $("#produzione-form")[0].reset();
+                    $("[id$='-container']").hide();
+                    $("#opzioni-aggiuntive-prima").hide();
+                    $("#opzioni-aggiuntive-seconda").hide();
+                }
+            });
+            
+            // Pulsante registro elettronico
+            $("#btn-registro-elettronico").click(function() {
+                let numeroRegistrazione = "REG-" + new Date().getTime().toString().substr(-6);
+                alert("Registrazione su bolletta elettronica completata con successo!\nNumero registrazione: " + numeroRegistrazione);
+            });
+            
+            // Salvataggio dati produzione
+            $("#produzione-form").submit(function(e) {
+                e.preventDefault();
+                
+                // Simulazione generazione ID lotto
+                const now = new Date();
+                const lottoId = "L-" + 
+                            now.getFullYear() + 
+                            padZero(now.getMonth() + 1) + 
+                            padZero(now.getDate()) + "-" + 
+                            padZero(now.getHours()) + 
+                            padZero(now.getMinutes());
+                
+                // Reset form
+                $("#produzione-form")[0].reset();
+                $("[id$='-container']").hide();
+                $("#opzioni-aggiuntive-prima").hide();
+                $("#opzioni-aggiuntive-seconda").hide();
+                
+                alert("Dati di produzione salvati con successo!\nID Lotto: " + lottoId);
+            });
+            
+            // ================ REPARTO 3: LAVORAZIONE SUCCHI ================
+            
+            // Gestione selezione macchina
+            $(document).on("click", ".select-machine-btn", function() {
+                const machineId = $(this).data("machine");
+                const machineType = $(this).data("type");
+                
+                // Deseleziona tutte le macchine nella stessa sezione
+                $(`.machine-card`).removeClass("selected");
+                
+                // Seleziona questa macchina
+                $(`#machine-${machineId}`).addClass("selected");
+                
+                // Memorizza la macchina selezionata
+                selectedMachine = machineId;
+                selectedMachineType = machineType;
+            });
+            
+            // Aggiornamento statistiche
+            function updateStatsR3() {
+                $("#total-concentrato").text(stats.concentrato + " L");
+                $("#total-distillato").text(stats.distillato + " L");
+                $("#total-pastorizzato").text(stats.pastorizzato + " L");
+                $("#processi-attivi").text(stats.processiAttivi);
+            }
+            
+            // ================ INIZIALIZZAZIONE DATI DI ESEMPIO ================
+            
+            // Inizializzazione dati di esempio per Reparto 1
+            function initDemoDataReparto1() {
+                // Simulazione carico 1
+                silosData["A1"] = {
+                    fornitore: "Agrumi Sicilia S.r.l.",
+                    tipologia: "Convenzionale",
+                    targa: "AA123BB",
+                    tipoAgrume: "Arance rosse",
+                    varieta: "Tarocco",
+                    quantita: 6500,
+                    stato: "In lavorazione",
+                    inizioLavorazione: "2025-05-15T08:30",
+                    fineLavorazione: null,
+                    portata: 2125,
+                    lineaTrasformazione: "BOE/1100",
+                    serbatoioDestinazione: "SRB-01",
+                    isBio: false,
+                    numeroLotto: 1
+                };
+                
+                silosData["A2"] = {
+                    fornitore: "Agrumi Sicilia S.r.l.",
+                    tipologia: "Bio EU",
+                    targa: "AA123BB",
+                    tipoAgrume: "Arance rosse",
+                    varieta: "Tarocco",
+                    quantita: 6500,
+                    stato: "In attesa",
+                    inizioLavorazione: null,
+                    fineLavorazione: null,
+                    portata: 0,
+                    lineaTrasformazione: "BOE/1100",
+                    serbatoioDestinazione: "SRB-02",
+                    isBio: true,
+                    numeroLotto: 2
+                };
+                
+                // Simulazione carico 2
+                silosData["B3"] = {
+                    fornitore: "Limoni Catania",
+                    tipologia: "Bio EU",
+                    targa: "CC456DD",
+                    tipoAgrume: "Limoni",
+                    varieta: "Verdello",
+                    quantita: 6000,
+                    stato: "In attesa",
+                    inizioLavorazione: null,
+                    fineLavorazione: null,
+                    portata: 0,
+                    lineaTrasformazione: "B/SF",
+                    serbatoioDestinazione: "SRB-03",
+                    isBio: true,
+                    numeroLotto: 3
+                };
+                
+                // Simulazione carico 3
+                silosData["C1"] = {
+                    fornitore: "Mandarini Etna",
+                    tipologia: "IGP",
+                    targa: "EE789FF",
+                    tipoAgrume: "Mandarini",
+                    varieta: "Ciaculli",
+                    quantita: 7000,
+                    stato: "Completato",
+                    inizioLavorazione: "2025-05-14T14:00",
+                    fineLavorazione: "2025-05-14T18:30",
+                    portata: 1733,
+                    lineaTrasformazione: "GOE INT/400",
+                    serbatoioDestinazione: "SRB-04",
+                    isBio: false,
+                    numeroLotto: 4
+                };
+                
+                // Aggiorna visualizzazione
+                for (let silosId in silosData) {
+                    updateSilosVisual(silosId);
+                }
+                
+                // Imposta il contatore per il prossimo lotto
+                lottoCounter = 5;
+                
+                updateSilosTable();
+                updateReportData();
+            }
+            
+            // Inizializzazione dati di esempio per Reparto 3
+            function initDemoDataReparto3() {
+                stats.concentrato = 5600;
+                stats.distillato = 2300;
+                stats.pastorizzato = 3800;
+                stats.processiAttivi = 3;
+                
+                updateStatsR3();
+            }
+            
+            // Utility per padding zeri
+            function padZero(num) {
+                return num < 10 ? "0" + num : num;
+            }
+            
+            // Avvio inizializzazione dati di esempio
+            initDemoDataReparto1();
+            initDemoDataReparto3();
+        });
+    </script>
+</body>
+</html>
