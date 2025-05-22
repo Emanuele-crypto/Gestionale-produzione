@@ -9,144 +9,190 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
         }
-        
+
+        /* Header principale */
         .header-programma {
             background: linear-gradient(135deg, #2E8B57, #228B22);
             color: white;
-            padding: 25px;
+            padding: 25px 0;
             margin-bottom: 30px;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
-        .container-main {
+
+        /* Container principale */
+        .main-container {
             max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
-        
+
+        /* Card sections */
         .section-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 25px;
-            padding: 20px;
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            background-color: #fafafa;
-            border-left: 4px solid #2E8B57;
+            overflow: hidden;
         }
-        
-        .section-title {
-            background: linear-gradient(90deg, #2E8B57, #32CD32);
+
+        .section-header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
-            padding: 10px 15px;
-            margin: -20px -20px 20px -20px;
+            padding: 15px 20px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .section-body {
+            padding: 20px;
+        }
+
+        /* Stili per i fornitori */
+        .fornitore-container {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background: #fafafa;
+        }
+
+        .fornitore-header {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            color: white;
+            padding: 12px 15px;
+            margin: 0;
             border-radius: 6px 6px 0 0;
-            font-weight: bold;
-            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
-        .form-label-required::after {
-            content: " *";
-            color: #dc3545;
-            font-weight: bold;
+
+        .fornitore-body {
+            padding: 15px;
         }
-        
-        .calculated-field {
-            background-color: #e9f7ef !important;
-            border: 2px solid #28a745 !important;
-            font-weight: bold;
+
+        /* Stili per le rese */
+        .rese-container {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
         }
-        
+
+        .rese-header {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        /* Input groups */
+        .input-group-custom {
+            margin-bottom: 15px;
+        }
+
+        .input-group-custom .form-label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+
+        /* Bottoni personalizzati */
         .btn-programma {
-            background: linear-gradient(135deg, #2E8B57, #228B22);
+            background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 8px;
+            border-radius: 6px;
+            font-weight: 500;
             transition: all 0.3s;
         }
-        
+
         .btn-programma:hover {
-            background: linear-gradient(135deg, #228B22, #2E8B57);
+            background: linear-gradient(135deg, #20c997, #28a745);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
         }
-        
-        .progress-bar-custom {
-            height: 25px;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #32CD32, #228B22);
-        }
-        
-        .input-group-text {
-            background-color: #2E8B57;
+
+        .btn-remove {
+            background: linear-gradient(135deg, #dc3545, #c82333);
             color: white;
-            border-color: #2E8B57;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
         }
-        
-        .table-programma {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+        .btn-remove:hover {
+            background: linear-gradient(135deg, #c82333, #dc3545);
+            color: white;
         }
-        
-        .table-programma thead {
-            background: linear-gradient(90deg, #2E8B57, #228B22);
+
+        /* Highlighting per prodotti BIO */
+        .bio-highlight {
+            background-color: #ffe4e6 !important;
+            border-color: #ffc0cb !important;
         }
-        
-        .bio-row {
-            background-color: #fff3cd !important;
-            border-left: 4px solid #ffc107;
+
+        .bio-text {
+            color: #dc3545;
+            font-weight: bold;
         }
-        
-        .alert-programma {
-            border-left: 4px solid #2E8B57;
+
+        /* Tabelle riassuntive */
+        .summary-table {
+            margin-top: 20px;
+        }
+
+        .summary-table th {
+            background-color: #e9ecef;
+            font-weight: 600;
+            border-top: none;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .fornitore-header {
+                flex-direction: column;
+                align-items: start;
+                gap: 10px;
+            }
+            
+            .btn-group {
+                width: 100%;
+            }
+        }
+
+        /* Animazioni */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Calcoli automatici evidenziati */
+        .auto-calculated {
             background-color: #e8f5e8;
-            border-color: #2E8B57;
+            border-color: #28a745;
+            font-weight: 600;
         }
-        
-        .fornitore-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-        
-        .fornitore-card:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transform: translateY(-3px);
-        }
-        
-        .summary-card {
-            background: linear-gradient(135deg, #e8f5e8, #d4edda);
-            border: 2px solid #28a745;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .summary-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #2E8B57;
-        }
-        
-        .time-display {
-            font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #2E8B57;
+
+        /* Stili per le destinazioni */
+        .destinazione-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -156,114 +202,56 @@
             <div class="row align-items-center">
                 <div class="col-md-8">
                     <h1><i class="bi bi-calendar-check"></i> PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>
-                    <h4>Sistema di Pianificazione e Controllo Produzione</h4>
-                    <p class="mb-0">Data: <span id="current-date"></span> | Turno: <span id="current-shift"></span></p>
+                    <h5>Sistema di Gestione Produzione - Simone Gatto</h5>
                 </div>
                 <div class="col-md-4 text-end">
-                    <div class="btn-group">
-                        <button class="btn btn-light" id="btn-export-pdf">
-                            <i class="bi bi-file-pdf"></i> Esporta PDF
-                        </button>
-                        <button class="btn btn-light" id="btn-print">
-                            <i class="bi bi-printer"></i> Stampa
-                        </button>
+                    <div class="d-flex align-items-center justify-content-end">
+                        <label for="data-programma" class="form-label text-white me-2 mb-0">Data:</label>
+                        <input type="date" class="form-control" id="data-programma" style="width: auto;">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container-main">
-        <!-- Sezione Configurazione Giornata -->
+    <div class="main-container">
+        <!-- Sezione Riepilogo Giornaliero -->
         <div class="section-card">
-            <div class="section-title">
-                <i class="bi bi-gear"></i> Configurazione Giornata di Lavorazione
-            </div>
-            
-            <form id="config-form">
+            <h4 class="section-header">
+                <i class="bi bi-clipboard-data"></i> Riepilogo Giornaliero
+            </h4>
+            <div class="section-body">
                 <div class="row g-3">
                     <div class="col-md-3">
-                        <label for="data-lavorazione" class="form-label form-label-required">Data Lavorazione</label>
-                        <input type="date" class="form-control" id="data-lavorazione" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="turno" class="form-label form-label-required">Turno</label>
-                        <select class="form-select" id="turno" required>
-                            <option value="">Seleziona turno</option>
-                            <option value="Mattino (06:00-14:00)">Mattino (06:00-14:00)</option>
-                            <option value="Pomeriggio (14:00-22:00)">Pomeriggio (14:00-22:00)</option>
-                            <option value="Notte (22:00-06:00)">Notte (22:00-06:00)</option>
-                            <option value="Continuo (24h)">Continuo (24h)</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="responsabile" class="form-label form-label-required">Responsabile Turno</label>
-                        <input type="text" class="form-control" id="responsabile" placeholder="Nome responsabile" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="note-giornata" class="form-label">Note Giornata</label>
-                        <input type="text" class="form-control" id="note-giornata" placeholder="Note particolari">
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <!-- Sezione Tipo Agrume e Giacenze -->
-        <div class="section-card">
-            <div class="section-title">
-                <i class="bi bi-box"></i> Gestione Giacenze e Prodotto in Entrata
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <h6 class="mb-3">Tipo di Agrume da Lavorare</h6>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="tipo-agrume-principale" class="form-label form-label-required">Tipo Agrume Principale</label>
-                            <select class="form-select" id="tipo-agrume-principale" required>
-                                <option value="">Seleziona tipo agrume</option>
-                                <option value="LIMONE">LIMONE</option>
-                                <option value="ARANCIA">ARANCIA</option>
-                                <option value="MANDARINO">MANDARINO</option>
-                                <option value="POMPELMO">POMPELMO</option>
-                                <option value="BERGAMOTTO">BERGAMOTTO</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="varieta-agrume" class="form-label">Varietà</label>
-                            <select class="form-select" id="varieta-agrume">
-                                <option value="">Seleziona varietà</option>
+                        <div class="input-group-custom">
+                            <label for="tipo-agrume-principale" class="form-label">Tipo di Agrume Principale</label>
+                            <select class="form-select" id="tipo-agrume-principale">
+                                <option value="">Seleziona tipo...</option>
+                                <option value="Limone">Limone</option>
+                                <option value="Arancia">Arancia</option>
+                                <option value="Mandarino">Mandarino</option>
+                                <option value="Pompelmo">Pompelmo</option>
+                                <option value="Bergamotto">Bergamotto</option>
                             </select>
                         </div>
                     </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <h6 class="mb-3">Quantità e Giacenze</h6>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="giacenza-totale" class="form-label">Giacenza Totale (kg)</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="giacenza-totale" min="0">
-                                <span class="input-group-text">kg</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="entrata-giornaliera" class="form-label form-label-required">Entrata Giornaliera (kg)</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="entrata-giornaliera" min="0" required>
-                                <span class="input-group-text">kg</span>
-                            </div>
+                    <div class="col-md-3">
+                        <div class="input-group-custom">
+                            <label for="giacenza-totale" class="form-label">Giacenza Iniziale (kg)</label>
+                            <input type="number" class="form-control" id="giacenza-totale" placeholder="0">
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="summary-card">
-                        <h6>Quantità Totale Disponibile</h6>
-                        <div class="summary-value" id="totale-disponibile">0 kg</div>
+                    <div class="col-md-3">
+                        <div class="input-group-custom">
+                            <label for="entrata-totale" class="form-label">Totale in Entrata (kg)</label>
+                            <input type="number" class="form-control auto-calculated" id="entrata-totale" readonly placeholder="0">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-custom">
+                            <label for="totale-disponibile" class="form-label">Totale Disponibile (kg)</label>
+                            <input type="number" class="form-control auto-calculated" id="totale-disponibile" readonly placeholder="0">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -271,1350 +259,813 @@
 
         <!-- Sezione Fornitori -->
         <div class="section-card">
-            <div class="section-title">
-                <i class="bi bi-truck"></i> Gestione Fornitori e Entrate
+            <h4 class="section-header">
+                <i class="bi bi-truck"></i> Gestione Fornitori
+                <button class="btn btn-light btn-sm" id="add-fornitore">
+                    <i class="bi bi-plus-circle"></i> Aggiungi Fornitore
+                </button>
+            </h4>
+            <div class="section-body" id="fornitori-container">
+                <!-- I fornitori verranno aggiunti dinamicamente qui -->
             </div>
-            
-            <div id="fornitori-container">
-                <div class="fornitore-card" data-fornitore="1">
-                    <div class="row g-3 align-items-end">
-                        <div class="col-md-3">
-                            <label class="form-label form-label-required">Nome Fornitore</label>
-                            <select class="form-select fornitore-select" required>
-                                <option value="">Seleziona fornitore</option>
-                                <option value="RESTUCCIA">RESTUCCIA</option>
-                                <option value="CI">CI</option>
-                                <option value="ARCO">ARCO</option>
-                                <option value="GIOVINAZZO">GIOVINAZZO</option>
-                                <option value="AZ.T.C.">AZ.T.C.</option>
-                                <option value="VASTA">VASTA</option>
-                                <option value="ALTRO">ALTRO</option>
-                            </select>
-                            <input type="text" class="form-control mt-2 altro-fornitore" placeholder="Specifica altro fornitore" style="display: none;">
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label form-label-required">Quantità (kg)</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control quantita-fornitore" min="0" required>
-                                <span class="input-group-text">kg</span>
+        </div>
+
+        <!-- Sezione Rese Totali Succo 2^ e Torchiato -->
+        <div class="section-card">
+            <h4 class="section-header">
+                <i class="bi bi-droplet-half"></i> Rese Totali Succo 2^ e Torchiato
+            </h4>
+            <div class="section-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="rese-container">
+                            <div class="rese-header">Succo di 2^ Spremitura - Totale</div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Resa Stimata (L)</label>
+                                    <input type="number" class="form-control auto-calculated" id="totale-succo2-resa" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Destinazione</label>
+                                    <select class="form-select" id="totale-succo2-destinazione">
+                                        <option value="">Seleziona destinazione...</option>
+                                        <option value="PET 100">PET 100</option>
+                                        <option value="PET 200">PET 200</option>
+                                        <option value="PET 480">PET 480</option>
+                                        <option value="ACMA">ACMA</option>
+                                        <option value="REX">REX</option>
+                                        <option value="GOGLIO">GOGLIO</option>
+                                        <option value="VASCHETTE">VASCHETTE</option>
+                                        <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                                        <option value="LATTE">LATTE</option>
+                                        <option value="F.F.">F.F.</option>
+                                        <option value="F.T.C">F.T.C</option>
+                                        <option value="FBL">FBL</option>
+                                        <option value="BIC">BIC</option>
+                                        <option value="CISTERNA P">CISTERNA P</option>
+                                        <option value="CISTERNA EF">CISTERNA EF</option>
+                                        <option value="CISTERNA VK">CISTERNA VK</option>
+                                        <option value="CISTERNA GS">CISTERNA GS</option>
+                                        <option value="ALTRO">ALTRO</option>
+                                    </select>
+                                </div>
+                                <div class="col-12" id="altro-succo2-container" style="display: none;">
+                                    <label class="form-label">Specifica Altro</label>
+                                    <input type="text" class="form-control" id="altro-succo2" placeholder="Specifica destinazione">
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rese-container">
+                            <div class="rese-header">Torchiato - Totale</div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Resa Stimata (L)</label>
+                                    <input type="number" class="form-control auto-calculated" id="totale-torchiato-resa" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Destinazione</label>
+                                    <select class="form-select" id="totale-torchiato-destinazione">
+                                        <option value="">Seleziona destinazione...</option>
+                                        <option value="PET 100">PET 100</option>
+                                        <option value="PET 200">PET 200</option>
+                                        <option value="PET 480">PET 480</option>
+                                        <option value="ACMA">ACMA</option>
+                                        <option value="REX">REX</option>
+                                        <option value="GOGLIO">GOGLIO</option>
+                                        <option value="VASCHETTE">VASCHETTE</option>
+                                        <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                                        <option value="LATTE">LATTE</option>
+                                        <option value="F.F.">F.F.</option>
+                                        <option value="F.T.C">F.T.C</option>
+                                        <option value="FBL">FBL</option>
+                                        <option value="BIC">BIC</option>
+                                        <option value="CISTERNA P">CISTERNA P</option>
+                                        <option value="CISTERNA EF">CISTERNA EF</option>
+                                        <option value="CISTERNA VK">CISTERNA VK</option>
+                                        <option value="CISTERNA GS">CISTERNA GS</option>
+                                        <option value="ALTRO">ALTRO</option>
+                                    </select>
+                                </div>
+                                <div class="col-12" id="altro-torchiato-container" style="display: none;">
+                                    <label class="form-label">Specifica Altro</label>
+                                    <input type="text" class="form-control" id="altro-torchiato" placeholder="Specifica destinazione">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Riepilogo Finale -->
+        <div class="section-card">
+            <h4 class="section-header">
+                <i class="bi bi-table"></i> Riepilogo Lavorazione Programmata
+            </h4>
+            <div class="section-body">
+                <div class="table-responsive">
+                    <table class="table table-hover summary-table" id="riepilogo-table">
+                        <thead>
+                            <tr>
+                                <th>Fornitore</th>
+                                <th>Quantità (kg)</th>
+                                <th>Certificazione</th>
+                                <th>Linea</th>
+                                <th>Inizio</th>
+                                <th>Fine</th>
+                                <th>Portata (kg/h)</th>
+                                <th>Succo 1^ (L)</th>
+                                <th>Destinazione 1^</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dati inseriti dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pulsanti di azione -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <button class="btn btn-programma btn-lg me-3" id="btn-salva-programma">
+                    <i class="bi bi-save"></i> Salva Programma
+                </button>
+                <button class="btn btn-outline-secondary btn-lg me-3" id="btn-reset-programma">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </button>
+                <button class="btn btn-outline-success btn-lg" id="btn-stampa-programma">
+                    <i class="bi bi-printer"></i> Stampa Programma
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template per nuovo fornitore (nascosto) -->
+    <div id="fornitore-template" style="display: none;">
+        <div class="fornitore-container fade-in">
+            <div class="fornitore-header">
+                <div>
+                    <i class="bi bi-building"></i> <span class="fornitore-nome">Nuovo Fornitore</span>
+                </div>
+                <button class="btn btn-remove btn-sm remove-fornitore">
+                    <i class="bi bi-trash"></i> Rimuovi
+                </button>
+            </div>
+            <div class="fornitore-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">Nome Fornitore</label>
+                        <select class="form-select nome-fornitore">
+                            <option value="">Seleziona...</option>
+                            <option value="RESTUCCIA">RESTUCCIA</option>
+                            <option value="CI">CI</option>
+                            <option value="ARCO">ARCO</option>
+                            <option value="GIOVINAZZO">GIOVINAZZO</option>
+                            <option value="AZ.T.C.">AZ.T.C.</option>
+                            <option value="VASTA">VASTA</option>
+                            <option value="ALTRO">ALTRO</option>
+                        </select>
+                        <input type="text" class="form-control mt-2 altro-fornitore" style="display: none;" placeholder="Specifica altro fornitore">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Quantità (kg)</label>
+                        <input type="number" class="form-control quantita-fornitore" placeholder="0">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Certificazione</label>
+                        <select class="form-select certificazione-fornitore">
+                            <option value="">Seleziona...</option>
+                            <option value="BIO EU">BIO EU</option>
+                            <option value="BIO DEM">BIO DEM</option>
+                            <option value="BIO NTD">BIO NTD</option>
+                            <option value="TRACCIATO">TRACCIATO</option>
+                            <option value="IGP">IGP</option>
+                            <option value="CONVENZIONALE">CONVENZIONALE</option>
+                            <option value="ALTRO">ALTRO</option>
+                        </select>
+                        <input type="text" class="form-control mt-2 altra-certificazione" style="display: none;" placeholder="Specifica altra certificazione">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Linea Trasformazione</label>
+                        <select class="form-select linea-trasformazione">
+                            <option value="">Seleziona...</option>
+                            <option value="BOE/1100">BOE/1100</option>
+                            <option value="GOE INT/POLY">GOE INT/POLY</option>
+                            <option value="GOE EST/POLY">GOE EST/POLY</option>
+                            <option value="GOE EST/400">GOE EST/400</option>
+                            <option value="B/SF">B/SF</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Portata (kg/h)</label>
+                        <input type="number" class="form-control portata-impianto" placeholder="0">
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label">Inizio</label>
+                        <input type="time" class="form-control orario-inizio">
+                    </div>
+                </div>
+                
+                <div class="row g-3 mt-2">
+                    <div class="col-md-3">
+                        <label class="form-label">Fine Lavorazione (Calcolata)</label>
+                        <input type="time" class="form-control auto-calculated orario-fine" readonly>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Durata Lavorazione</label>
+                        <input type="text" class="form-control auto-calculated durata-lavorazione" readonly placeholder="0h 0m">
+                    </div>
+                </div>
+
+                <!-- Rese per questo fornitore -->
+                <div class="rese-container">
+                    <div class="rese-header">Rese Succo di 1^ Spremitura</div>
+                    <div class="row g-3">
                         <div class="col-md-3">
-                            <label class="form-label form-label-required">Tipologia Prodotto</label>
-                            <select class="form-select tipologia-prodotto" required>
-                                <option value="">Seleziona tipologia</option>
-                                <option value="BIO EU">BIO EU</option>
-                                <option value="BIO DEM">BIO DEM</option>
-                                <option value="BIO NTD">BIO NTD</option>
-                                <option value="TRACCIATO">TRACCIATO</option>
-                                <option value="IGP">IGP</option>
-                                <option value="CONVENZIONALE">CONVENZIONALE</option>
+                            <label class="form-label">Resa Stimata (L)</label>
+                            <input type="number" class="form-control auto-calculated resa-succo1" readonly>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Destinazione</label>
+                            <select class="form-select destinazione-succo1">
+                                <option value="">Seleziona destinazione...</option>
+                                <option value="PET 100">PET 100</option>
+                                <option value="PET 200">PET 200</option>
+                                <option value="PET 480">PET 480</option>
+                                <option value="ACMA">ACMA</option>
+                                <option value="REX">REX</option>
+                                <option value="GOGLIO">GOGLIO</option>
+                                <option value="VASCHETTE">VASCHETTE</option>
+                                <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                                <option value="LATTE">LATTE</option>
+                                <option value="F.F.">F.F.</option>
+                                <option value="F.T.C">F.T.C</option>
+                                <option value="FBL">FBL</option>
+                                <option value="BIC">BIC</option>
+                                <option value="CISTERNA P">CISTERNA P</option>
+                                <option value="CISTERNA EF">CISTERNA EF</option>
+                                <option value="CISTERNA VK">CISTERNA VK</option>
+                                <option value="CISTERNA GS">CISTERNA GS</option>
                                 <option value="ALTRO">ALTRO</option>
                             </select>
-                            <input type="text" class="form-control mt-2 altra-tipologia" placeholder="Specifica altra tipologia" style="display: none;">
                         </div>
-                        <div class="col-md-2">
-                            <label class="form-label">Targa Mezzo</label>
-                            <input type="text" class="form-control targa-mezzo" placeholder="AA123BB">
+                        <div class="col-md-6 altro-destinazione-container" style="display: none;">
+                            <label class="form-label">Specifica Altra Destinazione</label>
+                            <input type="text" class="form-control altra-destinazione" placeholder="Specifica destinazione">
                         </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-outline-danger btn-sm remove-fornitore">
-                                <i class="bi bi-trash"></i> Rimuovi
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row mt-3">
-                <div class="col-12">
-                    <button type="button" class="btn btn-outline-success" id="add-fornitore">
-                        <i class="bi bi-plus-circle"></i> Aggiungi Fornitore
-                    </button>
-                </div>
-            </div>
-            
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <div class="alert alert-programma">
-                        <strong>Totale da Fornitori: </strong><span id="totale-fornitori" class="fw-bold">0 kg</span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="alert alert-warning" id="differenza-alert" style="display: none;">
-                        <strong>Differenza: </strong><span id="differenza-valore" class="fw-bold"></span>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Sezione Linea di Trasformazione -->
-        <div class="section-card">
-            <div class="section-title">
-                <i class="bi bi-gear-wide-connected"></i> Configurazione Linea di Trasformazione
-            </div>
+    <script>
+        $(document).ready(function() {
+            console.log("Inizializzazione Programma Giornaliero Lavorazione Frutta...");
             
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label for="linea-trasformazione" class="form-label form-label-required">Linea di Trasformazione</label>
-                    <select class="form-select" id="linea-trasformazione" required>
-                        <option value="">Seleziona linea</option>
-                        <option value="BOE/1100">BOE/1100</option>
-                        <option value="GOE INT/POLY">GOE INT/POLY</option>
-                        <option value="GOE EST/POLY">GOE EST/POLY</option>
-                        <option value="GOE EST/400">GOE EST/400</option>
-                        <option value="B/SF">B/SF</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="portata-impianto" class="form-label form-label-required">Portata Impianto (kg/h)</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="portata-impianto" min="1" required>
-                        <span class="input-group-text">kg/h</span>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="quantita-da-lavorare" class="form-label form-label-required">Quantità da Lavorare (kg)</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="quantita-da-lavorare" min="1" required>
-                        <span class="input-group-text">kg</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row g-3 mt-3">
-                <div class="col-md-4">
-                    <label for="orario-inizio" class="form-label form-label-required">Orario Inizio Lavorazione</label>
-                    <input type="time" class="form-control" id="orario-inizio" required>
-                </div>
-                <div class="col-md-4">
-                    <label for="durata-lavorazione" class="form-label">Durata Stimata</label>
-                    <input type="text" class="form-control calculated-field" id="durata-lavorazione" readonly placeholder="Calcolato automaticamente">
-                </div>
-                <div class="col-md-4">
-                    <label for="orario-fine" class="form-label">Orario Fine Stimato</label>
-                    <input type="time" class="form-control calculated-field" id="orario-fine" readonly>
-                </div>
-            </div>
-        </div>
+            // ========== VARIABILI GLOBALI ==========
+            let fornitoreCounter = 0;
+            let rese = {
+                succo1: 0.65,    // 65% resa succo prima spremitura
+                succo2: 0.15,    // 15% resa succo seconda spremitura  
+                torchiato: 0.08  // 8% resa torchiato
+            };
 
-        <!-- Sezione Rese Spremiture -->
-        <div class="section-card">
-            <div class="section-title">
-                <i class="bi bi-droplet"></i> Calcolo Automatico Rese Spremiture
-            </div>
+            // Impostazione data corrente
+            const oggi = new Date().toISOString().split('T')[0];
+            $('#data-programma').val(oggi);
+
+            // ========== GESTIONE FORNITORI ==========
             
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <h6 class="text-center mb-3">Prima Spremitura</h6>
-                    <div class="mb-3">
-                        <label for="resa-prima-perc" class="form-label">Resa % Stimata</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="resa-prima-perc" min="0" max="100" step="0.1" value="45">
-                            <span class="input-group-text">%</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="resa-prima-litri" class="form-label">Resa Stimata (L)</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control calculated-field" id="resa-prima-litri" readonly>
-                            <span class="input-group-text">L</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="resa-prima-effettiva" class="form-label">Resa Effettiva (L)</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="resa-prima-effettiva" min="0">
-                            <span class="input-group-text">L</span>
-                        </div>
-                    </div>
-                </div>
+            // Aggiunta nuovo fornitore
+            $('#add-fornitore').click(function() {
+                aggiungiFornitore();
+            });
+
+            function aggiungiFornitore() {
+                fornitoreCounter++;
+                const template = $('#fornitore-template').html();
+                const newFornitore = $(template);
                 
-                <div class="col-md-4">
-                    <h6 class="text-center mb-3">Seconda Spremitura</h6>
-                    <div class="mb-3">
-                        <label for="resa-seconda-perc" class="form-label">Resa % Stimata</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="resa-seconda-perc" min="0" max="100" step="0.1" value="25">
-                            <span class="input-group-text">%</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="resa-seconda-litri" class="form-label">Resa Stimata (L)</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control calculated-field" id="resa-seconda-litri" readonly>
-                            <span class="input-group-text">L</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="resa-seconda-effettiva" class="form-label">Resa Effettiva (L)</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="resa-seconda-effettiva" min="0">
-                            <span class="input-group-text">L</span>
-                        </div>
-                    </div>
-                </div>
+                // Aggiorna il nome del fornitore nel template
+                newFornitore.find('.fornitore-nome').text(`Fornitore ${fornitoreCounter}`);
                 
-                <div class="col-md-4">
-                    <h6 class="text-center mb-3">Torchiato</h6>
-                    <div class="mb-3">
-                        <label for="resa-torchiato-perc" class="form-label">Resa % Stimata</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="resa-torchiato-perc" min="0" max="100" step="0.1" value="15">
-                            <span class="input-group-text">%</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="resa-torchiato-litri" class="form-label">Resa Stimata (L)</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control calculated-field" id="resa-torchiato-litri" readonly>
-                            <span class="input-group-text">L</span>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="resa-torchiato-effettiva" class="form-label">Resa Effettiva (L)</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="resa-torchiato-effettiva" min="0">
-                            <span class="input-group-text">L</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                // Aggiungi il nuovo fornitore al container
+                $('#fornitori-container').append(newFornitore);
+                
+                // Aggiungi event listeners per questo fornitore
+                aggiungiEventListenersFornitore(newFornitore);
+                
+                console.log(`Aggiunto fornitore ${fornitoreCounter}`);
+            }
+
+            function aggiungiEventListenersFornitore(fornitoreElement) {
+                // Gestione rimozione fornitore
+                fornitoreElement.find('.remove-fornitore').click(function() {
+                    if (confirm('Sei sicuro di voler rimuovere questo fornitore?')) {
+                        fornitoreElement.remove();
+                        ricalcolaTotali();
+                        aggiornaRiepilogo();
+                    }
+                });
+
+                // Gestione campo "ALTRO" per nome fornitore
+                fornitoreElement.find('.nome-fornitore').change(function() {
+                    const altroContainer = fornitoreElement.find('.altro-fornitore');
+                    if ($(this).val() === 'ALTRO') {
+                        altroContainer.show();
+                    } else {
+                        altroContainer.hide().val('');
+                        fornitoreElement.find('.fornitore-nome').text($(this).val() || 'Nuovo Fornitore');
+                    }
+                    aggiornaRiepilogo();
+                });
+
+                // Gestione campo personalizzato nome fornitore
+                fornitoreElement.find('.altro-fornitore').on('input', function() {
+                    const nomePersonalizzato = $(this).val();
+                    if (nomePersonalizzato) {
+                        fornitoreElement.find('.fornitore-nome').text(nomePersonalizzato);
+                    }
+                    aggiornaRiepilogo();
+                });
+
+                // Gestione campo "ALTRO" per certificazione
+                fornitoreElement.find('.certificazione-fornitore').change(function() {
+                    const altraContainer = fornitoreElement.find('.altra-certificazione');
+                    if ($(this).val() === 'ALTRO') {
+                        altraContainer.show();
+                    } else {
+                        altraContainer.hide().val('');
+                    }
+                    
+                    // Evidenzia se è BIO
+                    const isBio = $(this).val().includes('BIO');
+                    if (isBio) {
+                        fornitoreElement.addClass('bio-highlight');
+                    } else {
+                        fornitoreElement.removeClass('bio-highlight');
+                    }
+                    
+                    aggiornaRiepilogo();
+                });
+
+                // Gestione campo "ALTRO" per destinazione succo 1^
+                fornitoreElement.find('.destinazione-succo1').change(function() {
+                    const altroContainer = fornitoreElement.find('.altro-destinazione-container');
+                    if ($(this).val() === 'ALTRO') {
+                        altroContainer.show();
+                    } else {
+                        altroContainer.hide();
+                        fornitoreElement.find('.altra-destinazione').val('');
+                    }
+                });
+
+                // Calcoli automatici
+                fornitoreElement.find('.quantita-fornitore, .portata-impianto, .orario-inizio').on('input change', function() {
+                    calcolaLavorazione(fornitoreElement);
+                    ricalcolaTotali();
+                    aggiornaRiepilogo();
+                });
+            }
+
+            // ========== CALCOLI AUTOMATICI ==========
             
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="summary-card">
-                        <h6>Resa Totale Stimata</h6>
-                        <div class="summary-value" id="resa-totale">0 L</div>
-                        <small class="text-muted">Percentuale totale: <span id="resa-totale-perc">0%</span></small>
-                    </div>
-                </div>
-            </div>
-        </div>
+            function calcolaLavorazione(fornitoreElement) {
+                const quantita = parseFloat(fornitoreElement.find('.quantita-fornitore').val()) || 0;
+                const portata = parseFloat(fornitoreElement.find('.portata-impianto').val()) || 0;
+                const orarioInizio = fornitoreElement.find('.orario-inizio').val();
 
-        <!-- Sezione Destinazione Spremiture -->
-        <div class="section-card">
-            <div class="section-title">
-                <i class="bi bi-arrow-right-square"></i> Destinazione Spremiture
-            </div>
+                if (quantita > 0 && portata > 0 && orarioInizio) {
+                    // Calcola durata in ore
+                    const durataOre = quantita / portata;
+                    const ore = Math.floor(durataOre);
+                    const minuti = Math.round((durataOre - ore) * 60);
+                    
+                    // Aggiorna campo durata
+                    fornitoreElement.find('.durata-lavorazione').val(`${ore}h ${minuti}m`);
+                    
+                    // Calcola orario fine
+                    const [oreInizio, minutiInizio] = orarioInizio.split(':').map(Number);
+                    const inizioMinuti = oreInizio * 60 + minutiInizio;
+                    const fineMinuti = inizioMinuti + (ore * 60) + minuti;
+                    const oreFine = Math.floor(fineMinuti / 60) % 24;
+                    const minutiFine = fineMinuti % 60;
+                    
+                    const orarioFine = `${oreFine.toString().padStart(2, '0')}:${minutiFine.toString().padStart(2, '0')}`;
+                    fornitoreElement.find('.orario-fine').val(orarioFine);
+                    
+                    // Calcola rese succo
+                    const resaSucco1 = Math.round(quantita * rese.succo1);
+                    fornitoreElement.find('.resa-succo1').val(resaSucco1);
+                    
+                } else {
+                    // Reset campi se dati incompleti
+                    fornitoreElement.find('.durata-lavorazione').val('');
+                    fornitoreElement.find('.orario-fine').val('');
+                    fornitoreElement.find('.resa-succo1').val('');
+                }
+            }
+
+            function ricalcolaTotali() {
+                let totaleEntrata = 0;
+                let totaleSucco2 = 0;
+                let totaleTorchiato = 0;
+                
+                // Somma tutte le quantità dei fornitori
+                $('.quantita-fornitore').each(function() {
+                    const quantita = parseFloat($(this).val()) || 0;
+                    totaleEntrata += quantita;
+                    totaleSucco2 += quantita * rese.succo2;
+                    totaleTorchiato += quantita * rese.torchiato;
+                });
+                
+                // Aggiorna campi totali
+                $('#entrata-totale').val(totaleEntrata);
+                
+                const giacenza = parseFloat($('#giacenza-totale').val()) || 0;
+                $('#totale-disponibile').val(giacenza + totaleEntrata);
+                
+                // Aggiorna rese totali
+                $('#totale-succo2-resa').val(Math.round(totaleSucco2));
+                $('#totale-torchiato-resa').val(Math.round(totaleTorchiato));
+            }
+
+            // ========== GESTIONE DESTINAZIONI TOTALI ==========
             
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <h6 class="mb-3">Prima Spremitura</h6>
-                    <div class="mb-3">
-                        <label for="dest-prima" class="form-label form-label-required">Destinazione</label>
-                        <select class="form-select destinazione-select" id="dest-prima" required>
-                            <option value="">Seleziona destinazione</option>
-                            <option value="PET 100">PET 100</option>
-                            <option value="PET 200">PET 200</option>
-                            <option value="PET 480">PET 480</option>
-                            <option value="ACMA">ACMA</option>
-                            <option value="REX">REX</option>
-                            <option value="GOGLIO">GOGLIO</option>
-                            <option value="VASCHETTE">VASCHETTE</option>
-                            <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
-                            <option value="LATTE">LATTE</option>
-                            <option value="F.F.">F.F.</option>
-                            <option value="F.T.C">F.T.C</option>
-                            <option value="FBL">FBL</option>
-                            <option value="BIC">BIC</option>
-                            <option value="CISTERNA P">CISTERNA P</option>
-                            <option value="CISTERNA EF">CISTERNA EF</option>
-                            <option value="CISTERNA VK">CISTERNA VK</option>
-                            <option value="CISTERNA GS">CISTERNA GS</option>
-                            <option value="ALTRO">ALTRO (SPECIFICARE)</option>
-                        </select>
-                        <input type="text" class="form-control mt-2 altra-dest" placeholder="Specifica altra destinazione" style="display: none;">
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantita-dest-prima" class="form-label">Quantità Destinata (L)</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="quantita-dest-prima" min="0">
-                            <span class="input-group-text">L</span>
-                        </div>
-                    </div>
-                </div>
+            // Gestione campo "ALTRO" per succo 2^
+            $('#totale-succo2-destinazione').change(function() {
+                if ($(this).val() === 'ALTRO') {
+                    $('#altro-succo2-container').show();
+                } else {
+                    $('#altro-succo2-container').hide();
+                    $('#altro-succo2').val('');
+                }
+            });
+
+            // Gestione campo "ALTRO" per torchiato
+            $('#totale-torchiato-destinazione').change(function() {
+                if ($(this).val() === 'ALTRO') {
+                    $('#altro-torchiato-container').show();
+                } else {
+                    $('#altro-torchiato-container').hide();
+                    $('#altro-torchiato').val('');
+                }
+            });
+
+            // ========== AGGIORNAMENTO RIEPILOGO ==========
+            
+            function aggiornaRiepilogo() {
+                const tbody = $('#riepilogo-table tbody');
+                tbody.empty();
                 
-                <div class="col-md-4">
-                    <h6 class="mb-3">Seconda Spremitura</h6>
-                    <div class="mb-3">
-                        <label for="dest-seconda" class="form-label form-label-required">Destinazione</label>
-                        <select class="form-select destinazione-select" id="dest-seconda" required>
-                            <option value="">Seleziona destinazione</option>
-                            <option value="PET 100">PET 100</option>
-                            <option value="PET 200">PET 200</option>
-                            <option value="PET 480">PET 480</option>
-                            <option value="ACMA">ACMA</option>
-                            <option value="REX">REX</option>
-                            <option value="GOGLIO">GOGLIO</option>
-                            <option value="VASCHETTE">VASCHETTE</option>
-                            <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
-                            <option value="LATTE">LATTE</option>
-                            <option value="F.F.">F.F.</option>
-                            <option value="F.T.C">F.T.C</option>
-                            <option value="FBL">FBL</option>
-                            <option value="BIC">BIC</option>
-                            <option value="CISTERNA P">CISTERNA P</option>
-                            <option value="CISTERNA EF">CISTERNA EF</option>
-                            <option value="CISTERNA VK">CISTERNA VK</option>
-                            <option value="CISTERNA GS">CISTERNA GS</option>
-                            <option value="ALTRO">ALTRO (SPECIFICARE)</option>
-                        </select>
-                        <input type="text" class="form-control mt-2 altra-dest" placeholder="Specifica altra destinazione" style="display: none;">
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantita-dest-seconda" class="form-label">Quantità Destinata (L)</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="quantita-dest-seconda" min="0">
-                            <span class="input-group-text">L</span>
-                        </div>
-                    </div>
-                </div>
+                $('.fornitore-container').each(function() {
+                    const fornitoreElement = $(this);
+                    const nomeFornitore = fornitoreElement.find('.nome-fornitore').val() === 'ALTRO' 
+                        ? fornitoreElement.find('.altro-fornitore').val() 
+                        : fornitoreElement.find('.nome-fornitore').val();
+                    
+                    const quantita = fornitoreElement.find('.quantita-fornitore').val();
+                    const certificazione = fornitoreElement.find('.certificazione-fornitore').val() === 'ALTRO'
+                        ? fornitoreElement.find('.altra-certificazione').val()
+                        : fornitoreElement.find('.certificazione-fornitore').val();
+                    
+                    const linea = fornitoreElement.find('.linea-trasformazione').val();
+                    const inizio = fornitoreElement.find('.orario-inizio').val();
+                    const fine = fornitoreElement.find('.orario-fine').val();
+                    const portata = fornitoreElement.find('.portata-impianto').val();
+                    const succo1 = fornitoreElement.find('.resa-succo1').val();
+                    const destinazione1 = fornitoreElement.find('.destinazione-succo1').val() === 'ALTRO'
+                        ? fornitoreElement.find('.altra-destinazione').val()
+                        : fornitoreElement.find('.destinazione-succo1').val();
+                    
+                    // Solo se ci sono dati significativi
+                    if (nomeFornitore && quantita) {
+                        const isBio = certificazione && certificazione.includes('BIO');
+                        const rowClass = isBio ? 'bio-text' : '';
+                        
+                        const row = `
+                            <tr class="${rowClass}">
+                                <td>${nomeFornitore || '-'}</td>
+                                <td>${quantita || '-'} kg</td>
+                                <td>${certificazione || '-'}</td>
+                                <td>${linea || '-'}</td>
+                                <td>${inizio || '-'}</td>
+                                <td>${fine || '-'}</td>
+                                <td>${portata || '-'} kg/h</td>
+                                <td>${succo1 || '-'} L</td>
+                                <td>${destinazione1 || '-'}</td>
+                            </tr>
+                        `;
+                        tbody.append(row);
+                    }
+                });
+            }
+
+            // ========== EVENTI GLOBALI ==========
+            
+            // Ricalcolo quando cambia la giacenza iniziale
+            $('#giacenza-totale').on('input', function() {
+                ricalcolaTotali();
+            });
+
+            // ========== PULSANTI DI AZIONE ==========
+            
+            // Salvataggio programma
+            $('#btn-salva-programma').click(function() {
+                const programma = raccogliDatiProgramma();
+                if (validaProgramma(programma)) {
+                    // Simula salvataggio
+                    const dataProgram = $('#data-programma').val();
+                    const timestamp = new Date().toLocaleString();
+                    
+                    alert(`Programma salvato con successo!\n\nData: ${dataProgram}\nTimestamp: ${timestamp}\nFornitori: ${programma.fornitori.length}\nTotale frutta: ${programma.totaleEntrata} kg`);
+                    
+                    console.log('Programma salvato:', programma);
+                } else {
+                    alert('Completare tutti i campi obbligatori prima di salvare il programma.');
+                }
+            });
+
+            // Reset programma
+            $('#btn-reset-programma').click(function() {
+                if (confirm('Attenzione: tutti i dati inseriti verranno cancellati. Continuare?')) {
+                    resetProgramma();
+                }
+            });
+
+            // Stampa programma
+            $('#btn-stampa-programma').click(function() {
+                stampaPrograma();
+            });
+
+            // ========== FUNZIONI UTILI ==========
+            
+            function raccogliDatiProgramma() {
+                const programma = {
+                    data: $('#data-programma').val(),
+                    tipoAgrumePrincipale: $('#tipo-agrume-principale').val(),
+                    giacenzaIniziale: parseFloat($('#giacenza-totale').val()) || 0,
+                    totaleEntrata: parseFloat($('#entrata-totale').val()) || 0,
+                    totaleDisponibile: parseFloat($('#totale-disponibile').val()) || 0,
+                    fornitori: [],
+                    reseTotali: {
+                        succo2: {
+                            resa: $('#totale-succo2-resa').val(),
+                            destinazione: $('#totale-succo2-destinazione').val() === 'ALTRO' 
+                                ? $('#altro-succo2').val() 
+                                : $('#totale-succo2-destinazione').val()
+                        },
+                        torchiato: {
+                            resa: $('#totale-torchiato-resa').val(),
+                            destinazione: $('#totale-torchiato-destinazione').val() === 'ALTRO'
+                                ? $('#altro-torchiato').val()
+                                : $('#totale-torchiato-destinazione').val()
+                        }
+                    }
+                };
                 
-                <div class="col-md-4">
-                    <h6 class="mb-3">Torchiato</h6>
-                    <div class="mb-3">
-                        <label for="dest-torchiato" class="form-label form-label-required">Destinazione</label>
-                        <select class="form-select destinazione-select" id="dest-torchiato" required>
-                            <option value="">Seleziona destinazione</option>
-                            <option value="PET 100">PET 100</option>
-                            <option value="PET 200">PET 200</option>
-                            <option value="PET 480">PET 480</option>
-                            <option value="ACMA">ACMA</option>
-                            <option value="REX">REX</option>
-                            <option value="GOGLIO">GOGLIO</option>
-                                <option value="VASCHETTE">VASCHETTE</option>
-                           <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
-                           <option value="LATTE">LATTE</option>
-                           <option value="F.F.">F.F.</option>
-                           <option value="F.T.C">F.T.C</option>
-                           <option value="FBL">FBL</option>
-                           <option value="BIC">BIC</option>
-                           <option value="CISTERNA P">CISTERNA P</option>
-                           <option value="CISTERNA EF">CISTERNA EF</option>
-                           <option value="CISTERNA VK">CISTERNA VK</option>
-                           <option value="CISTERNA GS">CISTERNA GS</option>
-                           <option value="ALTRO">ALTRO (SPECIFICARE)</option>
-                       </select>
-                       <input type="text" class="form-control mt-2 altra-dest" placeholder="Specifica altra destinazione" style="display: none;">
-                   </div>
-                   <div class="mb-3">
-                       <label for="quantita-dest-torchiato" class="form-label">Quantità Destinata (L)</label>
-                       <div class="input-group">
-                           <input type="number" class="form-control" id="quantita-dest-torchiato" min="0">
-                           <span class="input-group-text">L</span>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
+                // Raccolta dati fornitori
+                $('.fornitore-container').each(function() {
+                    const fornitore = {
+                        nome: $(this).find('.nome-fornitore').val() === 'ALTRO' 
+                            ? $(this).find('.altro-fornitore').val() 
+                            : $(this).find('.nome-fornitore').val(),
+                        quantita: parseFloat($(this).find('.quantita-fornitore').val()) || 0,
+                        certificazione: $(this).find('.certificazione-fornitore').val() === 'ALTRO'
+                            ? $(this).find('.altra-certificazione').val()
+                            : $(this).find('.certificazione-fornitore').val(),
+                        linea: $(this).find('.linea-trasformazione').val(),
+                        portata: parseFloat($(this).find('.portata-impianto').val()) || 0,
+                        orarioInizio: $(this).find('.orario-inizio').val(),
+                        orarioFine: $(this).find('.orario-fine').val(),
+                        durata: $(this).find('.durata-lavorazione').val(),
+                        resaSucco1: $(this).find('.resa-succo1').val(),
+                        destinazioneSucco1: $(this).find('.destinazione-succo1').val() === 'ALTRO'
+                            ? $(this).find('.altra-destinazione').val()
+                            : $(this).find('.destinazione-succo1').val()
+                    };
+                    
+                    if (fornitore.nome && fornitore.quantita > 0) {
+                        programma.fornitori.push(fornitore);
+                    }
+                });
+                
+                return programma;
+            }
 
-       <!-- Sezione Riepilogo e Controlli -->
-       <div class="section-card">
-           <div class="section-title">
-               <i class="bi bi-clipboard-check"></i> Riepilogo Programma di Lavorazione
-           </div>
-           
-           <div class="row g-4">
-               <div class="col-md-6">
-                   <div class="table-responsive">
-                       <table class="table table-programma table-striped">
-                           <thead class="text-white">
-                               <tr>
-                                   <th>Parametro</th>
-                                   <th>Valore</th>
-                               </tr>
-                           </thead>
-                           <tbody id="riepilogo-table">
-                               <!-- Dati generati dinamicamente -->
-                           </tbody>
-                       </table>
-                   </div>
-               </div>
-               
-               <div class="col-md-6">
-                   <h6>Stato Avanzamento</h6>
-                   <div class="mb-3">
-                       <label>Completamento Configurazione</label>
-                       <div class="progress">
-                           <div class="progress-bar progress-bar-custom" role="progressbar" id="progress-config" style="width: 0%">
-                               0%
-                           </div>
-                       </div>
-                   </div>
-                   
-                   <div class="mb-3">
-                       <label>Bilanciamento Fornitori</label>
-                       <div class="progress">
-                           <div class="progress-bar progress-bar-custom" role="progressbar" id="progress-fornitori" style="width: 0%">
-                               0%
-                           </div>
-                       </div>
-                   </div>
-                   
-                   <div class="alert alert-info">
-                       <strong>Stato Sistema:</strong> <span id="stato-sistema">In configurazione</span><br>
-                       <strong>Ultimo Aggiornamento:</strong> <span id="ultimo-aggiornamento" class="time-display">--:--</span>
-                   </div>
-               </div>
-           </div>
-       </div>
+            function validaProgramma(programma) {
+                // Validazione base
+                if (!programma.data || !programma.tipoAgrumePrincipale) {
+                    return false;
+                }
+                
+                if (programma.fornitori.length === 0) {
+                    return false;
+                }
+                
+                // Verifica che ogni fornitore abbia i dati essenziali
+                for (let fornitore of programma.fornitori) {
+                    if (!fornitore.nome || !fornitore.quantita || !fornitore.certificazione || 
+                        !fornitore.linea || !fornitore.portata || !fornitore.orarioInizio) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
 
-       <!-- Pulsanti di Azione -->
-       <div class="section-card">
-           <div class="section-title">
-               <i class="bi bi-tools"></i> Azioni Programma
-           </div>
-           
-           <div class="row g-3">
-               <div class="col-md-3">
-                   <button type="button" class="btn btn-programma w-100" id="btn-salva-programma">
-                       <i class="bi bi-save"></i> Salva Programma
-                   </button>
-               </div>
-               <div class="col-md-3">
-                   <button type="button" class="btn btn-outline-success w-100" id="btn-avvia-lavorazione">
-                       <i class="bi bi-play-circle"></i> Avvia Lavorazione
-                   </button>
-               </div>
-               <div class="col-md-3">
-                   <button type="button" class="btn btn-outline-warning w-100" id="btn-reset-programma">
-                       <i class="bi bi-arrow-clockwise"></i> Reset Programma
-                   </button>
-               </div>
-               <div class="col-md-3">
-                   <button type="button" class="btn btn-outline-primary w-100" id="btn-carica-template">
-                       <i class="bi bi-upload"></i> Carica Template
-                   </button>
-               </div>
-           </div>
-       </div>
+            function resetProgramma() {
+                // Reset campi generali
+                $('#tipo-agrume-principale').val('');
+                $('#giacenza-totale').val('');
+                $('#entrata-totale').val('');
+                $('#totale-disponibile').val('');
+                
+                // Reset rese totali
+                $('#totale-succo2-resa').val('');
+                $('#totale-succo2-destinazione').val('');
+                $('#altro-succo2').val('');
+                $('#altro-succo2-container').hide();
+                
+                $('#totale-torchiato-resa').val('');
+                $('#totale-torchiato-destinazione').val('');
+                $('#altro-torchiato').val('');
+                $('#altro-torchiato-container').hide();
+                
+                // Rimuovi tutti i fornitori
+                $('#fornitori-container').empty();
+                $('#riepilogo-table tbody').empty();
+                
+                // Reset contatore
+                fornitoreCounter = 0;
+                
+                console.log('Programma resetato');
+            }
 
-       <!-- Sezione Storico Lavorazioni -->
-       <div class="section-card">
-           <div class="section-title">
-               <i class="bi bi-clock-history"></i> Storico Lavorazioni Recenti
-           </div>
-           
-           <div class="table-responsive">
-               <table class="table table-programma table-hover">
-                   <thead class="text-white">
-                       <tr>
-                           <th>Data</th>
-                           <th>Turno</th>
-                           <th>Agrume</th>
-                           <th>Quantità (kg)</th>
-                           <th>Linea</th>
-                           <th>Durata</th>
-                           <th>Resa (%)</th>
-                           <th>Stato</th>
-                           <th>Azioni</th>
-                       </tr>
-                   </thead>
-                   <tbody id="storico-table">
-                       <!-- Dati storici generati dinamicamente -->
-                   </tbody>
-               </table>
-           </div>
-       </div>
-   </div>
+            function stampaPrograma() {
+                const programma = raccogliDatiProgramma();
+                
+                // Crea finestra di stampa
+                const finestra = window.open('', '_blank');
+                finestra.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Programma Giornaliero Lavorazione - ${programma.data}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }
+                            .section { margin-bottom: 25px; }
+                            .section h3 { background-color: #f5f5f5; padding: 10px; margin: 0 0 15px 0; }
+                            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                            th { background-color: #f5f5f5; font-weight: bold; }
+                            .bio { color: #dc3545; font-weight: bold; }
+                            .totali { background-color: #e8f5e8; }
+                            @media print { .no-print { display: none; } }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header">
+                            <h1>PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>
+                            <h2>Simone Gatto - Produzione Agrumi</h2>
+                            <p><strong>Data: ${programma.data}</strong></p>
+                            <p><strong>Tipo Agrume Principale: ${programma.tipoAgrumePrincipale}</strong></p>
+                        </div>
+                        
+                        <div class="section">
+                            <h3>Riepilogo Quantità</h3>
+                            <table>
+                                <tr>
+                                    <td><strong>Giacenza Iniziale:</strong></td>
+                                    <td>${programma.giacenzaIniziale} kg</td>
+                                    <td><strong>Totale in Entrata:</strong></td>
+                                    <td>${programma.totaleEntrata} kg</td>
+                                    <td><strong>Totale Disponibile:</strong></td>
+                                    <td class="totali">${programma.totaleDisponibile} kg</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="section">
+                            <h3>Dettaglio Fornitori e Lavorazione</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Fornitore</th>
+                                        <th>Quantità (kg)</th>
+                                        <th>Certificazione</th>
+                                        <th>Linea</th>
+                                        <th>Inizio</th>
+                                        <th>Fine</th>
+                                        <th>Portata (kg/h)</th>
+                                        <th>Succo 1^ (L)</th>
+                                        <th>Destinazione 1^</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${programma.fornitori.map(f => `
+                                        <tr class="${f.certificazione && f.certificazione.includes('BIO') ? 'bio' : ''}">
+                                            <td>${f.nome}</td>
+                                            <td>${f.quantita}</td>
+                                            <td>${f.certificazione}</td>
+                                            <td>${f.linea}</td>
+                                            <td>${f.orarioInizio}</td>
+                                            <td>${f.orarioFine}</td>
+                                            <td>${f.portata}</td>
+                                            <td>${f.resaSucco1}</td>
+                                            <td>${f.destinazioneSucco1}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="section">
+                            <h3>Rese Totali Succo 2^ e Torchiato</h3>
+                            <table>
+                                <tr>
+                                    <td><strong>Succo 2^ Spremitura:</strong></td>
+                                    <td>${programma.reseTotali.succo2.resa} L</td>
+                                    <td><strong>Destinazione:</strong></td>
+                                    <td>${programma.reseTotali.succo2.destinazione}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Torchiato:</strong></td>
+                                    <td>${programma.reseTotali.torchiato.resa} L</td>
+                                    <td><strong>Destinazione:</strong></td>
+                                    <td>${programma.reseTotali.torchiato.destinazione}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="section" style="margin-top: 50px;">
+                            <p><strong>Stampato il:</strong> ${new Date().toLocaleString()}</p>
+                            <p><strong>Firma Responsabile:</strong> _____________________</p>
+                        </div>
+                        
+                        <script>
+                            window.onload = function() {
+                                window.print();
+                                window.onafterprint = function() {
+                                    window.close();
+                                }
+                            }
+                        </script>
+                    </body>
+                    </html>
+                `);
+                finestra.document.close();
+            }
 
-   <!-- Modal per Conferma Azioni -->
-   <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-       <div class="modal-dialog">
-           <div class="modal-content">
-               <div class="modal-header">
-                   <h5 class="modal-title" id="confirmModalLabel">Conferma Azione</h5>
-                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-               </div>
-               <div class="modal-body" id="confirmModalBody">
-                   <!-- Contenuto dinamico -->
-               </div>
-               <div class="modal-footer">
-                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                   <button type="button" class="btn btn-programma" id="confirmActionBtn">Conferma</button>
-               </div>
-           </div>
-       </div>
-   </div>
+            // ========== INIZIALIZZAZIONE DATI DI ESEMPIO ==========
+            
+            function caricaDatiEsempio() {
+                console.log("Caricamento dati di esempio...");
+                
+                // Imposta dati base
+                $('#tipo-agrume-principale').val('Arancia');
+                $('#giacenza-totale').val('15000');
+                
+                // Aggiungi primo fornitore di esempio
+                aggiungiFornitore();
+                const primoFornitore = $('.fornitore-container').last();
+                primoFornitore.find('.nome-fornitore').val('RESTUCCIA').trigger('change');
+                primoFornitore.find('.quantita-fornitore').val('8000').trigger('input');
+                primoFornitore.find('.certificazione-fornitore').val('BIO EU').trigger('change');
+                primoFornitore.find('.linea-trasformazione').val('BOE/1100');
+                primoFornitore.find('.portata-impianto').val('2500').trigger('input');
+                primoFornitore.find('.orario-inizio').val('08:00').trigger('change');
+                primoFornitore.find('.destinazione-succo1').val('CISTERNA P');
+                
+                // Aggiungi secondo fornitore di esempio
+                aggiungiFornitore();
+                const secondoFornitore = $('.fornitore-container').last();
+                secondoFornitore.find('.nome-fornitore').val('CI').trigger('change');
+                secondoFornitore.find('.quantita-fornitore').val('6000').trigger('input');
+                secondoFornitore.find('.certificazione-fornitore').val('CONVENZIONALE').trigger('change');
+                secondoFornitore.find('.linea-trasformazione').val('GOE INT/POLY');
+                secondoFornitore.find('.portata-impianto').val('2000').trigger('input');
+                secondoFornitore.find('.orario-inizio').val('11:15').trigger('change');
+                secondoFornitore.find('.destinazione-succo1').val('PET 200');
+                
+                // Imposta destinazioni totali
+                $('#totale-succo2-destinazione').val('CISTERNA VK');
+                $('#totale-torchiato-destinazione').val('F.T.C');
+                
+                console.log("Dati di esempio caricati");
+            }
 
-   <!-- JavaScript -->
-   <script>
-       $(document).ready(function() {
-           console.log("Programma Giornaliero Lavorazione Frutta - Inizializzazione...");
+            // Carica dati di esempio all'avvio (commentare se non desiderato)
+            setTimeout(caricaDatiEsempio, 500);
 
-           // ================ VARIABILI GLOBALI ================
-           let programmaData = {
-               config: {},
-               fornitori: [],
-               lavorazione: {},
-               rese: {},
-               destinazioni: {},
-               stato: 'configurazione'
-           };
-
-           let storicoLavorazioni = [];
-           let fornitoreCounter = 1;
-
-           // ================ INIZIALIZZAZIONE ================
-           function inizializzaInterface() {
-               // Imposta data corrente
-               const oggi = new Date();
-               const dataFormattata = oggi.toISOString().split('T')[0];
-               $("#data-lavorazione").val(dataFormattata);
-               $("#current-date").text(oggi.toLocaleDateString('it-IT'));
-               
-               // Determina turno corrente
-               const ora = oggi.getHours();
-               let turnoCorrente;
-               if (ora >= 6 && ora < 14) {
-                   turnoCorrente = "Mattino (06:00-14:00)";
-               } else if (ora >= 14 && ora < 22) {
-                   turnoCorrente = "Pomeriggio (14:00-22:00)";
-               } else {
-                   turnoCorrente = "Notte (22:00-06:00)";
-               }
-               $("#turno").val(turnoCorrente);
-               $("#current-shift").text(turnoCorrente);
-
-               // Aggiorna timestamp
-               aggiornaTimestamp();
-               setInterval(aggiornaTimestamp, 30000); // Aggiorna ogni 30 secondi
-
-               // Carica dati demo
-               caricaDatiDemo();
-               
-               console.log("Interface inizializzata con successo");
-           }
-
-           function aggiornaTimestamp() {
-               const ora = new Date().toLocaleTimeString('it-IT');
-               $("#ultimo-aggiornamento").text(ora);
-           }
-
-           // ================ GESTIONE TIPO AGRUME E VARIETÀ ================
-           $("#tipo-agrume-principale").change(function() {
-               const tipoAgrume = $(this).val();
-               const varietaSelect = $("#varieta-agrume");
-               
-               varietaSelect.empty().append('<option value="">Seleziona varietà</option>');
-               
-               const varieta = {
-                   'LIMONE': ['Verdello', 'Femminello', 'Interdonato', 'Monachello'],
-                   'ARANCIA': ['Tarocco', 'Moro', 'Sanguinello', 'Valencia', 'Navel'],
-                   'MANDARINO': ['Ciaculli', 'Tardivo di Ciaculli', 'Avana', 'Clementine'],
-                   'POMPELMO': ['Rosa', 'Bianco', 'Star Ruby'],
-                   'BERGAMOTTO': ['Femminello', 'Castagnaro', 'Fantastico']
-               };
-               
-               if (varieta[tipoAgrume]) {
-                   varieta[tipoAgrume].forEach(function(v) {
-                       varietaSelect.append(`<option value="${v}">${v}</option>`);
-                   });
-               }
-               
-               calcolaQuantitaTotale();
-               aggiornaRiepilogo();
-           });
-
-           // ================ CALCOLI AUTOMATICI ================
-           function calcolaQuantitaTotale() {
-               const giacenza = parseFloat($("#giacenza-totale").val()) || 0;
-               const entrata = parseFloat($("#entrata-giornaliera").val()) || 0;
-               const totale = giacenza + entrata;
-               
-               $("#totale-disponibile").text(totale.toLocaleString('it-IT') + " kg");
-               
-               // Aggiorna anche la quantità da lavorare se non è stata impostata manualmente
-               if (!$("#quantita-da-lavorare").val()) {
-                   $("#quantita-da-lavorare").val(entrata);
-               }
-               
-               calcolaDurataLavorazione();
-               calcolaReseSpremitura();
-           }
-
-           function calcolaDurataLavorazione() {
-               const portata = parseFloat($("#portata-impianto").val()) || 0;
-               const quantita = parseFloat($("#quantita-da-lavorare").val()) || 0;
-               const orarioInizio = $("#orario-inizio").val();
-               
-               if (portata > 0 && quantita > 0 && orarioInizio) {
-                   const durataOre = quantita / portata;
-                   const durataMinuti = durataOre * 60;
-                   
-                   // Formatta durata
-                   const ore = Math.floor(durataMinuti / 60);
-                   const minuti = Math.round(durataMinuti % 60);
-                   $("#durata-lavorazione").val(`${ore}h ${minuti}m`);
-                   
-                   // Calcola orario fine
-                   const [oreInizio, minutiInizio] = orarioInizio.split(':').map(Number);
-                   const inizioData = new Date();
-                   inizioData.setHours(oreInizio, minutiInizio, 0, 0);
-                   
-                   const fineData = new Date(inizioData.getTime() + (durataMinuti * 60000));
-                   const oreFine = fineData.getHours().toString().padStart(2, '0');
-                   const minutiFine = fineData.getMinutes().toString().padStart(2, '0');
-                   
-                   $("#orario-fine").val(`${oreFine}:${minutiFine}`);
-               }
-           }
-
-           function calcolaReseSpremitura() {
-               const quantita = parseFloat($("#quantita-da-lavorare").val()) || 0;
-               
-               if (quantita > 0) {
-                   const resaPrima = parseFloat($("#resa-prima-perc").val()) || 0;
-                   const resaSeconda = parseFloat($("#resa-seconda-perc").val()) || 0;
-                   const resaTorchiato = parseFloat($("#resa-torchiato-perc").val()) || 0;
-                   
-                   // Calcola litri (assumendo densità ~1 kg/L per semplicità)
-                   const litriPrima = (quantita * resaPrima / 100);
-                   const litriSeconda = (quantita * resaSeconda / 100);
-                   const litriTorchiato = (quantita * resaTorchiato / 100);
-                   
-                   $("#resa-prima-litri").val(Math.round(litriPrima));
-                   $("#resa-seconda-litri").val(Math.round(litriSeconda));
-                   $("#resa-torchiato-litri").val(Math.round(litriTorchiato));
-                   
-                   // Totali
-                   const totaleResa = litriPrima + litriSeconda + litriTorchiato;
-                   const totalePerc = resaPrima + resaSeconda + resaTorchiato;
-                   
-                   $("#resa-totale").text(Math.round(totaleResa).toLocaleString('it-IT') + " L");
-                   $("#resa-totale-perc").text(totalePerc.toFixed(1) + "%");
-                   
-                   // Auto-popola quantità destinazioni
-                   $("#quantita-dest-prima").val(Math.round(litriPrima));
-                   $("#quantita-dest-seconda").val(Math.round(litriSeconda));
-                   $("#quantita-dest-torchiato").val(Math.round(litriTorchiato));
-               }
-           }
-
-           // ================ GESTIONE FORNITORI ================
-           function aggiungiFornitore() {
-               fornitoreCounter++;
-               const nuovoFornitore = `
-                   <div class="fornitore-card" data-fornitore="${fornitoreCounter}">
-                       <div class="row g-3 align-items-end">
-                           <div class="col-md-3">
-                               <label class="form-label form-label-required">Nome Fornitore</label>
-                               <select class="form-select fornitore-select" required>
-                                   <option value="">Seleziona fornitore</option>
-                                   <option value="RESTUCCIA">RESTUCCIA</option>
-                                   <option value="CI">CI</option>
-                                   <option value="ARCO">ARCO</option>
-                                   <option value="GIOVINAZZO">GIOVINAZZO</option>
-                                   <option value="AZ.T.C.">AZ.T.C.</option>
-                                   <option value="VASTA">VASTA</option>
-                                   <option value="ALTRO">ALTRO</option>
-                               </select>
-                               <input type="text" class="form-control mt-2 altro-fornitore" placeholder="Specifica altro fornitore" style="display: none;">
-                           </div>
-                           <div class="col-md-2">
-                               <label class="form-label form-label-required">Quantità (kg)</label>
-                               <div class="input-group">
-                                   <input type="number" class="form-control quantita-fornitore" min="0" required>
-                                   <span class="input-group-text">kg</span>
-                               </div>
-                           </div>
-                           <div class="col-md-3">
-                               <label class="form-label form-label-required">Tipologia Prodotto</label>
-                               <select class="form-select tipologia-prodotto" required>
-                                   <option value="">Seleziona tipologia</option>
-                                   <option value="BIO EU">BIO EU</option>
-                                   <option value="BIO DEM">BIO DEM</option>
-                                   <option value="BIO NTD">BIO NTD</option>
-                                   <option value="TRACCIATO">TRACCIATO</option>
-                                   <option value="IGP">IGP</option>
-                                   <option value="CONVENZIONALE">CONVENZIONALE</option>
-                                   <option value="ALTRO">ALTRO</option>
-                               </select>
-                               <input type="text" class="form-control mt-2 altra-tipologia" placeholder="Specifica altra tipologia" style="display: none;">
-                           </div>
-                           <div class="col-md-2">
-                               <label class="form-label">Targa Mezzo</label>
-                               <input type="text" class="form-control targa-mezzo" placeholder="AA123BB">
-                           </div>
-                           <div class="col-md-2">
-                               <button type="button" class="btn btn-outline-danger btn-sm remove-fornitore">
-                                   <i class="bi bi-trash"></i> Rimuovi
-                               </button>
-                           </div>
-                       </div>
-                   </div>
-               `;
-               
-               $("#fornitori-container").append(nuovoFornitore);
-               aggiornaCalculiFornitori();
-           }
-
-           function aggiornaCalculiFornitori() {
-               let totaleFornitori = 0;
-               
-               $(".quantita-fornitore").each(function() {
-                   const quantita = parseFloat($(this).val()) || 0;
-                   totaleFornitori += quantita;
-               });
-               
-               $("#totale-fornitori").text(totaleFornitori.toLocaleString('it-IT') + " kg");
-               
-               // Verifica differenza con entrata dichiarata
-               const entrataGiornaliera = parseFloat($("#entrata-giornaliera").val()) || 0;
-               const differenza = totaleFornitori - entrataGiornaliera;
-               
-               if (Math.abs(differenza) > 0) {
-                   $("#differenza-alert").show();
-                   const differenzaText = differenza > 0 ? 
-                       `+${differenza.toLocaleString('it-IT')} kg (Eccesso)` : 
-                       `${differenza.toLocaleString('it-IT')} kg (Deficit)`;
-                   $("#differenza-valore").text(differenzaText);
-                   
-                   if (differenza > 0) {
-                       $("#differenza-alert").removeClass("alert-warning").addClass("alert-danger");
-                   } else {
-                       $("#differenza-alert").removeClass("alert-danger").addClass("alert-warning");
-                   }
-               } else {
-                   $("#differenza-alert").hide();
-               }
-               
-               aggiornaProgressi();
-               aggiornaRiepilogo();
-           }
-
-           // ================ AGGIORNAMENTO PROGRESSI ================
-           function aggiornaProgressi() {
-               // Calcola completamento configurazione
-               let campiCompletati = 0;
-               let campiTotali = 8;
-               
-               if ($("#data-lavorazione").val()) campiCompletati++;
-               if ($("#turno").val()) campiCompletati++;
-               if ($("#responsabile").val()) campiCompletati++;
-               if ($("#tipo-agrume-principale").val()) campiCompletati++;
-               if ($("#entrata-giornaliera").val()) campiCompletati++;
-               if ($("#linea-trasformazione").val()) campiCompletati++;
-               if ($("#portata-impianto").val()) campiCompletati++;
-               if ($("#orario-inizio").val()) campiCompletati++;
-               
-               const progressConfig = Math.round((campiCompletati / campiTotali) * 100);
-               $("#progress-config").css("width", progressConfig + "%").text(progressConfig + "%");
-               
-               // Calcola bilanciamento fornitori
-               const entrataGiornaliera = parseFloat($("#entrata-giornaliera").val()) || 0;
-               let totaleFornitori = 0;
-               
-               $(".quantita-fornitore").each(function() {
-                   totaleFornitori += parseFloat($(this).val()) || 0;
-               });
-               
-               let progressFornitori = 0;
-               if (entrataGiornaliera > 0) {
-                   progressFornitori = Math.min(100, Math.round((totaleFornitori / entrataGiornaliera) * 100));
-               }
-               
-               $("#progress-fornitori").css("width", progressFornitori + "%").text(progressFornitori + "%");
-               
-               // Aggiorna stato sistema
-               if (progressConfig >= 100 && progressFornitori >= 95 && progressFornitori <= 105) {
-                   $("#stato-sistema").text("Pronto per lavorazione").removeClass().addClass("text-success fw-bold");
-               } else if (progressConfig >= 70) {
-                   $("#stato-sistema").text("Configurazione quasi completa").removeClass().addClass("text-warning fw-bold");
-               } else {
-                   $("#stato-sistema").text("In configurazione").removeClass().addClass("text-info fw-bold");
-               }
-           }
-
-           // ================ AGGIORNAMENTO RIEPILOGO ================
-           function aggiornaRiepilogo() {
-               const riepilogoData = [
-                   { parametro: "Data Lavorazione", valore: $("#data-lavorazione").val() || "Non impostata" },
-                   { parametro: "Turno", valore: $("#turno").val() || "Non impostato" },
-                   { parametro: "Responsabile", valore: $("#responsabile").val() || "Non impostato" },
-                   { parametro: "Tipo Agrume", valore: $("#tipo-agrume-principale").val() || "Non selezionato" },
-                   { parametro: "Varietà", valore: $("#varieta-agrume").val() || "Non selezionata" },
-                   { parametro: "Quantità Totale", valore: $("#totale-disponibile").text() },
-                   { parametro: "Linea Trasformazione", valore: $("#linea-trasformazione").val() || "Non selezionata" },
-                   { parametro: "Portata Impianto", valore: ($("#portata-impianto").val() || "0") + " kg/h" },
-                   { parametro: "Orario Inizio", valore: $("#orario-inizio").val() || "Non impostato" },
-                   { parametro: "Durata Stimata", valore: $("#durata-lavorazione").val() || "Non calcolata" },
-                   { parametro: "Resa Totale Stimata", valore: $("#resa-totale").text() }
-               ];
-               
-               const tbody = $("#riepilogo-table");
-               tbody.empty();
-               
-               riepilogoData.forEach(function(item) {
-                   const row = `
-                       <tr>
-                           <td><strong>${item.parametro}</strong></td>
-                           <td>${item.valore}</td>
-                       </tr>
-                   `;
-                   tbody.append(row);
-               });
-           }
-
-           // ================ GESTIONE DESTINAZIONI ================
-           function gestisciDestinazioni() {
-               $(".destinazione-select").change(function() {
-                   const container = $(this).closest('.col-md-4');
-                   const altraDestInput = container.find('.altra-dest');
-                   
-                   if ($(this).val() === "ALTRO") {
-                       altraDestInput.show().attr('required', true);
-                   } else {
-                       altraDestInput.hide().removeAttr('required').val('');
-                   }
-               });
-           }
-
-           // ================ CARICAMENTO DATI DEMO ================
-           function caricaDatiDemo() {
-               // Dati demo configurazione
-               $("#responsabile").val("Marco Russo");
-               $("#note-giornata").val("Lavorazione prioritaria limoni per cliente tedesco");
-               
-               // Dati demo agrume
-               $("#tipo-agrume-principale").val("LIMONE").trigger('change');
-               setTimeout(function() {
-                   $("#varieta-agrume").val("Verdello");
-               }, 100);
-               
-               // Dati demo giacenze
-               $("#giacenza-totale").val("15000");
-               $("#entrata-giornaliera").val("8000");
-               
-               // Dati demo lavorazione
-               $("#linea-trasformazione").val("BOE/1100");
-               $("#portata-impianto").val("2500");
-               $("#quantita-da-lavorare").val("8000");
-               $("#orario-inizio").val("08:00");
-               
-               // Aggiorna calcoli
-               setTimeout(function() {
-                   calcolaQuantitaTotale();
-                   calcolaDurataLavorazione();
-                   calcolaReseSpremitura();
-                   aggiornaProgressi();
-                   aggiornaRiepilogo();
-               }, 200);
-               
-               // Carica storico demo
-               caricaStoricoDemo();
-               
-               console.log("Dati demo caricati");
-           }
-
-           function caricaStoricoDemo() {
-               const storicoDemo = [
-                   {
-                       data: "2025-05-21",
-                       turno: "Mattino",
-                       agrume: "ARANCIA",
-                       quantita: 7500,
-                       linea: "GOE EST/400",
-                       durata: "3h 15m",
-                       resa: 78.5,
-                       stato: "Completato"
-                   },
-                   {
-                       data: "2025-05-20",
-                       turno: "Pomeriggio",
-                       agrume: "LIMONE",
-                       quantita: 6200,
-                       linea: "B/SF",
-                       durata: "2h 45m",
-                       resa: 82.1,
-                       stato: "Completato"
-                   },
-                   {
-                       data: "2025-05-20",
-                       turno: "Mattino",
-                       agrume: "MANDARINO",
-                       quantita: 5800,
-                       linea: "GOE INT/POLY",
-                       durata: "2h 30m",
-                       resa: 75.3,
-                       stato: "Completato"
-                   }
-               ];
-               
-               const tbody = $("#storico-table");
-               tbody.empty();
-               
-               storicoDemo.forEach(function(item, index) {
-                   const statoClass = item.stato === "Completato" ? "text-success" : "text-warning";
-                   const row = `
-                       <tr>
-                           <td>${item.data}</td>
-                           <td>${item.turno}</td>
-                           <td><strong>${item.agrume}</strong></td>
-                           <td>${item.quantita.toLocaleString('it-IT')} kg</td>
-                           <td>${item.linea}</td>
-                           <td>${item.durata}</td>
-                           <td>${item.resa}%</td>
-                           <td><span class="fw-bold ${statoClass}">${item.stato}</span></td>
-                           <td>
-                               <button class="btn btn-sm btn-outline-primary" onclick="visualizzaDettagli(${index})">
-                                   <i class="bi bi-eye"></i> Dettagli
-                               </button>
-                           </td>
-                       </tr>
-                   `;
-                   tbody.append(row);
-               });
-           }
-
-           // ================ EVENT LISTENERS ================
-           
-           // Calcoli automatici
-           $("#giacenza-totale, #entrata-giornaliera").on('input', calcolaQuantitaTotale);
-           $("#portata-impianto, #quantita-da-lavorare, #orario-inizio").on('input change', calcolaDurataLavorazione);
-           $("#resa-prima-perc, #resa-seconda-perc, #resa-torchiato-perc").on('input', calcolaReseSpremitura);
-           
-           // Gestione fornitori
-           $("#add-fornitore").click(aggiungiFornitore);
-           $(document).on('click', '.remove-fornitore', function() {
-               if ($('.fornitore-card').length > 1) {
-                   $(this).closest('.fornitore-card').remove();
-                   aggiornaCalculiFornitori();
-               } else {
-                   alert("Deve rimanere almeno un fornitore!");
-               }
-           });
-           
-           $(document).on('change', '.fornitore-select', function() {
-               const container = $(this).closest('.fornitore-card');
-               const altroInput = container.find('.altro-fornitore');
-               
-               if ($(this).val() === "ALTRO") {
-                   altroInput.show().attr('required', true);
-               } else {
-                   altroInput.hide().removeAttr('required').val('');
-               }
-           });
-           
-           $(document).on('change', '.tipologia-prodotto', function() {
-               const container = $(this).closest('.fornitore-card');
-               const altraInput = container.find('.altra-tipologia');
-               
-               if ($(this).val() === "ALTRO") {
-                   altraInput.show().attr('required', true);
-               } else {
-                   altraInput.hide().removeAttr('required').val('');
-               }
-               
-               // Evidenzia righe BIO
-               if ($(this).val().includes('BIO')) {
-                   container.addClass('bio-row');
-               } else {
-                   container.removeClass('bio-row');
-               }
-           });
-           
-           $(document).on('input', '.quantita-fornitore', aggiornaCalculiFornitori);
-           
-           // Aggiorna tutti i progressi quando cambiano i campi
-           $("input, select").on('change input', function() {
-               aggiornaProgressi();
-               aggiornaRiepilogo();
-           });
-           
-           // Gestione destinazioni
-           gestisciDestinazioni();
-           
-           // ================ PULSANTI AZIONE ================
-           
-           $("#btn-salva-programma").click(function() {
-               const programmaJson = JSON.stringify(raccogliDatiProgramma(), null, 2);
-               console.log("Programma salvato:", programmaJson);
-               
-               // Simula salvataggio
-               const timestamp = new Date().toLocaleString('it-IT');
-               alert(`Programma salvato con successo!\nTimestamp: ${timestamp}\n\nIl programma è stato salvato nel sistema.`);
-               
-               // Aggiorna stato
-               programmaData.stato = 'salvato';
-               $("#stato-sistema").text("Programma salvato").removeClass().addClass("text-primary fw-bold");
-           });
-           
-           $("#btn-avvia-lavorazione").click(function() {
-               if (validaProgramma()) {
-                   mostraConferma(
-                       "Avvio Lavorazione",
-                       "Confermi l'avvio della lavorazione? Una volta avviata, il programma non potrà essere modificato.",
-                       function() {
-                           avviaLavorazione();
-                       }
-                   );
-               } else {
-                   alert("Completare tutti i campi obbligatori prima di avviare la lavorazione!");
-               }
-           });
-           
-           $("#btn-reset-programma").click(function() {
-               mostraConferma(
-                   "Reset Programma",
-                   "ATTENZIONE: Questa operazione cancellerà tutti i dati inseriti. L'operazione non può essere annullata.",
-                   function() {
-                       resetProgramma();
-                   }
-               );
-           });
-           
-           $("#btn-carica-template").click(function() {
-               mostraConferma(
-                   "Carica Template",
-                   "Vuoi caricare un template predefinito? I dati attuali saranno sovrascritti.",
-                   function() {
-                       caricaTemplate();
-                   }
-               );
-           });
-           
-           $("#btn-export-pdf").click(function() {
-               alert("Funzione di esportazione PDF in sviluppo...");
-           });
-           
-           $("#btn-print").click(function() {
-               window.print();
-           });
-           
-           // ================ FUNZIONI UTILITY ================
-           
-           function raccogliDatiProgramma() {
-               const config = {
-                   data: $("#data-lavorazione").val(),
-                   turno: $("#turno").val(),
-                   responsabile: $("#responsabile").val(),
-                   note: $("#note-giornata").val()
-               };
-               
-               const agrume = {
-                   tipo: $("#tipo-agrume-principale").val(),
-                   varieta: $("#varieta-agrume").val(),
-                   giacenza: parseFloat($("#giacenza-totale").val()) || 0,
-                   entrata: parseFloat($("#entrata-giornaliera").val()) || 0
-               };
-               
-               const fornitori = [];
-               $(".fornitore-card").each(function() {
-                   const card = $(this);
-                   const fornitore = {
-                       nome: card.find(".fornitore-select").val(),
-                       altroNome: card.find(".altro-fornitore").val(),
-                       quantita: parseFloat(card.find(".quantita-fornitore").val()) || 0,
-                       tipologia: card.find(".tipologia-prodotto").val(),
-                       altraTipologia: card.find(".altra-tipologia").val(),
-                       targa: card.find(".targa-mezzo").val()
-                   };
-                   if (fornitore.nome && fornitore.quantita > 0) {
-                       fornitori.push(fornitore);
-                   }
-               });
-               
-               const lavorazione = {
-                   linea: $("#linea-trasformazione").val(),
-                   portata: parseFloat($("#portata-impianto").val()) || 0,
-                   quantita: parseFloat($("#quantita-da-lavorare").val()) || 0,
-                   orarioInizio: $("#orario-inizio").val(),
-                   durata: $("#durata-lavorazione").val(),
-                   orarioFine: $("#orario-fine").val()
-               };
-               
-               const rese = {
-                   prima: {
-                       percentuale: parseFloat($("#resa-prima-perc").val()) || 0,
-                       litri: parseFloat($("#resa-prima-litri").val()) || 0,
-                       effettiva: parseFloat($("#resa-prima-effettiva").val()) || 0
-                   },
-                   seconda: {
-                       percentuale: parseFloat($("#resa-seconda-perc").val()) || 0,
-                       litri: parseFloat($("#resa-seconda-litri").val()) || 0,
-                       effettiva: parseFloat($("#resa-seconda-effettiva").val()) || 0
-                   },
-                   torchiato: {
-                       percentuale: parseFloat($("#resa-torchiato-perc").val()) || 0,
-                       litri: parseFloat($("#resa-torchiato-litri").val()) || 0,
-                       effettiva: parseFloat($("#resa-torchiato-effettiva").val()) || 0
-                   }
-               };
-               
-               const destinazioni = {
-                   prima: {
-                       destinazione: $("#dest-prima").val(),
-                       quantita: parseFloat($("#quantita-dest-prima").val()) || 0
-                   },
-                   seconda: {
-                       destinazione: $("#dest-seconda").val(),
-                       quantita: parseFloat($("#quantita-dest-seconda").val()) || 0
-                   },
-                   torchiato: {
-                       destinazione: $("#dest-torchiato").val(),
-                       quantita: parseFloat($("#quantita-dest-torchiato").val()) || 0
-                   }
-               };
-               
-               return {
-                   timestamp: new Date().toISOString(),
-                   config: config,
-                   agrume: agrume,
-                   fornitori: fornitori,
-                   lavorazione: lavorazione,
-                   rese: rese,
-                   destinazioni: destinazioni,
-                   stato: programmaData.stato
-               };
-           }
-           
-           function validaProgramma() {
-               const campiObbligatori = [
-                   "#data-lavorazione",
-                   "#turno", 
-                   "#responsabile",
-                   "#tipo-agrume-principale",
-                   "#entrata-giornaliera",
-                   "#linea-trasformazione",
-                   "#portata-impianto",
-                   "#quantita-da-lavorare",
-                   "#orario-inizio"
-               ];
-               
-               let valido = true;
-               
-               campiObbligatori.forEach(function(campo) {
-                   if (!$(campo).val()) {
-                       $(campo).addClass("is-invalid");
-                       valido = false;
-                   } else {
-                       $(campo).removeClass("is-invalid");
-                   }
-               });
-               
-               // Verifica fornitori
-               let fornitoriValidi = true;
-               $(".fornitore-card").each(function() {
-                   const nome = $(this).find(".fornitore-select").val();
-                   const quantita = $(this).find(".quantita-fornitore").val();
-                   const tipologia = $(this).find(".tipologia-prodotto").val();
-                   
-                   if (!nome || !quantita || !tipologia) {
-                       $(this).find(".form-control, .form-select").addClass("is-invalid");
-                       fornitoriValidi = false;
-                   }
-               });
-               
-               return valido && fornitoriValidi;
-           }
-           
-           function avviaLavorazione() {
-               // Simula avvio lavorazione
-               const orarioInizio = new Date().toLocaleTimeString('it-IT');
-               programmaData.stato = 'in_lavorazione';
-               
-               $("#stato-sistema").text(`Lavorazione avviata alle ${orarioInizio}`).removeClass().addClass("text-success fw-bold");
-               
-               // Disabilita tutti i campi
-               $("input, select").prop('disabled', true);
-               $(".btn-programma, .btn-outline-success, .btn-outline-warning").prop('disabled', true);
-               
-               alert(`Lavorazione avviata con successo!\nOrario inizio: ${orarioInizio}\n\nTutti i parametri sono ora bloccati.`);
-               
-               // Simula aggiornamento stato
-               simulaAvanzamentoLavorazione();
-           }
-           
-           function simulaAvanzamentoLavorazione() {
-               let progresso = 0;
-               const intervallo = setInterval(function() {
-                   progresso += Math.random() * 5;
-                   
-                   if (progresso >= 100) {
-                       progresso = 100;
-                       clearInterval(intervallo);
-                       $("#stato-sistema").text("Lavorazione completata").removeClass().addClass("text-success fw-bold");
-                       
-                       // Salva nei dati storici
-                       salvaInStorico();
-                   }
-                   
-                   $("#stato-sistema").text(`Lavorazione in corso: ${Math.round(progresso)}%`);
-               }, 2000);
-           }
-           
-           function salvaInStorico() {
-               const nuovoRecord = {
-                   data: $("#data-lavorazione").val(),
-                   turno: $("#turno").val().split(' ')[0],
-                   agrume: $("#tipo-agrume-principale").val(),
-                   quantita: parseInt($("#quantita-da-lavorare").val()),
-                   linea: $("#linea-trasformazione").val(),
-                   durata: $("#durata-lavorazione").val(),
-                   resa: (parseFloat($("#resa-prima-perc").val()) + parseFloat($("#resa-seconda-perc").val()) + parseFloat($("#resa-torchiato-perc").val())).toFixed(1),
-                   stato: "Completato"
-               };
-               
-               // Aggiungi in cima alla tabella
-               const statoClass = "text-success";
-               const row = `
-                   <tr class="table-success">
-                       <td><strong>${nuovoRecord.data}</strong></td>
-                       <td>${nuovoRecord.turno}</td>
-                       <td><strong>${nuovoRecord.agrume}</strong></td>
-                       <td>${nuovoRecord.quantita.toLocaleString('it-IT')} kg</td>
-                       <td>${nuovoRecord.linea}</td>
-                       <td>${nuovoRecord.durata}</td>
-                       <td>${nuovoRecord.resa}%</td>
-                       <td><span class="fw-bold ${statoClass}">${nuovoRecord.stato}</span></td>
-                       <td>
-                           <button class="btn btn-sm btn-outline-primary">
-                               <i class="bi bi-eye"></i> Dettagli
-                           </button>
-                       </td>
-                   </tr>
-               `;
-               
-               $("#storico-table").prepend(row);
-           }
-           
-           function resetProgramma() {
-               // Reset completo del form
-               $("form")[0].reset();
-               $("#config-form")[0].reset();
-               
-               // Reset campi calcolati
-               $(".calculated-field").val("");
-               $("#totale-disponibile").text("0 kg");
-               $("#resa-totale").text("0 L");
-               $("#resa-totale-perc").text("0%");
-               $("#totale-fornitori").text("0 kg");
-               $("#differenza-alert").hide();
-               
-               // Reset fornitori (mantieni solo il primo)
-               $(".fornitore-card:not(:first)").remove();
-               $(".fornitore-card:first input, .fornitore-card:first select").val("");
-               $(".altro-fornitore, .altra-tipologia").hide();
-               
-               // Reset progressi
-               $("#progress-config, #progress-fornitori").css("width", "0%").text("0%");
-               $("#stato-sistema").text("In configurazione").removeClass().addClass("text-info fw-bold");
-               
-               // Reset destinazioni
-               $(".altra-dest").hide().val("");
-               
-               // Riabilita campi se erano disabilitati
-               $("input, select, button").prop('disabled', false);
-               
-               // Reset variabili
-               programmaData.stato = 'configurazione';
-               fornitoreCounter = 1;
-               
-               alert("Programma resettato con successo!");
-           }
-           
-           function caricaTemplate() {
-               const templates = {
-                   "limoni": {
-                       agrume: "LIMONE",
-                       varieta: "Verdello",
-                       linea: "B/SF",
-                       portata: 2200,
-                       resaPrima: 48,
-                       resaSeconda: 28,
-                       resaTorchiato: 16
-                   },
-                   "arance": {
-                       agrume: "ARANCIA",
-                       varieta: "Tarocco",
-                       linea: "GOE EST/400",
-                       portata: 2800,
-                       resaPrima: 42,
-                       resaSeconda: 25,
-                       resaTorchiato: 18
-                   },
-                   "mandarini": {
-                       agrume: "MANDARINO",
-                       varieta: "Ciaculli",
-                       linea: "GOE INT/POLY",
-                       portata: 2000,
-                       resaPrima: 38,
-                       resaSeconda: 22,
-                       resaTorchiato: 15
-                   }
-               };
-               
-               // Chiedi quale template caricare
-               const scelta = prompt("Seleziona template:\n1. Limoni\n2. Arance\n3. Mandarini\n\nInserisci il numero:");
-               
-               let templateScelto;
-               switch(scelta) {
-                   case "1":
-                       templateScelto = templates.limoni;
-                       break;
-                   case "2":
-                       templateScelto = templates.arance;
-                       break;
-                   case "3":
-                       templateScelto = templates.mandarini;
-                       break;
-                   default:
-                       alert("Selezione non valida!");
-                       return;
-               }
-               
-               // Applica template
-               $("#tipo-agrume-principale").val(templateScelto.agrume).trigger('change');
-               setTimeout(function() {
-                   $("#varieta-agrume").val(templateScelto.varieta);
-                   $("#linea-trasformazione").val(templateScelto.linea);
-                   $("#portata-impianto").val(templateScelto.portata);
-                   $("#resa-prima-perc").val(templateScelto.resaPrima);
-                   $("#resa-seconda-perc").val(templateScelto.resaSeconda);
-                   $("#resa-torchiato-perc").val(templateScelto.resaTorchiato);
-                   
-                   // Ricalcola tutto
-                   calcolaQuantitaTotale();
-                   calcolaDurataLavorazione();
-                   calcolaReseSpremitura();
-                   aggiornaProgressi();
-                   aggiornaRiepilogo();
-               }, 200);
-               
-               alert(`Template "${templateScelto.agrume}" caricato con successo!`);
-           }
-           
-           function mostraConferma(titolo, messaggio, callback) {
-               $("#confirmModalLabel").text(titolo);
-               $("#confirmModalBody").html(`<p>${messaggio}</p>`);
-               
-               $("#confirmActionBtn").off('click').on('click', function() {
-                   callback();
-                   bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
-               });
-               
-               new bootstrap.Modal(document.getElementById('confirmModal')).show();
-           }
-           
-           // Funzione globale per dettagli storici
-           window.visualizzaDettagli = function(index) {
-               alert(`Dettagli lavorazione non ancora implementati.\nIndice: ${index}`);
-           };
-           
-           // ================ INIZIALIZZAZIONE FINALE ================
-           
-           // Avvia inizializzazione
-           inizializzaInterface();
-           
-           // Aggiorna riepilogo iniziale
-           setTimeout(function() {
-               aggiornaRiepilogo();
-           }, 500);
-           
-           console.log("Programma Giornaliero Lavorazione Frutta - Inizializzazione completata!");
-       });
-   </script>
+            console.log("Inizializzazione completata - Programma Giornaliero pronto all'uso");
+        });
+    </script>
 </body>
 </html>
