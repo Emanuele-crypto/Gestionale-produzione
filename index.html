@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programma Giornaliero Lavorazione Frutta - Simone Gatto</title>
+    <!-- Importazione librerie esterne -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -13,424 +14,275 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
         }
-
+        
         .header-programma {
             background: linear-gradient(135deg, #2E8B57, #228B22);
             color: white;
-            padding: 25px 0;
+            padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
+        
         .main-container {
             max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
         }
-
+        
         .section-card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
             margin-bottom: 25px;
-            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #2E8B57;
         }
-
-        .section-header {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            padding: 15px 20px;
-            margin: 0;
-            font-weight: 600;
-        }
-
-        .section-body {
-            padding: 20px;
-        }
-
-        .fornitore-container {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+        
+        .section-title {
+            color: #2E8B57;
+            font-weight: bold;
             margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .fornitore-card {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
             background: #fafafa;
         }
-
+        
+        .fornitore-card:hover {
+            border-color: #2E8B57;
+            box-shadow: 0 4px 12px rgba(46,139,87,0.15);
+        }
+        
+        .fornitore-card.bio {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+        
         .fornitore-header {
-            background: linear-gradient(135deg, #17a2b8, #138496);
+            background: #2E8B57;
             color: white;
-            padding: 12px 15px;
-            margin: 0;
-            border-radius: 6px 6px 0 0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
             display: flex;
-            justify-content: space-between;
+            justify-content: between;
             align-items: center;
         }
-
-        .fornitore-body {
-            padding: 15px;
+        
+        .fornitore-header.bio {
+            background: #dc3545;
         }
-
-        .rese-container {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 6px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-
-        .rese-header {
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .input-group-custom {
-            margin-bottom: 15px;
-        }
-
-        .input-group-custom .form-label {
-            font-weight: 500;
-            color: #495057;
-            margin-bottom: 5px;
-        }
-
+        
         .btn-programma {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #2E8B57, #228B22);
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 500;
+            border-radius: 8px;
             transition: all 0.3s;
         }
-
+        
         .btn-programma:hover {
-            background: linear-gradient(135deg, #20c997, #28a745);
+            background: linear-gradient(135deg, #228B22, #1e7b1e);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 4px 12px rgba(46,139,87,0.3);
         }
-
+        
         .btn-remove {
-            background: linear-gradient(135deg, #dc3545, #c82333);
+            background: #dc3545;
             color: white;
             border: none;
             padding: 5px 10px;
-            border-radius: 4px;
+            border-radius: 5px;
             font-size: 12px;
         }
-
-        .btn-remove:hover {
-            background: linear-gradient(135deg, #c82333, #dc3545);
-            color: white;
+        
+        .stats-summary {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
         }
-
-        .bio-highlight {
-            background-color: #ffe4e6 !important;
-            border-color: #ffc0cb !important;
+        
+        .stats-item {
+            text-align: center;
+            padding: 15px;
         }
-
-        .bio-text {
-            color: #dc3545;
+        
+        .stats-value {
+            font-size: 2rem;
             font-weight: bold;
+            color: #2E8B57;
         }
-
-        .summary-table {
-            margin-top: 20px;
+        
+        .stats-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
-
-        .summary-table th {
-            background-color: #e9ecef;
-            font-weight: 600;
-            border-top: none;
+        
+        .time-display {
+            background: #e7f3ff;
+            border: 1px solid #b3d7ff;
+            border-radius: 5px;
+            padding: 8px;
+            font-weight: bold;
+            color: #0066cc;
         }
-
-        @media (max-width: 768px) {
-            .fornitore-header {
-                flex-direction: column;
-                align-items: start;
-                gap: 10px;
-            }
-            
-            .btn-group {
-                width: 100%;
-            }
+        
+        .resa-section {
+            background: #f0f8ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
         }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
+        
+        .destinazione-section {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 3px solid #2E8B57;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .concentrato-options {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            display: none;
         }
-
-        .auto-calculated {
-            background-color: #e8f5e8;
-            border-color: #28a745;
-            font-weight: 600;
+        
+        .required-field {
+            border-left: 3px solid #dc3545 !important;
         }
-
-        .destinazione-grid {
+        
+        .bio-text {
+            color: #dc3545 !important;
+            font-weight: bold !important;
+        }
+        
+        .totali-card {
+            background: linear-gradient(135deg, #2E8B57, #228B22);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        
+        .portata-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 10px;
             margin-top: 10px;
+        }
+        
+        .portata-btn {
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .portata-btn:hover, .portata-btn.active {
+            border-color: #2E8B57;
+            background: #2E8B57;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="header-programma">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h1><i class="bi bi-calendar-check"></i> PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>
-                    <h5>Sistema di Gestione Produzione - Simone Gatto</h5>
-                </div>
-                <div class="col-md-4 text-end">
-                    <div class="d-flex align-items-center justify-content-end">
-                        <label for="data-programma" class="form-label text-white me-2 mb-0">Data:</label>
-                        <input type="date" class="form-control" id="data-programma" style="width: auto;">
+    <div id="programma-container">
+        <!-- Header -->
+        <div class="header-programma">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1><i class="bi bi-calendar-check"></i> PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>
+                        <h4>Sistema di Gestione Produzione - Simone Gatto</h4>
+                        <p class="mb-0">Data: <span id="current-date"></span></p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <button class="btn btn-light btn-lg" onclick="printProgram()">
+                            <i class="bi bi-printer"></i> Stampa Programma
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="main-container">
-        <div class="section-card">
-            <h4 class="section-header">
-                <i class="bi bi-clipboard-data"></i> Riepilogo Giornaliero
-            </h4>
-            <div class="section-body">
+        <div class="main-container">
+            <!-- Statistiche Generali -->
+            <div class="stats-summary">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="stats-item">
+                            <div class="stats-value" id="total-giacenza">0</div>
+                            <div class="stats-label">Kg Giacenza Totale</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-item">
+                            <div class="stats-value" id="total-entrata">0</div>
+                            <div class="stats-label">Kg Entrata Giornaliera</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-item">
+                            <div class="stats-value" id="total-fornitori">0</div>
+                            <div class="stats-label">Fornitori Attivi</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-item">
+                            <div class="stats-value" id="tempo-totale">0h</div>
+                            <div class="stats-label">Tempo Lavorazione Stimato</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dati Generali Giornata -->
+            <div class="section-card">
+                <h3 class="section-title"><i class="bi bi-info-circle"></i> Dati Generali Giornata</h3>
+                
                 <div class="row g-3">
                     <div class="col-md-3">
-                        <div class="input-group-custom">
-                            <label for="tipo-agrume-principale" class="form-label">Tipo di Agrume Principale</label>
-                            <select class="form-select" id="tipo-agrume-principale">
-                                <option value="">Seleziona tipo...</option>
-                                <option value="Limone">Limone</option>
-                                <option value="Arancia">Arancia</option>
-                                <option value="Mandarino">Mandarino</option>
-                                <option value="Pompelmo">Pompelmo</option>
-                                <option value="Bergamotto">Bergamotto</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group-custom">
-                            <label for="giacenza-totale" class="form-label">Giacenza Iniziale (kg)</label>
-                            <input type="number" class="form-control" id="giacenza-totale" placeholder="0">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group-custom">
-                            <label for="entrata-totale" class="form-label">Totale in Entrata (kg)</label>
-                            <input type="number" class="form-control auto-calculated" id="entrata-totale" readonly placeholder="0">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group-custom">
-                            <label for="totale-disponibile" class="form-label">Totale Disponibile (kg)</label>
-                            <input type="number" class="form-control auto-calculated" id="totale-disponibile" readonly placeholder="0">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-card">
-            <h4 class="section-header">
-                <i class="bi bi-truck"></i> Gestione Fornitori
-                <button class="btn btn-light btn-sm" id="add-fornitore">
-                    <i class="bi bi-plus-circle"></i> Aggiungi Fornitore
-                </button>
-            </h4>
-            <div class="section-body" id="fornitori-container">
-            </div>
-        </div>
-
-        <div class="section-card">
-            <h4 class="section-header">
-                <i class="bi bi-droplet-half"></i> Rese Totali Succo 2^ e Torchiato
-            </h4>
-            <div class="section-body">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <div class="rese-container">
-                            <div class="rese-header">Succo di 2^ Spremitura - Totale</div>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Resa Stimata (L)</label>
-                                    <input type="number" class="form-control auto-calculated" id="totale-succo2-resa" readonly>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Destinazione</label>
-                                    <select class="form-select" id="totale-succo2-destinazione">
-                                        <option value="">Seleziona destinazione...</option>
-                                        <option value="PET 100">PET 100</option>
-                                        <option value="PET 200">PET 200</option>
-                                        <option value="PET 480">PET 480</option>
-                                        <option value="ACMA">ACMA</option>
-                                        <option value="REX">REX</option>
-                                        <option value="GOGLIO">GOGLIO</option>
-                                        <option value="VASCHETTE">VASCHETTE</option>
-                                        <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
-                                        <option value="LATTE">LATTE</option>
-                                        <option value="F.F.">F.F.</option>
-                                        <option value="F.T.C">F.T.C</option>
-                                        <option value="FBL">FBL</option>
-                                        <option value="BIC">BIC</option>
-                                        <option value="CISTERNA P">CISTERNA P</option>
-                                        <option value="CISTERNA EF">CISTERNA EF</option>
-                                        <option value="CISTERNA VK">CISTERNA VK</option>
-                                        <option value="CISTERNA GS">CISTERNA GS</option>
-                                        <option value="ALTRO">ALTRO</option>
-                                    </select>
-                                </div>
-                                <div class="col-12" id="altro-succo2-container" style="display: none;">
-                                    <label class="form-label">Specifica Altro</label>
-                                    <input type="text" class="form-control" id="altro-succo2" placeholder="Specifica destinazione">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="rese-container">
-                            <div class="rese-header">Torchiato - Totale</div>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Resa Stimata (L)</label>
-                                    <input type="number" class="form-control auto-calculated" id="totale-torchiato-resa" readonly>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Destinazione</label>
-                                    <select class="form-select" id="totale-torchiato-destinazione">
-                                        <option value="">Seleziona destinazione...</option>
-                                        <option value="PET 100">PET 100</option>
-                                        <option value="PET 200">PET 200</option>
-                                        <option value="PET 480">PET 480</option>
-                                        <option value="ACMA">ACMA</option>
-                                        <option value="REX">REX</option>
-                                        <option value="GOGLIO">GOGLIO</option>
-                                        <option value="VASCHETTE">VASCHETTE</option>
-                                        <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
-                                        <option value="LATTE">LATTE</option>
-                                        <option value="F.F.">F.F.</option>
-                                        <option value="F.T.C">F.T.C</option>
-                                        <option value="FBL">FBL</option>
-                                        <option value="BIC">BIC</option>
-                                        <option value="CISTERNA P">CISTERNA P</option>
-                                        <option value="CISTERNA EF">CISTERNA EF</option>
-                                        <option value="CISTERNA VK">CISTERNA VK</option>
-                                        <option value="CISTERNA GS">CISTERNA GS</option>
-                                        <option value="ALTRO">ALTRO</option>
-                                    </select>
-                                </div>
-                                <div class="col-12" id="altro-torchiato-container" style="display: none;">
-                                    <label class="form-label">Specifica Altro</label>
-                                    <input type="text" class="form-control" id="altro-torchiato" placeholder="Specifica destinazione">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-card">
-            <h4 class="section-header">
-                <i class="bi bi-table"></i> Riepilogo Lavorazione Programmata
-            </h4>
-            <div class="section-body">
-                <div class="table-responsive">
-                    <table class="table table-hover summary-table" id="riepilogo-table">
-                        <thead>
-                            <tr>
-                                <th>Fornitore</th>
-                                <th>Quantità (kg)</th>
-                                <th>Certificazione</th>
-                                <th>Linea</th>
-                                <th>Inizio</th>
-                                <th>Fine</th>
-                                <th>Portata (kg/h)</th>
-                                <th>Succo 1^ (L)</th>
-                                <th>Destinazione 1^</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col-12 text-center">
-                <button class="btn btn-programma btn-lg me-3" id="btn-salva-programma">
-                    <i class="bi bi-save"></i> Salva Programma
-                </button>
-                <button class="btn btn-outline-secondary btn-lg me-3" id="btn-reset-programma">
-                    <i class="bi bi-arrow-clockwise"></i> Reset
-                </button>
-                <button class="btn btn-outline-success btn-lg" id="btn-stampa-programma">
-                    <i class="bi bi-printer"></i> Stampa Programma
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="fornitore-template" style="display: none;">
-        <div class="fornitore-container fade-in">
-            <div class="fornitore-header">
-                <div>
-                    <i class="bi bi-building"></i> <span class="fornitore-nome">Nuovo Fornitore</span>
-                </div>
-                <button class="btn btn-remove btn-sm remove-fornitore">
-                    <i class="bi bi-trash"></i> Rimuovi
-                </button>
-            </div>
-            <div class="fornitore-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label class="form-label">Nome Fornitore</label>
-                        <select class="form-select nome-fornitore">
-                            <option value="">Seleziona...</option>
-                            <option value="RESTUCCIA">RESTUCCIA</option>
-                            <option value="CI">CI</option>
-                            <option value="ARCO">ARCO</option>
-                            <option value="GIOVINAZZO">GIOVINAZZO</option>
-                            <option value="AZ.T.C.">AZ.T.C.</option>
-                            <option value="VASTA">VASTA</option>
-                            <option value="ALTRO">ALTRO</option>
+                        <label class="form-label">Tipo di Agrume</label>
+                        <select class="form-select" id="tipo-agrume-generale">
+                            <option value="">Seleziona tipo</option>
+                            <option value="Limone">Limone</option>
+                            <option value="Arancia">Arancia</option>
+                            <option value="Mandarino">Mandarino</option>
+                            <option value="Pompelmo">Pompelmo</option>
+                            <option value="Bergamotto">Bergamotto</option>
                         </select>
-                        <input type="text" class="form-control mt-2 altro-fornitore" style="display: none;" placeholder="Specifica altro fornitore">
                     </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Quantità (kg)</label>
-                        <input type="number" class="form-control quantita-fornitore" placeholder="0">
+                    <div class="col-md-3">
+                        <label class="form-label">Quantità Giacenza (kg)</label>
+                        <input type="number" class="form-control" id="giacenza-generale" placeholder="0">
                     </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Certificazione</label>
-                        <select class="form-select certificazione-fornitore">
-                            <option value="">Seleziona...</option>
-                            <option value="BIO EU">BIO EU</option>
-                            <option value="BIO DEM">BIO DEM</option>
-                            <option value="BIO NTD">BIO NTD</option>
-                            <option value="TRACCIATO">TRACCIATO</option>
-                            <option value="IGP">IGP</option>
-                            <option value="CONVENZIONALE">CONVENZIONALE</option>
-                            <option value="ALTRO">ALTRO</option>
-                        </select>
-                        <input type="text" class="form-control mt-2 altra-certificazione" style="display: none;" placeholder="Specifica altra certificazione">
+                    <div class="col-md-3">
+                        <label class="form-label">Quantità Entrata Totale (kg)</label>
+                        <input type="number" class="form-control" id="entrata-totale" placeholder="0" readonly>
                     </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Linea Trasformazione</label>
-                        <select class="form-select linea-trasformazione">
-                            <option value="">Seleziona...</option>
+                    <div class="col-md-3">
+                        <label class="form-label">Linea di Trasformazione</label>
+                        <select class="form-select" id="linea-generale">
+                            <option value="">Seleziona linea</option>
                             <option value="BOE/1100">BOE/1100</option>
                             <option value="GOE INT/POLY">GOE INT/POLY</option>
                             <option value="GOE EST/POLY">GOE EST/POLY</option>
@@ -438,550 +290,677 @@
                             <option value="B/SF">B/SF</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Portata (kg/h)</label>
-                        <input type="number" class="form-control portata-impianto" placeholder="0">
-                    </div>
-                    <div class="col-md-1">
-                        <label class="form-label">Inizio</label>
-                        <input type="time" class="form-control orario-inizio">
-                    </div>
+                </div>
+            </div>
+
+            <!-- Gestione Fornitori -->
+            <div class="section-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="section-title mb-0"><i class="bi bi-truck"></i> Gestione Fornitori</h3>
+                    <button class="btn btn-programma" onclick="addFornitore()">
+                        <i class="bi bi-plus-circle"></i> Aggiungi Fornitore
+                    </button>
                 </div>
                 
-                <div class="row g-3 mt-2">
-                    <div class="col-md-3">
-                        <label class="form-label">Fine Lavorazione (Calcolata)</label>
-                        <input type="time" class="form-control auto-calculated orario-fine" readonly>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Durata Lavorazione</label>
-                        <input type="text" class="form-control auto-calculated durata-lavorazione" readonly placeholder="0h 0m">
-                    </div>
+                <div id="fornitori-container">
+                    <!-- I fornitori verranno aggiunti dinamicamente qui -->
                 </div>
+            </div>
 
-                <div class="rese-container">
-                    <div class="rese-header">Rese Succo di 1^ Spremitura</div>
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label class="form-label">Resa Stimata (L)</label>
-                            <input type="number" class="form-control auto-calculated resa-succo1" readonly>
+            <!-- Totali Succo 2^ e Torchiato -->
+            <div class="totali-card">
+                <h3><i class="bi bi-calculator"></i> Totali Generali Succo 2^ e Torchiato</h3>
+                
+                <div class="row g-3 mt-3">
+                    <div class="col-md-6">
+                        <h5>Succo 2^ Spremitura - Totale</h5>
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <label class="form-label text-white">Resa Stimata (L)</label>
+                                <input type="number" class="form-control" id="succo2-totale-resa" readonly>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label text-white">Destinazione</label>
+                                <select class="form-select" id="succo2-totale-destinazione">
+                                    <option value="">Seleziona destinazione</option>
+                                    <option value="PET 100">PET 100</option>
+                                    <option value="PET 200">PET 200</option>
+                                    <option value="PET 480">PET 480</option>
+                                    <option value="ACMA">ACMA</option>
+                                    <option value="REX">REX</option>
+                                    <option value="GOGLIO">GOGLIO</option>
+                                    <option value="VASCHETTE">VASCHETTE</option>
+                                    <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                                    <option value="LATTE">LATTE</option>
+                                    <option value="F.F.">F.F.</option>
+                                    <option value="F.T.C">F.T.C</option>
+                                    <option value="FBL">FBL</option>
+                                    <option value="BIC">BIC</option>
+                                    <option value="CISTERNA P">CISTERNA P</option>
+                                    <option value="CISTERNA EF">CISTERNA EF</option>
+                                    <option value="CISTERNA VK">CISTERNA VK</option>
+                                    <option value="CISTERNA GS">CISTERNA GS</option>
+                                    <option value="CONCENTRATO">CONCENTRATO</option>
+                                    <option value="ALTRO">ALTRO</option>
+                                </select>
+                                <div class="concentrato-options" id="succo2-concentrato-options">
+                                    <label class="form-label text-dark">Grado BX</label>
+                                    <select class="form-select">
+                                        <option value="32">32°</option>
+                                        <option value="40">40°</option>
+                                        <option value="45">45°</option>
+                                        <option value="48">48°</option>
+                                        <option value="50">50°</option>
+                                        <option value="55">55°</option>
+                                        <option value="58">58°</option>
+                                        <option value="60">60°</option>
+                                        <option value="63.5">63,5°</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Destinazione</label>
-                            <select class="form-select destinazione-succo1">
-                                <option value="">Seleziona destinazione...</option>
-                                <option value="PET 100">PET 100</option>
-                                <option value="PET 200">PET 200</option>
-                                <option value="PET 480">PET 480</option>
-                                <option value="ACMA">ACMA</option>
-                                <option value="REX">REX</option>
-                                <option value="GOGLIO">GOGLIO</option>
-                                <option value="VASCHETTE">VASCHETTE</option>
-                                <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
-                                <option value="LATTE">LATTE</option>
-                                <option value="F.F.">F.F.</option>
-                                <option value="F.T.C">F.T.C</option>
-                                <option value="FBL">FBL</option>
-                                <option value="BIC">BIC</option>
-                                <option value="CISTERNA P">CISTERNA P</option>
-                                <option value="CISTERNA EF">CISTERNA EF</option>
-                                <option value="CISTERNA VK">CISTERNA VK</option>
-                                <option value="CISTERNA GS">CISTERNA GS</option>
-                                <option value="ALTRO">ALTRO</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 altro-destinazione-container" style="display: none;">
-                            <label class="form-label">Specifica Altra Destinazione</label>
-                            <input type="text" class="form-control altra-destinazione" placeholder="Specifica destinazione">
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h5>Torchiato - Totale</h5>
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <label class="form-label text-white">Resa Stimata (L)</label>
+                                <input type="number" class="form-control" id="torchiato-totale-resa" readonly>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label text-white">Destinazione</label>
+                                <select class="form-select" id="torchiato-totale-destinazione">
+                                    <option value="">Seleziona destinazione</option>
+                                    <option value="PET 100">PET 100</option>
+                                    <option value="PET 200">PET 200</option>
+                                    <option value="PET 480">PET 480</option>
+                                    <option value="ACMA">ACMA</option>
+                                    <option value="REX">REX</option>
+                                    <option value="GOGLIO">GOGLIO</option>
+                                    <option value="VASCHETTE">VASCHETTE</option>
+                                    <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                                    <option value="LATTE">LATTE</option>
+                                    <option value="F.F.">F.F.</option>
+                                    <option value="F.T.C">F.T.C</option>
+                                    <option value="FBL">FBL</option>
+                                    <option value="BIC">BIC</option>
+                                    <option value="CISTERNA P">CISTERNA P</option>
+                                    <option value="CISTERNA EF">CISTERNA EF</option>
+                                    <option value="CISTERNA VK">CISTERNA VK</option>
+                                    <option value="CISTERNA GS">CISTERNA GS</option>
+                                    <option value="CONCENTRATO">CONCENTRATO</option>
+                                    <option value="ALTRO">ALTRO</option>
+                                </select>
+                                <div class="concentrato-options" id="torchiato-concentrato-options">
+                                    <label class="form-label text-dark">Grado BX</label>
+                                    <select class="form-select">
+                                        <option value="32">32°</option>
+                                        <option value="40">40°</option>
+                                        <option value="45">45°</option>
+                                        <option value="48">48°</option>
+                                        <option value="50">50°</option>
+                                        <option value="55">55°</option>
+                                        <option value="58">58°</option>
+                                        <option value="60">60°</option>
+                                        <option value="63.5">63,5°</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Pulsanti Azione -->
+            <div class="text-center mt-4">
+                <button class="btn btn-programma btn-lg me-3" onclick="salvaPrograma()">
+                    <i class="bi bi-save"></i> Salva Programma
+                </button>
+                <button class="btn btn-outline-secondary btn-lg me-3" onclick="resetPrograma()">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </button>
+                <button class="btn btn-success btn-lg" onclick="esportaPrograma()">
+                    <i class="bi bi-download"></i> Esporta Excel
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         $(document).ready(function() {
-            console.log("Inizializzazione Programma Giornaliero Lavorazione Frutta...");
+            console.log("Inizializzazione Programma Giornaliero Lavorazione Frutta");
             
-            let fornitoreCounter = 0;
-            let rese = {
-                succo1: 0.65,
-                succo2: 0.15,
-                torchiato: 0.08
-            };
-
-            const oggi = new Date().toISOString().split('T')[0];
-            $('#data-programma').val(oggi);
-
-            $('#add-fornitore').click(function() {
-                aggiungiFornitore();
+            // Imposta la data corrente
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('it-IT', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             });
-
-            function aggiungiFornitore() {
+            $('#current-date').text(formattedDate);
+            
+            // Contatore fornitori
+            let fornitoreCounter = 0;
+            
+            // Portate standard per linea (kg/h)
+            const portateStandard = {
+                'BOE/1100': [800, 1000, 1100, 1200],
+                'GOE INT/POLY': [600, 800, 1000],
+                'GOE EST/POLY': [600, 800, 1000],
+                'GOE EST/400': [300, 350, 400],
+                'B/SF': [200, 250, 300, 350]
+            };
+            
+            // Coefficienti di resa standard (%)
+            const reseStandard = {
+                'Limone': { succo1: 45, succo2: 8, torchiato: 5 },
+                'Arancia': { succo1: 50, succo2: 10, torchiato: 6 },
+                'Mandarino': { succo1: 42, succo2: 7, torchiato: 4 },
+                'Pompelmo': { succo1: 48, succo2: 9, torchiato: 5 },
+                'Bergamotto': { succo1: 40, succo2: 6, torchiato: 3 }
+            };
+            
+            // Funzione per aggiungere un nuovo fornitore
+            window.addFornitore = function() {
                 fornitoreCounter++;
-                const template = $('#fornitore-template').html();
-                const newFornitore = $(template);
+                const fornitoreId = 'fornitore-' + fornitoreCounter;
                 
-                newFornitore.find('.fornitore-nome').text('Fornitore ' + fornitoreCounter);
-                $('#fornitori-container').append(newFornitore);
-                aggiungiEventListenersFornitore(newFornitore);
+                const fornitoreHtml = `
+                    <div class="fornitore-card" id="${fornitoreId}">
+                        <div class="fornitore-header">
+                            <h5 class="mb-0">Fornitore #${fornitoreCounter}</h5>
+                            <button class="btn btn-remove" onclick="removeFornitore('${fornitoreId}')">
+                                <i class="bi bi-trash"></i> Rimuovi
+                            </button>
+                        </div>
+                        
+                        <div class="row g-3">
+                            <!-- Dati Base Fornitore -->
+                            <div class="col-md-3">
+                                <label class="form-label">Nome Fornitore</label>
+                                <select class="form-select fornitore-nome" onchange="updateFornitoreType('${fornitoreId}')">
+                                    <option value="">Seleziona fornitore</option>
+                                    <option value="RESTUCCIA">RESTUCCIA</option>
+                                    <option value="CI">CI</option>
+                                    <option value="ARCO">ARCO</option>
+                                    <option value="GIOVINAZZO">GIOVINAZZO</option>
+                                    <option value="AZ.T.C.">AZ.T.C.</option>
+                                    <option value="VASTA">VASTA</option>
+                                    <option value="ALTRO">ALTRO</option>
+                                </select>
+                                <input type="text" class="form-control mt-2 altro-fornitore" placeholder="Specifica altro" style="display:none;">
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <label class="form-label">Quantità (kg)</label>
+                                <input type="number" class="form-control quantita-fornitore" onchange="calculateTotals()" placeholder="0">
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <label class="form-label">Certificazione</label>
+                                <select class="form-select certificazione-fornitore" onchange="updateFornitoreStyle('${fornitoreId}')">
+                                    <option value="">Seleziona</option>
+                                    <option value="BIO EU">BIO EU</option>
+                                    <option value="BIO DEM">BIO DEM</option>
+                                    <option value="BIO NTD">BIO NTD</option>
+                                    <option value="TRACCIATO">TRACCIATO</option>
+                                    <option value="IGP">IGP</option>
+                                    <option value="CONVENZIONALE">CONVENZIONALE</option>
+                                    <option value="ALTRO">ALTRO</option>
+                                </select>
+                                <input type="text" class="form-control mt-2 altra-certificazione" placeholder="Specifica altra" style="display:none;">
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <label class="form-label">Orario Inizio</label>
+                                <input type="time" class="form-control orario-inizio" onchange="calculateEndTime('${fornitoreId}')">
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <label class="form-label">Orario Fine (Calcolato)</label>
+                                <input type="text" class="form-control time-display orario-fine" readonly>
+                            </div>
+                            
+                            <!-- Portata Impianto -->
+                            <div class="col-md-12">
+                                <label class="form-label">Portata Impianto (kg/h)</label>
+                                <div class="portata-options" id="portata-${fornitoreId}">
+                                    <!-- Le opzioni di portata verranno generate dinamicamente -->
+                                </div>
+                                <input type="number" class="form-control mt-2 portata-custom" placeholder="Portata personalizzata (kg/h)" onchange="calculateEndTime('${fornitoreId}')">
+                            </div>
+                            
+                            <!-- Sezione Rese -->
+                            <div class="col-md-12">
+                                <div class="resa-section">
+                                    <h6><i class="bi bi-calculator-fill"></i> Calcolo Rese Automatico</h6>
+                                    <div class="row g-2">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Succo 1^ Spremitura (L)</label>
+                                            <input type="number" class="form-control resa-succo1" readonly>
+                                            <small class="text-muted">Resa calcolata automaticamente</small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Succo 2^ Spremitura (L)</label>
+                                            <input type="number" class="form-control resa-succo2" readonly>
+                                            <small class="text-muted">Contribuisce al totale generale</small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Torchiato (L)</label>
+                                            <input type="number" class="form-control resa-torchiato" readonly>
+                                            <small class="text-muted">Contribuisce al totale generale</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Destinazione Succo 1^ -->
+                            <div class="col-md-12">
+                                <div class="destinazione-section">
+                                    <h6><i class="bi bi-arrow-right-circle"></i> Destinazione Succo 1^ Spremitura</h6>
+                                    <div class="row g-2">
+                                        <div class="col-md-8">
+                                            <select class="form-select destinazione-succo1" onchange="handleDestinazioneChange('${fornitoreId}', 'succo1')">
+                                                <option value="">Seleziona destinazione</option>
+                                                <option value="PET 100">PET 100</option>
+                                                <option value="PET 200">PET 200</option>
+                                                <option value="PET 480">PET 480</option>
+                                                <option value="ACMA">ACMA</option>
+                                                <option value="REX">REX</option>
+                                                <option value="GOGLIO">GOGLIO</option>
+                                                <option value="VASCHETTE">VASCHETTE</option>
+                                                <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                                                <option value="LATTE">LATTE</option>
+                                                <option value="F.F.">F.F.</option>
+                                                <option value="F.T.C">F.T.C</option>
+                                                <option value="FBL">FBL</option>
+                                                <option value="BIC">BIC</option>
+                                                <option value="CISTERNA P">CISTERNA P</option>
+                                                <option value="CISTERNA EF">CISTERNA EF</option>
+                                                <option value="CISTERNA VK">CISTERNA VK</option>
+                                                <option value="CISTERNA GS">CISTERNA GS</option>
+                                                <option value="CONCENTRATO">CONCENTRATO</option>
+                                                <option value="ALTRO">ALTRO</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="concentrato-options" id="concentrato-succo1-${fornitoreId}">
+                                                <label class="form-label">Grado BX</label>
+                                                <select class="form-select grado-bx">
+                                                    <option value="32">32°</option>
+                                                    <option value="40">40°</option>
+                                                    <option value="45">45°</option>
+                                                    <option value="48">48°</option>
+                                                    <option value="50">50°</option>
+                                                    <option value="55">55°</option>
+                                                    <option value="58">58°</option>
+                                                    <option value="60">60°</option>
+                                                    <option value="63.5">63,5°</option>
+                                                </select>
+                                            </div>
+                                            <input type="text" class="form-control altro-destinazione" placeholder="Specifica altra destinazione" style="display:none;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
                 
-                console.log('Aggiunto fornitore ' + fornitoreCounter);
-            }
-
-            function aggiungiEventListenersFornitore(fornitoreElement) {
-                fornitoreElement.find('.remove-fornitore').click(function() {
-                    if (confirm('Sei sicuro di voler rimuovere questo fornitore?')) {
-                        fornitoreElement.remove();
-                        ricalcolaTotali();
-                        aggiornaRiepilogo();
-                    }
-                });
-
-                fornitoreElement.find('.nome-fornitore').change(function() {
-                    const altroContainer = fornitoreElement.find('.altro-fornitore');
-                    if ($(this).val() === 'ALTRO') {
-                        altroContainer.show();
-                    } else {
-                        altroContainer.hide().val('');
-                        fornitoreElement.find('.fornitore-nome').text($(this).val() || 'Nuovo Fornitore');
-                    }
-                    aggiornaRiepilogo();
-                });
-
-                fornitoreElement.find('.altro-fornitore').on('input', function() {
-                    const nomePersonalizzato = $(this).val();
-                    if (nomePersonalizzato) {
-                        fornitoreElement.find('.fornitore-nome').text(nomePersonalizzato);
-                    }
-                    aggiornaRiepilogo();
-                });
-
-                fornitoreElement.find('.certificazione-fornitore').change(function() {
-                    const altraContainer = fornitoreElement.find('.altra-certificazione');
-                    if ($(this).val() === 'ALTRO') {
-                        altraContainer.show();
-                    } else {
-                        altraContainer.hide().val('');
-                    }
-                    
-                    const isBio = $(this).val().includes('BIO');
-                    if (isBio) {
-                        fornitoreElement.addClass('bio-highlight');
-                    } else {
-                        fornitoreElement.removeClass('bio-highlight');
-                    }
-                    
-                    aggiornaRiepilogo();
-                });
-
-                fornitoreElement.find('.destinazione-succo1').change(function() {
-                    const altroContainer = fornitoreElement.find('.altro-destinazione-container');
-                    if ($(this).val() === 'ALTRO') {
-                        altroContainer.show();
-                    } else {
-                        altroContainer.hide();
-                        fornitoreElement.find('.altra-destinazione').val('');
-                    }
-                });
-
-                fornitoreElement.find('.quantita-fornitore, .portata-impianto, .orario-inizio').on('input change', function() {
-                    calcolaLavorazione(fornitoreElement);
-                    ricalcolaTotali();
-                    aggiornaRiepilogo();
-                });
-            }
-
-            function calcolaLavorazione(fornitoreElement) {
-                const quantita = parseFloat(fornitoreElement.find('.quantita-fornitore').val()) || 0;
-                const portata = parseFloat(fornitoreElement.find('.portata-impianto').val()) || 0;
-                const orarioInizio = fornitoreElement.find('.orario-inizio').val();
-
-                if (quantita > 0 && portata > 0 && orarioInizio) {
-                    const durataOre = quantita / portata;
-                    const ore = Math.floor(durataOre);
-                    const minuti = Math.round((durataOre - ore) * 60);
-                    
-                    fornitoreElement.find('.durata-lavorazione').val(ore + 'h ' + minuti + 'm');
-                    
-                    const parts = orarioInizio.split(':').map(Number);
-                    const oreInizio = parts[0];
-                    const minutiInizio = parts[1];
-                    const inizioMinuti = oreInizio * 60 + minutiInizio;
-                    const fineMinuti = inizioMinuti + (ore * 60) + minuti;
-                    const oreFine = Math.floor(fineMinuti / 60) % 24;
-                    const minutiFine = fineMinuti % 60;
-                    
-                    const orarioFine = oreFine.toString().padStart(2, '0') + ':' + minutiFine.toString().padStart(2, '0');
-                    fornitoreElement.find('.orario-fine').val(orarioFine);
-                    
-                    const resaSucco1 = Math.round(quantita * rese.succo1);
-                    fornitoreElement.find('.resa-succo1').val(resaSucco1);
-                    
-                } else {
-                    fornitoreElement.find('.durata-lavorazione').val('');
-                    fornitoreElement.find('.orario-fine').val('');
-                    fornitoreElement.find('.resa-succo1').val('');
-                }
-            }
-
-            function ricalcolaTotali() {
-                let totaleEntrata = 0;
-                let totaleSucco2 = 0;
-                let totaleTorchiato = 0;
+                $('#fornitori-container').append(fornitoreHtml);
                 
-                $('.quantita-fornitore').each(function() {
-                    const quantita = parseFloat($(this).val()) || 0;
-                    totaleEntrata += quantita;
-                    totaleSucco2 += quantita * rese.succo2;
-                    totaleTorchiato += quantita * rese.torchiato;
-                });
+                // Inizializza le opzioni di portata basate sulla linea generale
+                updatePortataOptions(fornitoreId);
                 
-                $('#entrata-totale').val(totaleEntrata);
-                
-                const giacenza = parseFloat($('#giacenza-totale').val()) || 0;
-                $('#totale-disponibile').val(giacenza + totaleEntrata);
-                
-                $('#totale-succo2-resa').val(Math.round(totaleSucco2));
-                $('#totale-torchiato-resa').val(Math.round(totaleTorchiato));
-           }
-
-           $('#totale-succo2-destinazione').change(function() {
-               if ($(this).val() === 'ALTRO') {
-                   $('#altro-succo2-container').show();
-               } else {
-                   $('#altro-succo2-container').hide();
-                   $('#altro-succo2').val('');
+                // Aggiorna i totali
+                calculateTotals();
+            };
+            
+            // Funzione per rimuovere un fornitore
+            window.removeFornitore = function(fornitoreId) {
+                if (confirm('Sei sicuro di voler rimuovere questo fornitore?')) {
+                    $('#' + fornitoreId).remove();
+                   calculateTotals();
                }
-           });
-
-           $('#totale-torchiato-destinazione').change(function() {
-               if ($(this).val() === 'ALTRO') {
-                   $('#altro-torchiato-container').show();
-               } else {
-                   $('#altro-torchiato-container').hide();
-                   $('#altro-torchiato').val('');
-               }
-           });
-
-           function aggiornaRiepilogo() {
-               const tbody = $('#riepilogo-table tbody');
-               tbody.empty();
+           };
+           
+           // Funzione per aggiornare le opzioni di portata
+           function updatePortataOptions(fornitoreId) {
+               const linea = $('#linea-generale').val();
+               const container = $('#portata-' + fornitoreId);
+               container.empty();
                
-               $('.fornitore-container').each(function() {
-                   const fornitoreElement = $(this);
-                   const nomeFornitore = fornitoreElement.find('.nome-fornitore').val() === 'ALTRO' 
-                       ? fornitoreElement.find('.altro-fornitore').val() 
-                       : fornitoreElement.find('.nome-fornitore').val();
+               if (linea && portateStandard[linea]) {
+                   portateStandard[linea].forEach(portata => {
+                       const btn = $(`
+                           <div class="portata-btn" data-portata="${portata}" onclick="selectPortata('${fornitoreId}', ${portata})">
+                               ${portata} kg/h
+                           </div>
+                       `);
+                       container.append(btn);
+                   });
+               }
+           }
+           
+           // Funzione per selezionare una portata
+           window.selectPortata = function(fornitoreId, portata) {
+               const container = $('#portata-' + fornitoreId);
+               container.find('.portata-btn').removeClass('active');
+               container.find(`[data-portata="${portata}"]`).addClass('active');
+               
+               // Imposta la portata nel campo custom
+               $('#' + fornitoreId + ' .portata-custom').val(portata);
+               
+               // Ricalcola l'orario di fine
+               calculateEndTime(fornitoreId);
+           };
+           
+           // Funzione per aggiornare il tipo di fornitore
+           window.updateFornitoreType = function(fornitoreId) {
+               const fornitore = $('#' + fornitoreId + ' .fornitore-nome').val();
+               const altroContainer = $('#' + fornitoreId + ' .altro-fornitore');
+               
+               if (fornitore === 'ALTRO') {
+                   altroContainer.show();
+               } else {
+                   altroContainer.hide().val('');
+               }
+           };
+           
+           // Funzione per aggiornare lo stile del fornitore (BIO)
+           window.updateFornitoreStyle = function(fornitoreId) {
+               const certificazione = $('#' + fornitoreId + ' .certificazione-fornitore').val();
+               const fornitoreCard = $('#' + fornitoreId);
+               const header = fornitoreCard.find('.fornitore-header');
+               const altroContainer = $('#' + fornitoreId + ' .altra-certificazione');
+               
+               // Gestisci campo "ALTRO"
+               if (certificazione === 'ALTRO') {
+                   altroContainer.show();
+               } else {
+                   altroContainer.hide().val('');
+               }
+               
+               // Applica stile BIO
+               if (certificazione && (certificazione.includes('BIO') || certificazione === 'BIO EU' || certificazione === 'BIO DEM' || certificazione === 'BIO NTD')) {
+                   fornitoreCard.addClass('bio');
+                   header.addClass('bio');
+               } else {
+                   fornitoreCard.removeClass('bio');
+                   header.removeClass('bio');
+               }
+               
+               // Ricalcola le rese
+               calculateRese(fornitoreId);
+           };
+           
+           // Funzione per calcolare l'orario di fine
+           window.calculateEndTime = function(fornitoreId) {
+               const quantita = parseFloat($('#' + fornitoreId + ' .quantita-fornitore').val()) || 0;
+               const portata = parseFloat($('#' + fornitoreId + ' .portata-custom').val()) || 0;
+               const orarioInizio = $('#' + fornitoreId + ' .orario-inizio').val();
+               
+               if (quantita > 0 && portata > 0 && orarioInizio) {
+                   const oreLavorazione = quantita / portata;
+                   const minutiLavorazione = Math.round(oreLavorazione * 60);
                    
-                   const quantita = fornitoreElement.find('.quantita-fornitore').val();
-                   const certificazione = fornitoreElement.find('.certificazione-fornitore').val() === 'ALTRO'
-                       ? fornitoreElement.find('.altra-certificazione').val()
-                       : fornitoreElement.find('.certificazione-fornitore').val();
+                   const [ore, minuti] = orarioInizio.split(':').map(Number);
+                   const inizioDate = new Date();
+                   inizioDate.setHours(ore, minuti, 0, 0);
                    
-                   const linea = fornitoreElement.find('.linea-trasformazione').val();
-                   const inizio = fornitoreElement.find('.orario-inizio').val();
-                   const fine = fornitoreElement.find('.orario-fine').val();
-                   const portata = fornitoreElement.find('.portata-impianto').val();
-                   const succo1 = fornitoreElement.find('.resa-succo1').val();
-                   const destinazione1 = fornitoreElement.find('.destinazione-succo1').val() === 'ALTRO'
-                       ? fornitoreElement.find('.altra-destinazione').val()
-                       : fornitoreElement.find('.destinazione-succo1').val();
+                   const fineDate = new Date(inizioDate.getTime() + minutiLavorazione * 60000);
                    
-                   if (nomeFornitore && quantita) {
-                       const isBio = certificazione && certificazione.includes('BIO');
-                       const rowClass = isBio ? 'bio-text' : '';
-                       
-                       const row = '<tr class="' + rowClass + '">' +
-                           '<td>' + (nomeFornitore || '-') + '</td>' +
-                           '<td>' + (quantita || '-') + ' kg</td>' +
-                           '<td>' + (certificazione || '-') + '</td>' +
-                           '<td>' + (linea || '-') + '</td>' +
-                           '<td>' + (inizio || '-') + '</td>' +
-                           '<td>' + (fine || '-') + '</td>' +
-                           '<td>' + (portata || '-') + ' kg/h</td>' +
-                           '<td>' + (succo1 || '-') + ' L</td>' +
-                           '<td>' + (destinazione1 || '-') + '</td>' +
-                           '</tr>';
-                       tbody.append(row);
+                   const orarioFine = fineDate.toTimeString().slice(0, 5);
+                   $('#' + fornitoreId + ' .orario-fine').val(orarioFine);
+                   
+                   // Aggiorna anche il tempo totale
+                   updateTempoTotale();
+               } else {
+                   $('#' + fornitoreId + ' .orario-fine').val('');
+               }
+               
+               // Ricalcola le rese
+               calculateRese(fornitoreId);
+           };
+           
+           // Funzione per calcolare le rese
+           function calculateRese(fornitoreId) {
+               const tipoAgrume = $('#tipo-agrume-generale').val();
+               const quantita = parseFloat($('#' + fornitoreId + ' .quantita-fornitore').val()) || 0;
+               
+               if (tipoAgrume && quantita > 0 && reseStandard[tipoAgrume]) {
+                   const rese = reseStandard[tipoAgrume];
+                   
+                   const succo1 = Math.round((quantita * rese.succo1) / 100);
+                   const succo2 = Math.round((quantita * rese.succo2) / 100);
+                   const torchiato = Math.round((quantita * rese.torchiato) / 100);
+                   
+                   $('#' + fornitoreId + ' .resa-succo1').val(succo1);
+                   $('#' + fornitoreId + ' .resa-succo2').val(succo2);
+                   $('#' + fornitoreId + ' .resa-torchiato').val(torchiato);
+                   
+                   // Aggiorna i totali generali
+                   updateTotaliGenerali();
+               }
+           }
+           
+           // Funzione per gestire il cambio di destinazione
+           window.handleDestinazioneChange = function(fornitoreId, tipo) {
+               const destinazione = $('#' + fornitoreId + ' .destinazione-' + tipo).val();
+               const concentratoContainer = $('#concentrato-' + tipo + '-' + fornitoreId);
+               const altroContainer = $('#' + fornitoreId + ' .altro-destinazione');
+               
+               if (destinazione === 'CONCENTRATO') {
+                   concentratoContainer.show();
+               } else {
+                   concentratoContainer.hide();
+               }
+               
+               if (destinazione === 'ALTRO') {
+                   altroContainer.show();
+               } else {
+                   altroContainer.hide().val('');
+               }
+           };
+           
+           // Funzione per aggiornare i totali generali di succo 2^ e torchiato
+           function updateTotaliGenerali() {
+               let totaleSucco2 = 0;
+               let totaleTorchiato = 0;
+               
+               $('.resa-succo2').each(function() {
+                   totaleSucco2 += parseFloat($(this).val()) || 0;
+               });
+               
+               $('.resa-torchiato').each(function() {
+                   totaleTorchiato += parseFloat($(this).val()) || 0;
+               });
+               
+               $('#succo2-totale-resa').val(totaleSucco2);
+               $('#torchiato-totale-resa').val(totaleTorchiato);
+           }
+           
+           // Funzione per calcolare i totali
+           function calculateTotals() {
+               let totaleEntrata = 0;
+               let totaleFornitori = 0;
+               
+               $('.quantita-fornitore').each(function() {
+                   const quantita = parseFloat($(this).val()) || 0;
+                   if (quantita > 0) {
+                       totaleEntrata += quantita;
+                       totaleFornitori++;
                    }
                });
+               
+               $('#total-entrata').text(totaleEntrata.toLocaleString());
+               $('#entrata-totale').val(totaleEntrata);
+               $('#total-fornitori').text(totaleFornitori);
+               
+               // Aggiorna giacenza totale
+               const giacenza = parseFloat($('#giacenza-generale').val()) || 0;
+               $('#total-giacenza').text((giacenza + totaleEntrata).toLocaleString());
+               
+               // Aggiorna totali rese
+               updateTotaliGenerali();
            }
-
-           $('#giacenza-totale').on('input', function() {
-               ricalcolaTotali();
+           
+           // Funzione per aggiornare il tempo totale di lavorazione
+           function updateTempoTotale() {
+               let tempoTotaleMinuti = 0;
+               
+               $('.fornitore-card').each(function() {
+                   const quantita = parseFloat($(this).find('.quantita-fornitore').val()) || 0;
+                   const portata = parseFloat($(this).find('.portata-custom').val()) || 0;
+                   
+                   if (quantita > 0 && portata > 0) {
+                       const tempoLavorazione = (quantita / portata) * 60; // in minuti
+                       tempoTotaleMinuti += tempoLavorazione;
+                   }
+               });
+               
+               const ore = Math.floor(tempoTotaleMinuti / 60);
+               const minuti = Math.round(tempoTotaleMinuti % 60);
+               $('#tempo-totale').text(ore + 'h ' + (minuti > 0 ? minuti + 'm' : ''));
+           }
+           
+           // Event listeners per aggiornamenti automatici
+           $('#tipo-agrume-generale').change(function() {
+               $('.fornitore-card').each(function() {
+                   const fornitoreId = $(this).attr('id');
+                   calculateRese(fornitoreId);
+               });
            });
-
-           $('#btn-salva-programma').click(function() {
-               const programma = raccogliDatiProgramma();
-               if (validaProgramma(programma)) {
-                   const dataProgram = $('#data-programma').val();
-                   const timestamp = new Date().toLocaleString();
-                   
-                   alert('Programma salvato con successo!\n\nData: ' + dataProgram + '\nTimestamp: ' + timestamp + '\nFornitori: ' + programma.fornitori.length + '\nTotale frutta: ' + programma.totaleEntrata + ' kg');
-                   
-                   console.log('Programma salvato:', programma);
+           
+           $('#linea-generale').change(function() {
+               $('.fornitore-card').each(function() {
+                   const fornitoreId = $(this).attr('id');
+                   updatePortataOptions(fornitoreId);
+               });
+           });
+           
+           $('#giacenza-generale').on('input', function() {
+               calculateTotals();
+           });
+           
+           // Gestione destinazioni totali
+           $('#succo2-totale-destinazione').change(function() {
+               if ($(this).val() === 'CONCENTRATO') {
+                   $('#succo2-concentrato-options').show();
                } else {
-                   alert('Completare tutti i campi obbligatori prima di salvare il programma.');
+                   $('#succo2-concentrato-options').hide();
                }
            });
-
-           $('#btn-reset-programma').click(function() {
-               if (confirm('Attenzione: tutti i dati inseriti verranno cancellati. Continuare?')) {
-                   resetProgramma();
+           
+           $('#torchiato-totale-destinazione').change(function() {
+               if ($(this).val() === 'CONCENTRATO') {
+                   $('#torchiato-concentrato-options').show();
+               } else {
+                   $('#torchiato-concentrato-options').hide();
                }
            });
-
-           $('#btn-stampa-programma').click(function() {
-               stampaPrograma();
-           });
-
-           function raccogliDatiProgramma() {
-               const programma = {
-                   data: $('#data-programma').val(),
-                   tipoAgrumePrincipale: $('#tipo-agrume-principale').val(),
-                   giacenzaIniziale: parseFloat($('#giacenza-totale').val()) || 0,
-                   totaleEntrata: parseFloat($('#entrata-totale').val()) || 0,
-                   totaleDisponibile: parseFloat($('#totale-disponibile').val()) || 0,
+           
+           // Funzioni per i pulsanti principali
+           window.salvaPrograma = function() {
+               // Validazione base
+               const tipoAgrume = $('#tipo-agrume-generale').val();
+               const linea = $('#linea-generale').val();
+               
+               if (!tipoAgrume || !linea) {
+                   alert('Selezionare tipo di agrume e linea di trasformazione prima di salvare');
+                   return;
+               }
+               
+               if ($('.fornitore-card').length === 0) {
+                   alert('Aggiungere almeno un fornitore prima di salvare');
+                   return;
+               }
+               
+               // Crea oggetto dati programma
+               const programmaData = {
+                   data: new Date().toISOString().split('T')[0],
+                   tipoAgrume: tipoAgrume,
+                   giacenza: $('#giacenza-generale').val(),
+                   lineaTrasformazione: linea,
                    fornitori: [],
-                   reseTotali: {
-                       succo2: {
-                           resa: $('#totale-succo2-resa').val(),
-                           destinazione: $('#totale-succo2-destinazione').val() === 'ALTRO' 
-                               ? $('#altro-succo2').val() 
-                               : $('#totale-succo2-destinazione').val()
-                       },
-                       torchiato: {
-                           resa: $('#totale-torchiato-resa').val(),
-                           destinazione: $('#totale-torchiato-destinazione').val() === 'ALTRO'
-                               ? $('#altro-torchiato').val()
-                               : $('#totale-torchiato-destinazione').val()
-                       }
+                   totali: {
+                       entrata: $('#total-entrata').text(),
+                       giacenzaTotale: $('#total-giacenza').text(),
+                       tempoTotale: $('#tempo-totale').text(),
+                       succo2Totale: $('#succo2-totale-resa').val(),
+                       torchiatoTotale: $('#torchiato-totale-resa').val()
                    }
                };
                
-               $('.fornitore-container').each(function() {
+               // Raccogli dati fornitori
+               $('.fornitore-card').each(function() {
                    const fornitore = {
-                       nome: $(this).find('.nome-fornitore').val() === 'ALTRO' 
-                           ? $(this).find('.altro-fornitore').val() 
-                           : $(this).find('.nome-fornitore').val(),
-                       quantita: parseFloat($(this).find('.quantita-fornitore').val()) || 0,
-                       certificazione: $(this).find('.certificazione-fornitore').val() === 'ALTRO'
-                           ? $(this).find('.altra-certificazione').val()
-                           : $(this).find('.certificazione-fornitore').val(),
-                       linea: $(this).find('.linea-trasformazione').val(),
-                       portata: parseFloat($(this).find('.portata-impianto').val()) || 0,
+                       nome: $(this).find('.fornitore-nome').val(),
+                       quantita: $(this).find('.quantita-fornitore').val(),
+                       certificazione: $(this).find('.certificazione-fornitore').val(),
                        orarioInizio: $(this).find('.orario-inizio').val(),
                        orarioFine: $(this).find('.orario-fine').val(),
-                       durata: $(this).find('.durata-lavorazione').val(),
-                       resaSucco1: $(this).find('.resa-succo1').val(),
-                       destinazioneSucco1: $(this).find('.destinazione-succo1').val() === 'ALTRO'
-                           ? $(this).find('.altra-destinazione').val()
-                           : $(this).find('.destinazione-succo1').val()
+                       portata: $(this).find('.portata-custom').val(),
+                       rese: {
+                           succo1: $(this).find('.resa-succo1').val(),
+                           succo2: $(this).find('.resa-succo2').val(),
+                           torchiato: $(this).find('.resa-torchiato').val()
+                       },
+                       destinazioneSucco1: $(this).find('.destinazione-succo1').val()
                    };
-                   
-                   if (fornitore.nome && fornitore.quantita > 0) {
-                       programma.fornitori.push(fornitore);
-                   }
+                   programmaData.fornitori.push(fornitore);
                });
                
-               return programma;
-           }
-
-           function validaProgramma(programma) {
-               if (!programma.data || !programma.tipoAgrumePrincipale) {
-                   return false;
+               // Salva nel localStorage
+               localStorage.setItem('programmaGiornaliero_' + new Date().toISOString().split('T')[0], JSON.stringify(programmaData));
+               
+               alert('Programma salvato con successo!');
+           };
+           
+           window.resetPrograma = function() {
+               if (confirm('Sei sicuro di voler resettare tutto il programma? Tutti i dati verranno persi.')) {
+                   $('#fornitori-container').empty();
+                   $('.form-control, .form-select').val('');
+                   $('#total-entrata, #total-giacenza, #total-fornitori, #tempo-totale').text('0');
+                   $('#succo2-totale-resa, #torchiato-totale-resa').val('');
+                   fornitoreCounter = 0;
+                   alert('Programma resettato con successo!');
                }
+           };
+           
+           window.printProgram = function() {
+               window.print();
+           };
+           
+           window.esportaPrograma = function() {
+               // Simula esportazione Excel
+               const data = {
+                   tipoAgrume: $('#tipo-agrume-generale').val(),
+                   giacenza: $('#giacenza-generale').val(),
+                   fornitori: $('.fornitore-card').length,
+                   entrataTotale: $('#total-entrata').text()
+               };
                
-               if (programma.fornitori.length === 0) {
-                   return false;
-               }
-               
-               for (let i = 0; i < programma.fornitori.length; i++) {
-                   const fornitore = programma.fornitori[i];
-                   if (!fornitore.nome || !fornitore.quantita || !fornitore.certificazione || 
-                       !fornitore.linea || !fornitore.portata || !fornitore.orarioInizio) {
-                       return false;
-                   }
-               }
-               
-               return true;
-           }
-
-           function resetProgramma() {
-               $('#tipo-agrume-principale').val('');
-               $('#giacenza-totale').val('');
-               $('#entrata-totale').val('');
-               $('#totale-disponibile').val('');
-               
-               $('#totale-succo2-resa').val('');
-               $('#totale-succo2-destinazione').val('');
-               $('#altro-succo2').val('');
-               $('#altro-succo2-container').hide();
-               
-               $('#totale-torchiato-resa').val('');
-               $('#totale-torchiato-destinazione').val('');
-               $('#altro-torchiato').val('');
-               $('#altro-torchiato-container').hide();
-               
-               $('#fornitori-container').empty();
-               $('#riepilogo-table tbody').empty();
-               
-               fornitoreCounter = 0;
-               
-               console.log('Programma resetato');
-           }
-
-           function stampaPrograma() {
-               const programma = raccogliDatiProgramma();
-               
-               const finestra = window.open('', '_blank');
-               finestra.document.write('<!DOCTYPE html>' +
-                   '<html>' +
-                   '<head>' +
-                       '<title>Programma Giornaliero Lavorazione - ' + programma.data + '</title>' +
-                       '<style>' +
-                           'body { font-family: Arial, sans-serif; margin: 20px; }' +
-                           '.header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }' +
-                           '.section { margin-bottom: 25px; }' +
-                           '.section h3 { background-color: #f5f5f5; padding: 10px; margin: 0 0 15px 0; }' +
-                           'table { width: 100%; border-collapse: collapse; margin-top: 10px; }' +
-                           'th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }' +
-                           'th { background-color: #f5f5f5; font-weight: bold; }' +
-                           '.bio { color: #dc3545; font-weight: bold; }' +
-                           '.totali { background-color: #e8f5e8; }' +
-                           '@media print { .no-print { display: none; } }' +
-                       '</style>' +
-                   '</head>' +
-                   '<body>' +
-                       '<div class="header">' +
-                           '<h1>PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>' +
-                           '<h2>Simone Gatto - Produzione Agrumi</h2>' +
-                           '<p><strong>Data: ' + programma.data + '</strong></p>' +
-                           '<p><strong>Tipo Agrume Principale: ' + programma.tipoAgrumePrincipale + '</strong></p>' +
-                       '</div>' +
-                       
-                       '<div class="section">' +
-                           '<h3>Riepilogo Quantità</h3>' +
-                           '<table>' +
-                               '<tr>' +
-                                   '<td><strong>Giacenza Iniziale:</strong></td>' +
-                                   '<td>' + programma.giacenzaIniziale + ' kg</td>' +
-                                   '<td><strong>Totale in Entrata:</strong></td>' +
-                                   '<td>' + programma.totaleEntrata + ' kg</td>' +
-                                   '<td><strong>Totale Disponibile:</strong></td>' +
-                                   '<td class="totali">' + programma.totaleDisponibile + ' kg</td>' +
-                               '</tr>' +
-                           '</table>' +
-                       '</div>' +
-                       
-                       '<div class="section">' +
-                           '<h3>Dettaglio Fornitori e Lavorazione</h3>' +
-                           '<table>' +
-                               '<thead>' +
-                                   '<tr>' +
-                                       '<th>Fornitore</th>' +
-                                       '<th>Quantità (kg)</th>' +
-                                       '<th>Certificazione</th>' +
-                                       '<th>Linea</th>' +
-                                       '<th>Inizio</th>' +
-                                       '<th>Fine</th>' +
-                                       '<th>Portata (kg/h)</th>' +
-                                       '<th>Succo 1^ (L)</th>' +
-                                       '<th>Destinazione 1^</th>' +
-                                   '</tr>' +
-                               '</thead>' +
-                               '<tbody>' +
-                                   programma.fornitori.map(function(f) {
-                                       return '<tr class="' + (f.certificazione && f.certificazione.includes('BIO') ? 'bio' : '') + '">' +
-                                           '<td>' + f.nome + '</td>' +
-                                           '<td>' + f.quantita + '</td>' +
-                                           '<td>' + f.certificazione + '</td>' +
-                                           '<td>' + f.linea + '</td>' +
-                                           '<td>' + f.orarioInizio + '</td>' +
-                                           '<td>' + f.orarioFine + '</td>' +
-                                           '<td>' + f.portata + '</td>' +
-                                           '<td>' + f.resaSucco1 + '</td>' +
-                                           '<td>' + f.destinazioneSucco1 + '</td>' +
-                                       '</tr>';
-                                   }).join('') +
-                               '</tbody>' +
-                           '</table>' +
-                       '</div>' +
-                       
-                       '<div class="section">' +
-                           '<h3>Rese Totali Succo 2^ e Torchiato</h3>' +
-                           '<table>' +
-                               '<tr>' +
-                                   '<td><strong>Succo 2^ Spremitura:</strong></td>' +
-                                   '<td>' + programma.reseTotali.succo2.resa + ' L</td>' +
-                                   '<td><strong>Destinazione:</strong></td>' +
-                                   '<td>' + programma.reseTotali.succo2.destinazione + '</td>' +
-                               '</tr>' +
-                               '<tr>' +
-                                   '<td><strong>Torchiato:</strong></td>' +
-                                   '<td>' + programma.reseTotali.torchiato.resa + ' L</td>' +
-                                   '<td><strong>Destinazione:</strong></td>' +
-                                   '<td>' + programma.reseTotali.torchiato.destinazione + '</td>' +
-                               '</tr>' +
-                           '</table>' +
-                       '</div>' +
-                       
-                       '<div class="section" style="margin-top: 50px;">' +
-                           '<p><strong>Stampato il:</strong> ' + new Date().toLocaleString() + '</p>' +
-                           '<p><strong>Firma Responsabile:</strong> _____________________</p>' +
-                       '</div>' +
-                       
-                       '<script>' +
-                           'window.onload = function() {' +
-                               'window.print();' +
-                               'window.onafterprint = function() {' +
-                                   'window.close();' +
-                               '}' +
-                           '}' +
-                       '</script>' +
-                   '</body>' +
-                   '</html>');
-               finestra.document.close();
-           }
-
-           function caricaDatiEsempio() {
-               console.log("Caricamento dati di esempio...");
-               
-               $('#tipo-agrume-principale').val('Arancia');
-               $('#giacenza-totale').val('15000');
-               
-               aggiungiFornitore();
-               const primoFornitore = $('.fornitore-container').last();
-               primoFornitore.find('.nome-fornitore').val('RESTUCCIA').trigger('change');
-               primoFornitore.find('.quantita-fornitore').val('8000').trigger('input');
-               primoFornitore.find('.certificazione-fornitore').val('BIO EU').trigger('change');
-               primoFornitore.find('.linea-trasformazione').val('BOE/1100');
-               primoFornitore.find('.portata-impianto').val('2500').trigger('input');
-               primoFornitore.find('.orario-inizio').val('08:00').trigger('change');
-               primoFornitore.find('.destinazione-succo1').val('CISTERNA P');
-               
-               aggiungiFornitore();
-               const secondoFornitore = $('.fornitore-container').last();
-               secondoFornitore.find('.nome-fornitore').val('CI').trigger('change');
-               secondoFornitore.find('.quantita-fornitore').val('6000').trigger('input');
-               secondoFornitore.find('.certificazione-fornitore').val('CONVENZIONALE').trigger('change');
-               secondoFornitore.find('.linea-trasformazione').val('GOE INT/POLY');
-               secondoFornitore.find('.portata-impianto').val('2000').trigger('input');
-               secondoFornitore.find('.orario-inizio').val('11:15').trigger('change');
-               secondoFornitore.find('.destinazione-succo1').val('PET 200');
-               
-               $('#totale-succo2-destinazione').val('CISTERNA VK');
-               $('#totale-torchiato-destinazione').val('F.T.C');
-               
-               console.log("Dati di esempio caricati");
-           }
-
-           setTimeout(caricaDatiEsempio, 500);
-
-           console.log("Inizializzazione completata - Programma Giornaliero pronto all'uso");
+               alert('Esportazione Excel simulata:\n' + JSON.stringify(data, null, 2));
+           };
+           
+           // Inizializza con un fornitore di esempio
+           addFornitore();
+           
+           console.log("Programma Giornaliero Lavorazione Frutta inizializzato con successo");
        });
    </script>
+
+   <!-- Stili per la stampa -->
+   <style media="print">
+       .btn, .nav-button { display: none !important; }
+       .header-programma { background: #2E8B57 !important; }
+       .fornitore-header { background: #2E8B57 !important; }
+       .totali-card { background: #2E8B57 !important; }
+       body { font-size: 12px; }
+       .section-card { page-break-inside: avoid; }
+   </style>
 </body>
 </html>
