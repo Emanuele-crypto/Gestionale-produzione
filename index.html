@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programma Giornaliero Lavorazione Frutta - Simone Gatto</title>
-    <!-- Importazione librerie esterne -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -15,7 +14,6 @@
             background-color: #f8f9fa;
         }
 
-        /* Header principale */
         .header-programma {
             background: linear-gradient(135deg, #2E8B57, #228B22);
             color: white;
@@ -24,14 +22,12 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Container principale */
         .main-container {
             max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Card sections */
         .section-card {
             background: white;
             border-radius: 12px;
@@ -52,7 +48,6 @@
             padding: 20px;
         }
 
-        /* Stili per i fornitori */
         .fornitore-container {
             border: 2px solid #e9ecef;
             border-radius: 8px;
@@ -75,7 +70,6 @@
             padding: 15px;
         }
 
-        /* Stili per le rese */
         .rese-container {
             background: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -92,7 +86,6 @@
             border-bottom: 1px solid #dee2e6;
         }
 
-        /* Input groups */
         .input-group-custom {
             margin-bottom: 15px;
         }
@@ -103,7 +96,6 @@
             margin-bottom: 5px;
         }
 
-        /* Bottoni personalizzati */
         .btn-programma {
             background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
@@ -135,7 +127,6 @@
             color: white;
         }
 
-        /* Highlighting per prodotti BIO */
         .bio-highlight {
             background-color: #ffe4e6 !important;
             border-color: #ffc0cb !important;
@@ -146,7 +137,6 @@
             font-weight: bold;
         }
 
-        /* Tabelle riassuntive */
         .summary-table {
             margin-top: 20px;
         }
@@ -157,7 +147,6 @@
             border-top: none;
         }
 
-        /* Responsive design */
         @media (max-width: 768px) {
             .fornitore-header {
                 flex-direction: column;
@@ -170,7 +159,6 @@
             }
         }
 
-        /* Animazioni */
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
@@ -180,14 +168,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Calcoli automatici evidenziati */
         .auto-calculated {
             background-color: #e8f5e8;
             border-color: #28a745;
             font-weight: 600;
         }
 
-        /* Stili per le destinazioni */
         .destinazione-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -215,7 +201,6 @@
     </div>
 
     <div class="main-container">
-        <!-- Sezione Riepilogo Giornaliero -->
         <div class="section-card">
             <h4 class="section-header">
                 <i class="bi bi-clipboard-data"></i> Riepilogo Giornaliero
@@ -257,7 +242,6 @@
             </div>
         </div>
 
-        <!-- Sezione Fornitori -->
         <div class="section-card">
             <h4 class="section-header">
                 <i class="bi bi-truck"></i> Gestione Fornitori
@@ -266,11 +250,9 @@
                 </button>
             </h4>
             <div class="section-body" id="fornitori-container">
-                <!-- I fornitori verranno aggiunti dinamicamente qui -->
             </div>
         </div>
 
-        <!-- Sezione Rese Totali Succo 2^ e Torchiato -->
         <div class="section-card">
             <h4 class="section-header">
                 <i class="bi bi-droplet-half"></i> Rese Totali Succo 2^ e Torchiato
@@ -359,7 +341,6 @@
             </div>
         </div>
 
-        <!-- Sezione Riepilogo Finale -->
         <div class="section-card">
             <h4 class="section-header">
                 <i class="bi bi-table"></i> Riepilogo Lavorazione Programmata
@@ -381,14 +362,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Dati inseriti dinamicamente -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Pulsanti di azione -->
         <div class="row mt-4">
             <div class="col-12 text-center">
                 <button class="btn btn-programma btn-lg me-3" id="btn-salva-programma">
@@ -404,7 +383,6 @@
         </div>
     </div>
 
-    <!-- Template per nuovo fornitore (nascosto) -->
     <div id="fornitore-template" style="display: none;">
         <div class="fornitore-container fade-in">
             <div class="fornitore-header">
@@ -481,7 +459,6 @@
                     </div>
                 </div>
 
-                <!-- Rese per questo fornitore -->
                 <div class="rese-container">
                     <div class="rese-header">Rese Succo di 1^ Spremitura</div>
                     <div class="row g-3">
@@ -527,21 +504,16 @@
         $(document).ready(function() {
             console.log("Inizializzazione Programma Giornaliero Lavorazione Frutta...");
             
-            // ========== VARIABILI GLOBALI ==========
             let fornitoreCounter = 0;
             let rese = {
-                succo1: 0.65,    // 65% resa succo prima spremitura
-                succo2: 0.15,    // 15% resa succo seconda spremitura  
-                torchiato: 0.08  // 8% resa torchiato
+                succo1: 0.65,
+                succo2: 0.15,
+                torchiato: 0.08
             };
 
-            // Impostazione data corrente
             const oggi = new Date().toISOString().split('T')[0];
             $('#data-programma').val(oggi);
 
-            // ========== GESTIONE FORNITORI ==========
-            
-            // Aggiunta nuovo fornitore
             $('#add-fornitore').click(function() {
                 aggiungiFornitore();
             });
@@ -551,20 +523,14 @@
                 const template = $('#fornitore-template').html();
                 const newFornitore = $(template);
                 
-                // Aggiorna il nome del fornitore nel template
-                newFornitore.find('.fornitore-nome').text(`Fornitore ${fornitoreCounter}`);
-                
-                // Aggiungi il nuovo fornitore al container
+                newFornitore.find('.fornitore-nome').text('Fornitore ' + fornitoreCounter);
                 $('#fornitori-container').append(newFornitore);
-                
-                // Aggiungi event listeners per questo fornitore
                 aggiungiEventListenersFornitore(newFornitore);
                 
-                console.log(`Aggiunto fornitore ${fornitoreCounter}`);
+                console.log('Aggiunto fornitore ' + fornitoreCounter);
             }
 
             function aggiungiEventListenersFornitore(fornitoreElement) {
-                // Gestione rimozione fornitore
                 fornitoreElement.find('.remove-fornitore').click(function() {
                     if (confirm('Sei sicuro di voler rimuovere questo fornitore?')) {
                         fornitoreElement.remove();
@@ -573,7 +539,6 @@
                     }
                 });
 
-                // Gestione campo "ALTRO" per nome fornitore
                 fornitoreElement.find('.nome-fornitore').change(function() {
                     const altroContainer = fornitoreElement.find('.altro-fornitore');
                     if ($(this).val() === 'ALTRO') {
@@ -585,7 +550,6 @@
                     aggiornaRiepilogo();
                 });
 
-                // Gestione campo personalizzato nome fornitore
                 fornitoreElement.find('.altro-fornitore').on('input', function() {
                     const nomePersonalizzato = $(this).val();
                     if (nomePersonalizzato) {
@@ -594,7 +558,6 @@
                     aggiornaRiepilogo();
                 });
 
-                // Gestione campo "ALTRO" per certificazione
                 fornitoreElement.find('.certificazione-fornitore').change(function() {
                     const altraContainer = fornitoreElement.find('.altra-certificazione');
                     if ($(this).val() === 'ALTRO') {
@@ -603,7 +566,6 @@
                         altraContainer.hide().val('');
                     }
                     
-                    // Evidenzia se è BIO
                     const isBio = $(this).val().includes('BIO');
                     if (isBio) {
                         fornitoreElement.addClass('bio-highlight');
@@ -614,7 +576,6 @@
                     aggiornaRiepilogo();
                 });
 
-                // Gestione campo "ALTRO" per destinazione succo 1^
                 fornitoreElement.find('.destinazione-succo1').change(function() {
                     const altroContainer = fornitoreElement.find('.altro-destinazione-container');
                     if ($(this).val() === 'ALTRO') {
@@ -625,7 +586,6 @@
                     }
                 });
 
-                // Calcoli automatici
                 fornitoreElement.find('.quantita-fornitore, .portata-impianto, .orario-inizio').on('input change', function() {
                     calcolaLavorazione(fornitoreElement);
                     ricalcolaTotali();
@@ -633,38 +593,33 @@
                 });
             }
 
-            // ========== CALCOLI AUTOMATICI ==========
-            
             function calcolaLavorazione(fornitoreElement) {
                 const quantita = parseFloat(fornitoreElement.find('.quantita-fornitore').val()) || 0;
                 const portata = parseFloat(fornitoreElement.find('.portata-impianto').val()) || 0;
                 const orarioInizio = fornitoreElement.find('.orario-inizio').val();
 
                 if (quantita > 0 && portata > 0 && orarioInizio) {
-                    // Calcola durata in ore
                     const durataOre = quantita / portata;
                     const ore = Math.floor(durataOre);
                     const minuti = Math.round((durataOre - ore) * 60);
                     
-                    // Aggiorna campo durata
-                    fornitoreElement.find('.durata-lavorazione').val(`${ore}h ${minuti}m`);
+                    fornitoreElement.find('.durata-lavorazione').val(ore + 'h ' + minuti + 'm');
                     
-                    // Calcola orario fine
-                    const [oreInizio, minutiInizio] = orarioInizio.split(':').map(Number);
+                    const parts = orarioInizio.split(':').map(Number);
+                    const oreInizio = parts[0];
+                    const minutiInizio = parts[1];
                     const inizioMinuti = oreInizio * 60 + minutiInizio;
                     const fineMinuti = inizioMinuti + (ore * 60) + minuti;
                     const oreFine = Math.floor(fineMinuti / 60) % 24;
                     const minutiFine = fineMinuti % 60;
                     
-                    const orarioFine = `${oreFine.toString().padStart(2, '0')}:${minutiFine.toString().padStart(2, '0')}`;
+                    const orarioFine = oreFine.toString().padStart(2, '0') + ':' + minutiFine.toString().padStart(2, '0');
                     fornitoreElement.find('.orario-fine').val(orarioFine);
                     
-                    // Calcola rese succo
                     const resaSucco1 = Math.round(quantita * rese.succo1);
                     fornitoreElement.find('.resa-succo1').val(resaSucco1);
                     
                 } else {
-                    // Reset campi se dati incompleti
                     fornitoreElement.find('.durata-lavorazione').val('');
                     fornitoreElement.find('.orario-fine').val('');
                     fornitoreElement.find('.resa-succo1').val('');
@@ -676,7 +631,6 @@
                 let totaleSucco2 = 0;
                 let totaleTorchiato = 0;
                 
-                // Somma tutte le quantità dei fornitori
                 $('.quantita-fornitore').each(function() {
                     const quantita = parseFloat($(this).val()) || 0;
                     totaleEntrata += quantita;
@@ -684,388 +638,350 @@
                     totaleTorchiato += quantita * rese.torchiato;
                 });
                 
-                // Aggiorna campi totali
                 $('#entrata-totale').val(totaleEntrata);
                 
                 const giacenza = parseFloat($('#giacenza-totale').val()) || 0;
                 $('#totale-disponibile').val(giacenza + totaleEntrata);
                 
-                // Aggiorna rese totali
                 $('#totale-succo2-resa').val(Math.round(totaleSucco2));
                 $('#totale-torchiato-resa').val(Math.round(totaleTorchiato));
-            }
+           }
 
-            // ========== GESTIONE DESTINAZIONI TOTALI ==========
-            
-            // Gestione campo "ALTRO" per succo 2^
-            $('#totale-succo2-destinazione').change(function() {
-                if ($(this).val() === 'ALTRO') {
-                    $('#altro-succo2-container').show();
-                } else {
-                    $('#altro-succo2-container').hide();
-                    $('#altro-succo2').val('');
-                }
-            });
+           $('#totale-succo2-destinazione').change(function() {
+               if ($(this).val() === 'ALTRO') {
+                   $('#altro-succo2-container').show();
+               } else {
+                   $('#altro-succo2-container').hide();
+                   $('#altro-succo2').val('');
+               }
+           });
 
-            // Gestione campo "ALTRO" per torchiato
-            $('#totale-torchiato-destinazione').change(function() {
-                if ($(this).val() === 'ALTRO') {
-                    $('#altro-torchiato-container').show();
-                } else {
-                    $('#altro-torchiato-container').hide();
-                    $('#altro-torchiato').val('');
-                }
-            });
+           $('#totale-torchiato-destinazione').change(function() {
+               if ($(this).val() === 'ALTRO') {
+                   $('#altro-torchiato-container').show();
+               } else {
+                   $('#altro-torchiato-container').hide();
+                   $('#altro-torchiato').val('');
+               }
+           });
 
-            // ========== AGGIORNAMENTO RIEPILOGO ==========
-            
-            function aggiornaRiepilogo() {
-                const tbody = $('#riepilogo-table tbody');
-                tbody.empty();
-                
-                $('.fornitore-container').each(function() {
-                    const fornitoreElement = $(this);
-                    const nomeFornitore = fornitoreElement.find('.nome-fornitore').val() === 'ALTRO' 
-                        ? fornitoreElement.find('.altro-fornitore').val() 
-                        : fornitoreElement.find('.nome-fornitore').val();
-                    
-                    const quantita = fornitoreElement.find('.quantita-fornitore').val();
-                    const certificazione = fornitoreElement.find('.certificazione-fornitore').val() === 'ALTRO'
-                        ? fornitoreElement.find('.altra-certificazione').val()
-                        : fornitoreElement.find('.certificazione-fornitore').val();
-                    
-                    const linea = fornitoreElement.find('.linea-trasformazione').val();
-                    const inizio = fornitoreElement.find('.orario-inizio').val();
-                    const fine = fornitoreElement.find('.orario-fine').val();
-                    const portata = fornitoreElement.find('.portata-impianto').val();
-                    const succo1 = fornitoreElement.find('.resa-succo1').val();
-                    const destinazione1 = fornitoreElement.find('.destinazione-succo1').val() === 'ALTRO'
-                        ? fornitoreElement.find('.altra-destinazione').val()
-                        : fornitoreElement.find('.destinazione-succo1').val();
-                    
-                    // Solo se ci sono dati significativi
-                    if (nomeFornitore && quantita) {
-                        const isBio = certificazione && certificazione.includes('BIO');
-                        const rowClass = isBio ? 'bio-text' : '';
-                        
-                        const row = `
-                            <tr class="${rowClass}">
-                                <td>${nomeFornitore || '-'}</td>
-                                <td>${quantita || '-'} kg</td>
-                                <td>${certificazione || '-'}</td>
-                                <td>${linea || '-'}</td>
-                                <td>${inizio || '-'}</td>
-                                <td>${fine || '-'}</td>
-                                <td>${portata || '-'} kg/h</td>
-                                <td>${succo1 || '-'} L</td>
-                                <td>${destinazione1 || '-'}</td>
-                            </tr>
-                        `;
-                        tbody.append(row);
-                    }
-                });
-            }
+           function aggiornaRiepilogo() {
+               const tbody = $('#riepilogo-table tbody');
+               tbody.empty();
+               
+               $('.fornitore-container').each(function() {
+                   const fornitoreElement = $(this);
+                   const nomeFornitore = fornitoreElement.find('.nome-fornitore').val() === 'ALTRO' 
+                       ? fornitoreElement.find('.altro-fornitore').val() 
+                       : fornitoreElement.find('.nome-fornitore').val();
+                   
+                   const quantita = fornitoreElement.find('.quantita-fornitore').val();
+                   const certificazione = fornitoreElement.find('.certificazione-fornitore').val() === 'ALTRO'
+                       ? fornitoreElement.find('.altra-certificazione').val()
+                       : fornitoreElement.find('.certificazione-fornitore').val();
+                   
+                   const linea = fornitoreElement.find('.linea-trasformazione').val();
+                   const inizio = fornitoreElement.find('.orario-inizio').val();
+                   const fine = fornitoreElement.find('.orario-fine').val();
+                   const portata = fornitoreElement.find('.portata-impianto').val();
+                   const succo1 = fornitoreElement.find('.resa-succo1').val();
+                   const destinazione1 = fornitoreElement.find('.destinazione-succo1').val() === 'ALTRO'
+                       ? fornitoreElement.find('.altra-destinazione').val()
+                       : fornitoreElement.find('.destinazione-succo1').val();
+                   
+                   if (nomeFornitore && quantita) {
+                       const isBio = certificazione && certificazione.includes('BIO');
+                       const rowClass = isBio ? 'bio-text' : '';
+                       
+                       const row = '<tr class="' + rowClass + '">' +
+                           '<td>' + (nomeFornitore || '-') + '</td>' +
+                           '<td>' + (quantita || '-') + ' kg</td>' +
+                           '<td>' + (certificazione || '-') + '</td>' +
+                           '<td>' + (linea || '-') + '</td>' +
+                           '<td>' + (inizio || '-') + '</td>' +
+                           '<td>' + (fine || '-') + '</td>' +
+                           '<td>' + (portata || '-') + ' kg/h</td>' +
+                           '<td>' + (succo1 || '-') + ' L</td>' +
+                           '<td>' + (destinazione1 || '-') + '</td>' +
+                           '</tr>';
+                       tbody.append(row);
+                   }
+               });
+           }
 
-            // ========== EVENTI GLOBALI ==========
-            
-            // Ricalcolo quando cambia la giacenza iniziale
-            $('#giacenza-totale').on('input', function() {
-                ricalcolaTotali();
-            });
+           $('#giacenza-totale').on('input', function() {
+               ricalcolaTotali();
+           });
 
-            // ========== PULSANTI DI AZIONE ==========
-            
-            // Salvataggio programma
-            $('#btn-salva-programma').click(function() {
-                const programma = raccogliDatiProgramma();
-                if (validaProgramma(programma)) {
-                    // Simula salvataggio
-                    const dataProgram = $('#data-programma').val();
-                    const timestamp = new Date().toLocaleString();
-                    
-                    alert(`Programma salvato con successo!\n\nData: ${dataProgram}\nTimestamp: ${timestamp}\nFornitori: ${programma.fornitori.length}\nTotale frutta: ${programma.totaleEntrata} kg`);
-                    
-                    console.log('Programma salvato:', programma);
-                } else {
-                    alert('Completare tutti i campi obbligatori prima di salvare il programma.');
-                }
-            });
+           $('#btn-salva-programma').click(function() {
+               const programma = raccogliDatiProgramma();
+               if (validaProgramma(programma)) {
+                   const dataProgram = $('#data-programma').val();
+                   const timestamp = new Date().toLocaleString();
+                   
+                   alert('Programma salvato con successo!\n\nData: ' + dataProgram + '\nTimestamp: ' + timestamp + '\nFornitori: ' + programma.fornitori.length + '\nTotale frutta: ' + programma.totaleEntrata + ' kg');
+                   
+                   console.log('Programma salvato:', programma);
+               } else {
+                   alert('Completare tutti i campi obbligatori prima di salvare il programma.');
+               }
+           });
 
-            // Reset programma
-            $('#btn-reset-programma').click(function() {
-                if (confirm('Attenzione: tutti i dati inseriti verranno cancellati. Continuare?')) {
-                    resetProgramma();
-                }
-            });
+           $('#btn-reset-programma').click(function() {
+               if (confirm('Attenzione: tutti i dati inseriti verranno cancellati. Continuare?')) {
+                   resetProgramma();
+               }
+           });
 
-            // Stampa programma
-            $('#btn-stampa-programma').click(function() {
-                stampaPrograma();
-            });
+           $('#btn-stampa-programma').click(function() {
+               stampaPrograma();
+           });
 
-            // ========== FUNZIONI UTILI ==========
-            
-            function raccogliDatiProgramma() {
-                const programma = {
-                    data: $('#data-programma').val(),
-                    tipoAgrumePrincipale: $('#tipo-agrume-principale').val(),
-                    giacenzaIniziale: parseFloat($('#giacenza-totale').val()) || 0,
-                    totaleEntrata: parseFloat($('#entrata-totale').val()) || 0,
-                    totaleDisponibile: parseFloat($('#totale-disponibile').val()) || 0,
-                    fornitori: [],
-                    reseTotali: {
-                        succo2: {
-                            resa: $('#totale-succo2-resa').val(),
-                            destinazione: $('#totale-succo2-destinazione').val() === 'ALTRO' 
-                                ? $('#altro-succo2').val() 
-                                : $('#totale-succo2-destinazione').val()
-                        },
-                        torchiato: {
-                            resa: $('#totale-torchiato-resa').val(),
-                            destinazione: $('#totale-torchiato-destinazione').val() === 'ALTRO'
-                                ? $('#altro-torchiato').val()
-                                : $('#totale-torchiato-destinazione').val()
-                        }
-                    }
-                };
-                
-                // Raccolta dati fornitori
-                $('.fornitore-container').each(function() {
-                    const fornitore = {
-                        nome: $(this).find('.nome-fornitore').val() === 'ALTRO' 
-                            ? $(this).find('.altro-fornitore').val() 
-                            : $(this).find('.nome-fornitore').val(),
-                        quantita: parseFloat($(this).find('.quantita-fornitore').val()) || 0,
-                        certificazione: $(this).find('.certificazione-fornitore').val() === 'ALTRO'
-                            ? $(this).find('.altra-certificazione').val()
-                            : $(this).find('.certificazione-fornitore').val(),
-                        linea: $(this).find('.linea-trasformazione').val(),
-                        portata: parseFloat($(this).find('.portata-impianto').val()) || 0,
-                        orarioInizio: $(this).find('.orario-inizio').val(),
-                        orarioFine: $(this).find('.orario-fine').val(),
-                        durata: $(this).find('.durata-lavorazione').val(),
-                        resaSucco1: $(this).find('.resa-succo1').val(),
-                        destinazioneSucco1: $(this).find('.destinazione-succo1').val() === 'ALTRO'
-                            ? $(this).find('.altra-destinazione').val()
-                            : $(this).find('.destinazione-succo1').val()
-                    };
-                    
-                    if (fornitore.nome && fornitore.quantita > 0) {
-                        programma.fornitori.push(fornitore);
-                    }
-                });
-                
-                return programma;
-            }
+           function raccogliDatiProgramma() {
+               const programma = {
+                   data: $('#data-programma').val(),
+                   tipoAgrumePrincipale: $('#tipo-agrume-principale').val(),
+                   giacenzaIniziale: parseFloat($('#giacenza-totale').val()) || 0,
+                   totaleEntrata: parseFloat($('#entrata-totale').val()) || 0,
+                   totaleDisponibile: parseFloat($('#totale-disponibile').val()) || 0,
+                   fornitori: [],
+                   reseTotali: {
+                       succo2: {
+                           resa: $('#totale-succo2-resa').val(),
+                           destinazione: $('#totale-succo2-destinazione').val() === 'ALTRO' 
+                               ? $('#altro-succo2').val() 
+                               : $('#totale-succo2-destinazione').val()
+                       },
+                       torchiato: {
+                           resa: $('#totale-torchiato-resa').val(),
+                           destinazione: $('#totale-torchiato-destinazione').val() === 'ALTRO'
+                               ? $('#altro-torchiato').val()
+                               : $('#totale-torchiato-destinazione').val()
+                       }
+                   }
+               };
+               
+               $('.fornitore-container').each(function() {
+                   const fornitore = {
+                       nome: $(this).find('.nome-fornitore').val() === 'ALTRO' 
+                           ? $(this).find('.altro-fornitore').val() 
+                           : $(this).find('.nome-fornitore').val(),
+                       quantita: parseFloat($(this).find('.quantita-fornitore').val()) || 0,
+                       certificazione: $(this).find('.certificazione-fornitore').val() === 'ALTRO'
+                           ? $(this).find('.altra-certificazione').val()
+                           : $(this).find('.certificazione-fornitore').val(),
+                       linea: $(this).find('.linea-trasformazione').val(),
+                       portata: parseFloat($(this).find('.portata-impianto').val()) || 0,
+                       orarioInizio: $(this).find('.orario-inizio').val(),
+                       orarioFine: $(this).find('.orario-fine').val(),
+                       durata: $(this).find('.durata-lavorazione').val(),
+                       resaSucco1: $(this).find('.resa-succo1').val(),
+                       destinazioneSucco1: $(this).find('.destinazione-succo1').val() === 'ALTRO'
+                           ? $(this).find('.altra-destinazione').val()
+                           : $(this).find('.destinazione-succo1').val()
+                   };
+                   
+                   if (fornitore.nome && fornitore.quantita > 0) {
+                       programma.fornitori.push(fornitore);
+                   }
+               });
+               
+               return programma;
+           }
 
-            function validaProgramma(programma) {
-                // Validazione base
-                if (!programma.data || !programma.tipoAgrumePrincipale) {
-                    return false;
-                }
-                
-                if (programma.fornitori.length === 0) {
-                    return false;
-                }
-                
-                // Verifica che ogni fornitore abbia i dati essenziali
-                for (let fornitore of programma.fornitori) {
-                    if (!fornitore.nome || !fornitore.quantita || !fornitore.certificazione || 
-                        !fornitore.linea || !fornitore.portata || !fornitore.orarioInizio) {
-                        return false;
-                    }
-                }
-                
-                return true;
-            }
+           function validaProgramma(programma) {
+               if (!programma.data || !programma.tipoAgrumePrincipale) {
+                   return false;
+               }
+               
+               if (programma.fornitori.length === 0) {
+                   return false;
+               }
+               
+               for (let i = 0; i < programma.fornitori.length; i++) {
+                   const fornitore = programma.fornitori[i];
+                   if (!fornitore.nome || !fornitore.quantita || !fornitore.certificazione || 
+                       !fornitore.linea || !fornitore.portata || !fornitore.orarioInizio) {
+                       return false;
+                   }
+               }
+               
+               return true;
+           }
 
-            function resetProgramma() {
-                // Reset campi generali
-                $('#tipo-agrume-principale').val('');
-                $('#giacenza-totale').val('');
-                $('#entrata-totale').val('');
-                $('#totale-disponibile').val('');
-                
-                // Reset rese totali
-                $('#totale-succo2-resa').val('');
-                $('#totale-succo2-destinazione').val('');
-                $('#altro-succo2').val('');
-                $('#altro-succo2-container').hide();
-                
-                $('#totale-torchiato-resa').val('');
-                $('#totale-torchiato-destinazione').val('');
-                $('#altro-torchiato').val('');
-                $('#altro-torchiato-container').hide();
-                
-                // Rimuovi tutti i fornitori
-                $('#fornitori-container').empty();
-                $('#riepilogo-table tbody').empty();
-                
-                // Reset contatore
-                fornitoreCounter = 0;
-                
-                console.log('Programma resetato');
-            }
+           function resetProgramma() {
+               $('#tipo-agrume-principale').val('');
+               $('#giacenza-totale').val('');
+               $('#entrata-totale').val('');
+               $('#totale-disponibile').val('');
+               
+               $('#totale-succo2-resa').val('');
+               $('#totale-succo2-destinazione').val('');
+               $('#altro-succo2').val('');
+               $('#altro-succo2-container').hide();
+               
+               $('#totale-torchiato-resa').val('');
+               $('#totale-torchiato-destinazione').val('');
+               $('#altro-torchiato').val('');
+               $('#altro-torchiato-container').hide();
+               
+               $('#fornitori-container').empty();
+               $('#riepilogo-table tbody').empty();
+               
+               fornitoreCounter = 0;
+               
+               console.log('Programma resetato');
+           }
 
-            function stampaPrograma() {
-                const programma = raccogliDatiProgramma();
-                
-                // Crea finestra di stampa
-                const finestra = window.open('', '_blank');
-                finestra.document.write(`
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <title>Programma Giornaliero Lavorazione - ${programma.data}</title>
-                        <style>
-                            body { font-family: Arial, sans-serif; margin: 20px; }
-                            .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }
-                            .section { margin-bottom: 25px; }
-                            .section h3 { background-color: #f5f5f5; padding: 10px; margin: 0 0 15px 0; }
-                            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                            th { background-color: #f5f5f5; font-weight: bold; }
-                            .bio { color: #dc3545; font-weight: bold; }
-                            .totali { background-color: #e8f5e8; }
-                            @media print { .no-print { display: none; } }
-                        </style>
-                    </head>
-                    <body>
-                        <div class="header">
-                            <h1>PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>
-                            <h2>Simone Gatto - Produzione Agrumi</h2>
-                            <p><strong>Data: ${programma.data}</strong></p>
-                            <p><strong>Tipo Agrume Principale: ${programma.tipoAgrumePrincipale}</strong></p>
-                        </div>
-                        
-                        <div class="section">
-                            <h3>Riepilogo Quantità</h3>
-                            <table>
-                                <tr>
-                                    <td><strong>Giacenza Iniziale:</strong></td>
-                                    <td>${programma.giacenzaIniziale} kg</td>
-                                    <td><strong>Totale in Entrata:</strong></td>
-                                    <td>${programma.totaleEntrata} kg</td>
-                                    <td><strong>Totale Disponibile:</strong></td>
-                                    <td class="totali">${programma.totaleDisponibile} kg</td>
-                                </tr>
-                            </table>
-                        </div>
-                        
-                        <div class="section">
-                            <h3>Dettaglio Fornitori e Lavorazione</h3>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Fornitore</th>
-                                        <th>Quantità (kg)</th>
-                                        <th>Certificazione</th>
-                                        <th>Linea</th>
-                                        <th>Inizio</th>
-                                        <th>Fine</th>
-                                        <th>Portata (kg/h)</th>
-                                        <th>Succo 1^ (L)</th>
-                                        <th>Destinazione 1^</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${programma.fornitori.map(f => `
-                                        <tr class="${f.certificazione && f.certificazione.includes('BIO') ? 'bio' : ''}">
-                                            <td>${f.nome}</td>
-                                            <td>${f.quantita}</td>
-                                            <td>${f.certificazione}</td>
-                                            <td>${f.linea}</td>
-                                            <td>${f.orarioInizio}</td>
-                                            <td>${f.orarioFine}</td>
-                                            <td>${f.portata}</td>
-                                            <td>${f.resaSucco1}</td>
-                                            <td>${f.destinazioneSucco1}</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="section">
-                            <h3>Rese Totali Succo 2^ e Torchiato</h3>
-                            <table>
-                                <tr>
-                                    <td><strong>Succo 2^ Spremitura:</strong></td>
-                                    <td>${programma.reseTotali.succo2.resa} L</td>
-                                    <td><strong>Destinazione:</strong></td>
-                                    <td>${programma.reseTotali.succo2.destinazione}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Torchiato:</strong></td>
-                                    <td>${programma.reseTotali.torchiato.resa} L</td>
-                                    <td><strong>Destinazione:</strong></td>
-                                    <td>${programma.reseTotali.torchiato.destinazione}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        
-                        <div class="section" style="margin-top: 50px;">
-                            <p><strong>Stampato il:</strong> ${new Date().toLocaleString()}</p>
-                            <p><strong>Firma Responsabile:</strong> _____________________</p>
-                        </div>
-                        
-                        <script>
-                            window.onload = function() {
-                                window.print();
-                                window.onafterprint = function() {
-                                    window.close();
-                                }
-                            }
-                        </script>
-                    </body>
-                    </html>
-                `);
-                finestra.document.close();
-            }
+           function stampaPrograma() {
+               const programma = raccogliDatiProgramma();
+               
+               const finestra = window.open('', '_blank');
+               finestra.document.write('<!DOCTYPE html>' +
+                   '<html>' +
+                   '<head>' +
+                       '<title>Programma Giornaliero Lavorazione - ' + programma.data + '</title>' +
+                       '<style>' +
+                           'body { font-family: Arial, sans-serif; margin: 20px; }' +
+                           '.header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }' +
+                           '.section { margin-bottom: 25px; }' +
+                           '.section h3 { background-color: #f5f5f5; padding: 10px; margin: 0 0 15px 0; }' +
+                           'table { width: 100%; border-collapse: collapse; margin-top: 10px; }' +
+                           'th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }' +
+                           'th { background-color: #f5f5f5; font-weight: bold; }' +
+                           '.bio { color: #dc3545; font-weight: bold; }' +
+                           '.totali { background-color: #e8f5e8; }' +
+                           '@media print { .no-print { display: none; } }' +
+                       '</style>' +
+                   '</head>' +
+                   '<body>' +
+                       '<div class="header">' +
+                           '<h1>PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>' +
+                           '<h2>Simone Gatto - Produzione Agrumi</h2>' +
+                           '<p><strong>Data: ' + programma.data + '</strong></p>' +
+                           '<p><strong>Tipo Agrume Principale: ' + programma.tipoAgrumePrincipale + '</strong></p>' +
+                       '</div>' +
+                       
+                       '<div class="section">' +
+                           '<h3>Riepilogo Quantità</h3>' +
+                           '<table>' +
+                               '<tr>' +
+                                   '<td><strong>Giacenza Iniziale:</strong></td>' +
+                                   '<td>' + programma.giacenzaIniziale + ' kg</td>' +
+                                   '<td><strong>Totale in Entrata:</strong></td>' +
+                                   '<td>' + programma.totaleEntrata + ' kg</td>' +
+                                   '<td><strong>Totale Disponibile:</strong></td>' +
+                                   '<td class="totali">' + programma.totaleDisponibile + ' kg</td>' +
+                               '</tr>' +
+                           '</table>' +
+                       '</div>' +
+                       
+                       '<div class="section">' +
+                           '<h3>Dettaglio Fornitori e Lavorazione</h3>' +
+                           '<table>' +
+                               '<thead>' +
+                                   '<tr>' +
+                                       '<th>Fornitore</th>' +
+                                       '<th>Quantità (kg)</th>' +
+                                       '<th>Certificazione</th>' +
+                                       '<th>Linea</th>' +
+                                       '<th>Inizio</th>' +
+                                       '<th>Fine</th>' +
+                                       '<th>Portata (kg/h)</th>' +
+                                       '<th>Succo 1^ (L)</th>' +
+                                       '<th>Destinazione 1^</th>' +
+                                   '</tr>' +
+                               '</thead>' +
+                               '<tbody>' +
+                                   programma.fornitori.map(function(f) {
+                                       return '<tr class="' + (f.certificazione && f.certificazione.includes('BIO') ? 'bio' : '') + '">' +
+                                           '<td>' + f.nome + '</td>' +
+                                           '<td>' + f.quantita + '</td>' +
+                                           '<td>' + f.certificazione + '</td>' +
+                                           '<td>' + f.linea + '</td>' +
+                                           '<td>' + f.orarioInizio + '</td>' +
+                                           '<td>' + f.orarioFine + '</td>' +
+                                           '<td>' + f.portata + '</td>' +
+                                           '<td>' + f.resaSucco1 + '</td>' +
+                                           '<td>' + f.destinazioneSucco1 + '</td>' +
+                                       '</tr>';
+                                   }).join('') +
+                               '</tbody>' +
+                           '</table>' +
+                       '</div>' +
+                       
+                       '<div class="section">' +
+                           '<h3>Rese Totali Succo 2^ e Torchiato</h3>' +
+                           '<table>' +
+                               '<tr>' +
+                                   '<td><strong>Succo 2^ Spremitura:</strong></td>' +
+                                   '<td>' + programma.reseTotali.succo2.resa + ' L</td>' +
+                                   '<td><strong>Destinazione:</strong></td>' +
+                                   '<td>' + programma.reseTotali.succo2.destinazione + '</td>' +
+                               '</tr>' +
+                               '<tr>' +
+                                   '<td><strong>Torchiato:</strong></td>' +
+                                   '<td>' + programma.reseTotali.torchiato.resa + ' L</td>' +
+                                   '<td><strong>Destinazione:</strong></td>' +
+                                   '<td>' + programma.reseTotali.torchiato.destinazione + '</td>' +
+                               '</tr>' +
+                           '</table>' +
+                       '</div>' +
+                       
+                       '<div class="section" style="margin-top: 50px;">' +
+                           '<p><strong>Stampato il:</strong> ' + new Date().toLocaleString() + '</p>' +
+                           '<p><strong>Firma Responsabile:</strong> _____________________</p>' +
+                       '</div>' +
+                       
+                       '<script>' +
+                           'window.onload = function() {' +
+                               'window.print();' +
+                               'window.onafterprint = function() {' +
+                                   'window.close();' +
+                               '}' +
+                           '}' +
+                       '</script>' +
+                   '</body>' +
+                   '</html>');
+               finestra.document.close();
+           }
 
-            // ========== INIZIALIZZAZIONE DATI DI ESEMPIO ==========
-            
-            function caricaDatiEsempio() {
-                console.log("Caricamento dati di esempio...");
-                
-                // Imposta dati base
-                $('#tipo-agrume-principale').val('Arancia');
-                $('#giacenza-totale').val('15000');
-                
-                // Aggiungi primo fornitore di esempio
-                aggiungiFornitore();
-                const primoFornitore = $('.fornitore-container').last();
-                primoFornitore.find('.nome-fornitore').val('RESTUCCIA').trigger('change');
-                primoFornitore.find('.quantita-fornitore').val('8000').trigger('input');
-                primoFornitore.find('.certificazione-fornitore').val('BIO EU').trigger('change');
-                primoFornitore.find('.linea-trasformazione').val('BOE/1100');
-                primoFornitore.find('.portata-impianto').val('2500').trigger('input');
-                primoFornitore.find('.orario-inizio').val('08:00').trigger('change');
-                primoFornitore.find('.destinazione-succo1').val('CISTERNA P');
-                
-                // Aggiungi secondo fornitore di esempio
-                aggiungiFornitore();
-                const secondoFornitore = $('.fornitore-container').last();
-                secondoFornitore.find('.nome-fornitore').val('CI').trigger('change');
-                secondoFornitore.find('.quantita-fornitore').val('6000').trigger('input');
-                secondoFornitore.find('.certificazione-fornitore').val('CONVENZIONALE').trigger('change');
-                secondoFornitore.find('.linea-trasformazione').val('GOE INT/POLY');
-                secondoFornitore.find('.portata-impianto').val('2000').trigger('input');
-                secondoFornitore.find('.orario-inizio').val('11:15').trigger('change');
-                secondoFornitore.find('.destinazione-succo1').val('PET 200');
-                
-                // Imposta destinazioni totali
-                $('#totale-succo2-destinazione').val('CISTERNA VK');
-                $('#totale-torchiato-destinazione').val('F.T.C');
-                
-                console.log("Dati di esempio caricati");
-            }
+           function caricaDatiEsempio() {
+               console.log("Caricamento dati di esempio...");
+               
+               $('#tipo-agrume-principale').val('Arancia');
+               $('#giacenza-totale').val('15000');
+               
+               aggiungiFornitore();
+               const primoFornitore = $('.fornitore-container').last();
+               primoFornitore.find('.nome-fornitore').val('RESTUCCIA').trigger('change');
+               primoFornitore.find('.quantita-fornitore').val('8000').trigger('input');
+               primoFornitore.find('.certificazione-fornitore').val('BIO EU').trigger('change');
+               primoFornitore.find('.linea-trasformazione').val('BOE/1100');
+               primoFornitore.find('.portata-impianto').val('2500').trigger('input');
+               primoFornitore.find('.orario-inizio').val('08:00').trigger('change');
+               primoFornitore.find('.destinazione-succo1').val('CISTERNA P');
+               
+               aggiungiFornitore();
+               const secondoFornitore = $('.fornitore-container').last();
+               secondoFornitore.find('.nome-fornitore').val('CI').trigger('change');
+               secondoFornitore.find('.quantita-fornitore').val('6000').trigger('input');
+               secondoFornitore.find('.certificazione-fornitore').val('CONVENZIONALE').trigger('change');
+               secondoFornitore.find('.linea-trasformazione').val('GOE INT/POLY');
+               secondoFornitore.find('.portata-impianto').val('2000').trigger('input');
+               secondoFornitore.find('.orario-inizio').val('11:15').trigger('change');
+               secondoFornitore.find('.destinazione-succo1').val('PET 200');
+               
+               $('#totale-succo2-destinazione').val('CISTERNA VK');
+               $('#totale-torchiato-destinazione').val('F.T.C');
+               
+               console.log("Dati di esempio caricati");
+           }
 
-            // Carica dati di esempio all'avvio (commentare se non desiderato)
-            setTimeout(caricaDatiEsempio, 500);
+           setTimeout(caricaDatiEsempio, 500);
 
-            console.log("Inizializzazione completata - Programma Giornaliero pronto all'uso");
-        });
-    </script>
+           console.log("Inizializzazione completata - Programma Giornaliero pronto all'uso");
+       });
+   </script>
 </body>
 </html>
