@@ -1,218 +1,211 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programma Giornaliero Lavorazione Frutta</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
-        
-        .form-section {
-            margin-bottom: 25px;
-            padding: 15px;
-            border: 2px solid #e74c3c;
-            border-radius: 8px;
-            background-color: #fdf2f2;
-        }
-        
-        .form-section h3 {
-            color: #e74c3c;
-            margin-top: 0;
-            font-size: 16px;
-        }
-        
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            min-width: 150px;
-        }
-        
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #2c3e50;
-            font-size: 12px;
-        }
-        
-        select, input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-        
-        select {
-            background-color: white;
-        }
-        
-        input[type="number"], input[type="time"] {
-            width: 100px;
-        }
-        
-        input[type="text"] {
-            width: 120px;
-        }
-        
-        .calculated {
-            background-color: #e8f5e8;
-            color: #27ae60;
-            font-weight: bold;
-        }
-        
-        .table-container {
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-        }
-        
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        
-        th {
-            background-color: #e74c3c;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .add-row-btn {
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        
-        .add-row-btn:hover {
-            background-color: #219a52;
-        }
-        
-        .delete-btn {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 10px;
-        }
-        
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>
-        
-        <div class="form-section">
-            <h3>INFORMAZIONI GENERALI</h3>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="data">Data:</label>
-                    <input type="date" id="data" value="">
+<!-- Aggiungere questo dopo il div reparto3 e prima dei modal -->
+<!-- Reparto 4: Programma Giornaliero -->
+<div id="reparto4" class="reparto-container" style="display: none;">
+    <div style="background-color: #6f42c1; color: white; padding: 15px 0; margin-bottom: 30px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-start">
+                    <button class="btn btn-light nav-button" id="nav-to-reparto1-from-4">
+                        <i class="bi bi-arrow-left-circle"></i> Torna ai Reparti
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="tipoAgrume">Tipo Agrume:</label>
-                    <select id="tipoAgrume">
-                        <option value="">Seleziona...</option>
-                        <option value="LIMONE">LIMONE</option>
-                        <option value="ARANCIA">ARANCIA</option>
-                        <option value="MANDARINO">MANDARINO</option>
-                        <option value="POMPELMO">POMPELMO</option>
-                        <option value="BERGAMOTTO">BERGAMOTTO</option>
-                    </select>
+                <div class="col-md-8 text-center">
+                    <h1><i class="bi bi-calendar-check"></i> PROGRAMMA GIORNALIERO LAVORAZIONE FRUTTA</h1>
+                    <h4 id="data-programma">Data: <span id="current-date"></span></h4>
                 </div>
-                <div class="form-group">
-                    <label for="giacenzaIniziale">Giacenza Iniziale (kg):</label>
-                    <input type="number" id="giacenzaIniziale" min="0" step="0.1">
+                <div class="col-md-2 text-end">
+                    <button class="btn btn-light" onclick="window.print()">
+                        <i class="bi bi-printer"></i> Stampa
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="totaleGiorno">Totale Giorno (kg):</label>
-                    <input type="number" id="totaleGiorno" class="calculated" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <!-- Sezione Giacenze e Entrate -->
+        <div class="card mb-4">
+            <div class="card-header" style="background-color: #6f42c1; color: white;">
+                <h5><i class="bi bi-box-seam"></i> Riepilogo Giacenze e Entrate Giornaliere</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Giacenze Esistenti</h6>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label class="form-label">Limoni (kg)</label>
+                                <input type="number" class="form-control giacenza-input" id="giacenza-limoni" data-frutto="limoni">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Arance (kg)</label>
+                                <input type="number" class="form-control giacenza-input" id="giacenza-arance" data-frutto="arance">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Mandarini (kg)</label>
+                                <input type="number" class="form-control giacenza-input" id="giacenza-mandarini" data-frutto="mandarini">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Pompelmi (kg)</label>
+                                <input type="number" class="form-control giacenza-input" id="giacenza-pompelmi" data-frutto="pompelmi">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Bergamotti (kg)</label>
+                                <input type="number" class="form-control giacenza-input" id="giacenza-bergamotti" data-frutto="bergamotti">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Entrate Previste</h6>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label class="form-label">Limoni (kg)</label>
+                                <input type="number" class="form-control entrata-input" id="entrata-limoni" data-frutto="limoni">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Arance (kg)</label>
+                                <input type="number" class="form-control entrata-input" id="entrata-arance" data-frutto="arance">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Mandarini (kg)</label>
+                                <input type="number" class="form-control entrata-input" id="entrata-mandarini" data-frutto="mandarini">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Pompelmi (kg)</label>
+                                <input type="number" class="form-control entrata-input" id="entrata-pompelmi" data-frutto="pompelmi">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Bergamotti (kg)</label>
+                                <input type="number" class="form-control entrata-input" id="entrata-bergamotti" data-frutto="bergamotti">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="alert alert-info">
+                            <strong>Totale Disponibile per Lavorazione:</strong> <span id="totale-disponibile">0 kg</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="table-container">
-            <table id="lavorazioneTable">
-                <thead>
-                    <tr>
-                        <th>Fornitore</th>
-                        <th>Quantità (kg)</th>
-                        <th>Tipo Prodotto</th>
-                        <th>Linea Trasformazione</th>
-                        <th>Inizio Lavorazione</th>
-                        <th>Portata (kg/h)</th>
-                        <th>Fine Lavorazione</th>
-                        <th>Succo 1° (%)</th>
-                        <th>Succo 2° (%)</th>
-                        <th>Torchiato (%)</th>
-                        <th>Destinazione</th>
-                        <th>Brix</th>
-                        <th>Tenore Polpa</th>
-                        <th>Azioni</th>
-                    </tr>
-                </thead>
-                <tbody id="lavorazioneBody">
-                </tbody>
-            </table>
-            <button class="add-row-btn" onclick="addRow()">Aggiungi Riga</button>
+        <!-- Sezione Fornitori -->
+        <div class="card mb-4">
+            <div class="card-header" style="background-color: #6f42c1; color: white;">
+                <h5><i class="bi bi-truck"></i> Dettaglio Fornitori</h5>
+            </div>
+            <div class="card-body">
+                <div id="fornitori-container">
+                    <!-- I fornitori verranno aggiunti dinamicamente -->
+                </div>
+                <button type="button" class="btn" style="background-color: #6f42c1; color: white;" id="btn-add-fornitore">
+                    <i class="bi bi-plus-circle"></i> Aggiungi Fornitore
+                </button>
+            </div>
         </div>
-    </div>
 
-    <script>
-        // Imposta la data odierna
-        document.getElementById('data').value = new Date().toISOString().split('T')[0];
-        
-        let rowCount = 0;
-        
-        function addRow() {
-            rowCount++;
-            const tbody = document.getElementById('lavorazioneBody');
-            const row = tbody.insertRow();
-            
-            row.innerHTML = `
-                <td>
-                    <select onchange="updateTotale()">
+        <!-- Sezione Pianificazione Lavorazione -->
+        <div class="card mb-4">
+            <div class="card-header" style="background-color: #6f42c1; color: white;">
+                <h5><i class="bi bi-gear"></i> Pianificazione Lavorazione</h5>
+            </div>
+            <div class="card-body">
+                <div id="lavorazioni-container">
+                    <!-- Le lavorazioni verranno aggiunte dinamicamente -->
+                </div>
+                <button type="button" class="btn" style="background-color: #6f42c1; color: white;" id="btn-add-lavorazione">
+                    <i class="bi bi-plus-circle"></i> Aggiungi Lavorazione
+                </button>
+            </div>
+        </div>
+
+        <!-- Sezione Riepilogo -->
+        <div class="card mb-4">
+            <div class="card-header" style="background-color: #6f42c1; color: white;">
+                <h5><i class="bi bi-graph-up"></i> Riepilogo Giornaliero</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="riepilogo-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo Agrume</th>
+                                <th>Kg Programmati</th>
+                                <th>Ore Lavorazione</th>
+                                <th>Linee Utilizzate</th>
+                                <th>Fornitori</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dati dinamici -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            // ================ REPARTO 4: PROGRAMMA GIORNALIERO ================
+
+// Variabili per il programma giornaliero
+let fornitoreCounter = 1;
+let lavorazioneCounter = 1;
+let programmaData = {
+    giacenze: {},
+    entrate: {},
+    fornitori: [],
+    lavorazioni: []
+};
+
+// Inizializzazione data corrente
+function initCurrentDate() {
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('it-IT', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    $("#current-date").text(formattedDate);
+}
+
+// Navigazione verso il programma giornaliero
+function showProgrammaGiornaliero() {
+    $("#reparto1, #reparto2, #reparto3").hide();
+    $("#reparto4").show();
+    initCurrentDate();
+    scrollToTop();
+}
+
+// Aggiungere pulsanti per navigare al programma giornaliero negli altri reparti
+function addNavigationButtons() {
+    // Aggiungi pulsante nel reparto 1
+    $("#reparto1 .dashboard-container .row.mt-4").append(`
+        <div class="col-12 text-center mt-2">
+            <button type="button" class="btn btn-outline-dark" id="btn-to-programma">
+                <i class="bi bi-calendar-check"></i> Programma Giornaliero
+            </button>
+        </div>
+    `);
+}
+
+// Template per fornitore
+function createFornitoreTemplate(index) {
+    return `
+        <div class="fornitore-item border rounded p-3 mb-3" data-index="${index}">
+            <div class="row align-items-center mb-2">
+                <div class="col-md-10">
+                    <h6><i class="bi bi-building"></i> Fornitore ${index}</h6>
+                </div>
+                <div class="col-md-2 text-end">
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-remove-fornitore">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <label class="form-label">Nome Fornitore</label>
+                    <select class="form-select fornitore-nome">
                         <option value="">Seleziona...</option>
                         <option value="RESTUCCIA">RESTUCCIA</option>
                         <option value="CI">CI</option>
@@ -222,12 +215,26 @@
                         <option value="VASTA">VASTA</option>
                         <option value="ALTRO">ALTRO</option>
                     </select>
-                </td>
-                <td>
-                    <input type="number" min="0" step="0.1" onchange="updateTotale(); calculateEndTime(this)">
-                </td>
-                <td>
-                    <select>
+                    <input type="text" class="form-control mt-1 altro-fornitore" placeholder="Specifica altro..." style="display: none;">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Tipo Agrume</label>
+                    <select class="form-select tipo-agrume-fornitore">
+                        <option value="">Seleziona...</option>
+                        <option value="LIMONE">LIMONE</option>
+                        <option value="ARANCIA">ARANCIA</option>
+                        <option value="MANDARINO">MANDARINO</option>
+                        <option value="POMPELMO">POMPELMO</option>
+                        <option value="BERGAMOTTO">BERGAMOTTO</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Quantità (kg)</label>
+                    <input type="number" class="form-control quantita-fornitore" min="0">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Certificazione</label>
+                    <select class="form-select certificazione-fornitore">
                         <option value="">Seleziona...</option>
                         <option value="BIO EU">BIO EU</option>
                         <option value="BIO DEM">BIO DEM</option>
@@ -237,9 +244,11 @@
                         <option value="CONVENZIONALE">CONVENZIONALE</option>
                         <option value="ALTRO">ALTRO</option>
                     </select>
-                </td>
-                <td>
-                    <select>
+                    <input type="text" class="form-control mt-1 altra-certificazione" placeholder="Specifica altra..." style="display: none;">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Linea Trasformazione</label>
+                    <select class="form-select linea-trasformazione-fornitore">
                         <option value="">Seleziona...</option>
                         <option value="BOE/1100">BOE/1100</option>
                         <option value="GOE INT/POLY">GOE INT/POLY</option>
@@ -247,27 +256,107 @@
                         <option value="GOE EST/400">GOE EST/400</option>
                         <option value="B/SF">B/SF</option>
                     </select>
-                </td>
-                <td>
-                    <input type="time" onchange="calculateEndTime(this)">
-                </td>
-                <td>
-                    <input type="number" min="0" step="1" placeholder="kg/h" onchange="calculateEndTime(this)">
-                </td>
-                <td>
-                    <input type="time" class="calculated" readonly>
-                </td>
-                <td>
-                    <input type="number" min="0" max="100" step="0.1" placeholder="%">
-                </td>
-                <td>
-                    <input type="number" min="0" max="100" step="0.1" placeholder="%">
-                </td>
-                <td>
-                    <input type="number" min="0" max="100" step="0.1" placeholder="%">
-                </td>
-                <td>
-                    <select onchange="toggleBrixField(this)">
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Template per lavorazione
+function createLavorazioneTemplate(index) {
+    return `
+        <div class="lavorazione-item border rounded p-3 mb-3" data-index="${index}">
+            <div class="row align-items-center mb-2">
+                <div class="col-md-10">
+                    <h6><i class="bi bi-gear"></i> Lavorazione ${index}</h6>
+                </div>
+                <div class="col-md-2 text-end">
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-remove-lavorazione">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row g-2 mb-3">
+                <div class="col-md-2">
+                    <label class="form-label">Tipo Agrume</label>
+                    <select class="form-select tipo-agrume-lavorazione">
+                        <option value="">Seleziona...</option>
+                        <option value="LIMONE">LIMONE</option>
+                        <option value="ARANCIA">ARANCIA</option>
+                        <option value="MANDARINO">MANDARINO</option>
+                        <option value="POMPELMO">POMPELMO</option>
+                        <option value="BERGAMOTTO">BERGAMOTTO</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Quantità (kg)</label>
+                    <input type="number" class="form-control quantita-lavorazione" min="0">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Linea</label>
+                    <select class="form-select linea-lavorazione">
+                        <option value="">Seleziona...</option>
+                        <option value="BOE/1100">BOE/1100</option>
+                        <option value="GOE INT/POLY">GOE INT/POLY</option>
+                        <option value="GOE EST/POLY">GOE EST/POLY</option>
+                        <option value="GOE EST/400">GOE EST/400</option>
+                        <option value="B/SF">B/SF</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Orario Inizio</label>
+                    <input type="time" class="form-control orario-inizio">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Portata (kg/h)</label>
+                    <input type="number" class="form-control portata" min="0">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Orario Fine</label>
+                    <input type="time" class="form-control orario-fine" readonly>
+                </div>
+            </div>
+
+            <!-- Sezione Rese -->
+            <div class="row g-2 mb-3">
+                <div class="col-md-12">
+                    <h6 class="border-bottom pb-1">Rese Previste</h6>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Succo 1ª (L)</label>
+                    <input type="number" class="form-control resa-succo1" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Succo 2ª (L)</label>
+                    <input type="number" class="form-control resa-succo2" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Torchiato (L)</label>
+                    <input type="number" class="form-control resa-torchiato" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Tenore Polpa</label>
+                    <select class="form-select tenore-polpa">
+                        <option value="">Seleziona...</option>
+                        <option value="STANDARD">STANDARD</option>
+                        <option value="6%">6%</option>
+                        <option value="3%">3%</option>
+                        <option value="2%">2%</option>
+                        <option value="1%">1%</option>
+                        <option value="SEMICLEAR">SEMICLEAR</option>
+                        <option value="LIMPIDO">LIMPIDO</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Sezione Destinazioni -->
+            <div class="row g-2">
+                <div class="col-md-12">
+                    <h6 class="border-bottom pb-1">Destinazioni Spremiture</h6>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Destinazione 1ª Spremitura</label>
+                    <select class="form-select destinazione1">
                         <option value="">Seleziona...</option>
                         <option value="PET 100">PET 100</option>
                         <option value="PET 200">PET 200</option>
@@ -289,10 +378,9 @@
                         <option value="CONCENTRATO">CONCENTRATO</option>
                         <option value="ALTRO">ALTRO</option>
                     </select>
-                </td>
-                <td>
-                    <select class="brix-field hidden">
-                        <option value="">Seleziona Brix...</option>
+                    <input type="text" class="form-control mt-1 altra-destinazione1" placeholder="Specifica altro..." style="display: none;">
+                    <select class="form-select mt-1 grado-bx1" style="display: none;">
+                        <option value="">Seleziona °BX...</option>
                         <option value="32">32</option>
                         <option value="40">40</option>
                         <option value="45">45</option>
@@ -303,85 +391,420 @@
                         <option value="63.5">63.5</option>
                         <option value="65">65</option>
                     </select>
-                </td>
-                <td>
-                    <select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Destinazione 2ª Spremitura</label>
+                    <select class="form-select destinazione2">
                         <option value="">Seleziona...</option>
-                        <option value="STANDARD">STANDARD</option>
-                        <option value="6%">6%</option>
-                        <option value="3%">3%</option>
-                        <option value="2%">2%</option>
-                        <option value="1%">1%</option>
-                        <option value="SEMICLEAR">SEMICLEAR</option>
-                        <option value="LIMPIDO">LIMPIDO</option>
+                        <option value="PET 100">PET 100</option>
+                        <option value="PET 200">PET 200</option>
+                        <option value="PET 480">PET 480</option>
+                        <option value="ACMA">ACMA</option>
+                        <option value="REX">REX</option>
+                        <option value="GOGLIO">GOGLIO</option>
+                        <option value="VASCHETTE">VASCHETTE</option>
+                        <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                        <option value="LATTE">LATTE</option>
+                        <option value="F.F.">F.F.</option>
+                        <option value="F.T.C">F.T.C</option>
+                        <option value="FBL">FBL</option>
+                        <option value="BIC">BIC</option>
+                        <option value="CISTERNA P">CISTERNA P</option>
+                        <option value="CISTERNA EF">CISTERNA EF</option>
+                        <option value="CISTERNA VK">CISTERNA VK</option>
+                        <option value="CISTERNA GS">CISTERNA GS</option>
+                        <option value="CONCENTRATO">CONCENTRATO</option>
+                        <option value="ALTRO">ALTRO</option>
                     </select>
-                </td>
-                <td>
-                    <button class="delete-btn" onclick="deleteRow(this)">Elimina</button>
-                </td>
-            `;
-        }
+                    <input type="text" class="form-control mt-1 altra-destinazione2" placeholder="Specifica altro..." style="display: none;">
+                    <select class="form-select mt-1 grado-bx2" style="display: none;">
+                        <option value="">Seleziona °BX...</option>
+                        <option value="32">32</option>
+                        <option value="40">40</option>
+                        <option value="45">45</option>
+                        <option value="48">48</option>
+                        <option value="55">55</option>
+                        <option value="58">58</option>
+                        <option value="60">60</option>
+                        <option value="63.5">63.5</option>
+                        <option value="65">65</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Destinazione Torchiato</label>
+                    <select class="form-select destinazione-torchiato">
+                        <option value="">Seleziona...</option>
+                        <option value="CISTERNA P">CISTERNA P</option>
+                        <option value="CISTERNA EF">CISTERNA EF</option>
+                        <option value="CISTERNA VK">CISTERNA VK</option>
+                        <option value="CISTERNA GS">CISTERNA GS</option>
+                        <option value="ALTRO">ALTRO</option>
+                    </select>
+                    <input type="text" class="form-control mt-1 altra-destinazione-torchiato" placeholder="Specifica altro..." style="display: none;">
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Event listeners per il programma giornaliero
+$("#btn-to-programma").click(showProgrammaGiornaliero);
+$("#nav-to-reparto1-from-4").click(function() {
+    $("#reparto4").hide();
+    $("#reparto1").show();
+    scrollToTop();
+});
+
+// Aggiunta fornitore
+$("#btn-add-fornitore").click(function() {
+    const fornitoreHtml = createFornitoreTemplate(fornitoreCounter++);
+    $("#fornitori-container").append(fornitoreHtml);
+});
+
+// Rimozione fornitore
+$(document).on("click", ".btn-remove-fornitore", function() {
+    $(this).closest(".fornitore-item").remove();
+});
+
+// Aggiunta lavorazione
+$("#btn-add-lavorazione").click(function() {
+    const lavorazioneHtml = createLavorazioneTemplate(lavorazioneCounter++);
+    $("#lavorazioni-container").append(lavorazioneHtml);
+});
+
+// Rimozione lavorazione
+$(document).on("click", ".btn-remove-lavorazione", function() {
+    $(this).closest(".lavorazione-item").remove();
+});
+
+// Gestione cambio fornitore (mostra/nascondi campo altro)
+$(document).on("change", ".fornitore-nome", function() {
+    const container = $(this).closest(".fornitore-item");
+    if ($(this).val() === "ALTRO") {
+        container.find(".altro-fornitore").show();
+    } else {
+        container.find(".altro-fornitore").hide().val("");
+    }
+});
+
+// Gestione cambio certificazione (mostra/nascondi campo altro)
+$(document).on("change", ".certificazione-fornitore", function() {
+    const container = $(this).closest(".fornitore-item");
+    if ($(this).val() === "ALTRO") {
+        container.find(".altra-certificazione").show();
+    } else {
+        container.find(".altra-certificazione").hide().val("");
+    }
+});
+
+// Gestione destinazioni (mostra/nascondi campi aggiuntivi)
+$(document).on("change", ".destinazione1, .destinazione2", function() {
+    const container = $(this).closest(".col-md-4");
+    const value = $(this).val();
+    
+    if (value === "CONCENTRATO") {
+        container.find(".grado-bx1, .grado-bx2").show();
+        container.find(".altra-destinazione1, .altra-destinazione2").hide();
+    } else if (value === "ALTRO") {
+        container.find(".altra-destinazione1, .altra-destinazione2").show();
+        container.find(".grado-bx1, .grado-bx2").hide();
+    } else {
+        container.find(".grado-bx1, .grado-bx2, .altra-destinazione1, .altra-destinazione2").hide();
+    }
+});
+
+// Gestione destinazione torchiato
+$(document).on("change", ".destinazione-torchiato", function() {
+    const container = $(this).closest(".col-md-4");
+    if ($(this).val() === "ALTRO") {
+        container.find(".altra-destinazione-torchiato").show();
+    } else {
+        container.find(".altra-destinazione-torchiato").hide().val("");
+    }
+});
+
+// Calcolo automatico orario fine e rese
+$(document).on("input change", ".quantita-lavorazione, .portata, .orario-inizio", function() {
+    const container = $(this).closest(".lavorazione-item");
+    const quantita = parseFloat(container.find(".quantita-lavorazione").val()) || 0;
+    const portata = parseFloat(container.find(".portata").val()) || 0;
+    const orarioInizio = container.find(".orario-inizio").val();
+    
+    if (quantita > 0 && portata > 0 && orarioInizio) {
+        // Calcolo orario fine
+        const durata = quantita / portata; // ore
+        const [ore, minuti] = orarioInizio.split(':').map(Number);
+        const inizioMinuti = ore * 60 + minuti;
+        const fineMinuti = inizioMinuti + (durata * 60);
         
-        function deleteRow(btn) {
-            const row = btn.closest('tr');
-            row.remove();
-            updateTotale();
-        }
+        const oreFine = Math.floor(fineMinuti / 60) % 24;
+        const minutiFine = Math.floor(fineMinuti % 60);
         
-        function updateTotale() {
-            const quantityInputs = document.querySelectorAll('#lavorazioneBody input[type="number"]');
-            let total = 0;
-            
-            quantityInputs.forEach((input, index) => {
-                // Prende solo il primo input di ogni riga (quantità)
-                if (index % 4 === 0 && input.value) {
-                    total += parseFloat(input.value);
-                }
-            });
-            
-            const giacenza = parseFloat(document.getElementById('giacenzaIniziale').value) || 0;
-            document.getElementById('totaleGiorno').value = (giacenza + total).toFixed(1);
-        }
+        const orarioFine = `${oreFine.toString().padStart(2, '0')}:${minutiFine.toString().padStart(2, '0')}`;
+        container.find(".orario-fine").val(orarioFine);
         
-        function calculateEndTime(element) {
-            const row = element.closest('tr');
-            const quantityInput = row.cells[1].querySelector('input');
-            const startTimeInput = row.cells[4].querySelector('input');
-            const portataInput = row.cells[5].querySelector('input');
-            const endTimeInput = row.cells[6].querySelector('input');
-            
-            const quantity = parseFloat(quantityInput.value);
-            const startTime = startTimeInput.value;
-            const portata = parseFloat(portataInput.value);
-            
-            if (quantity && startTime && portata) {
-                const [hours, minutes] = startTime.split(':').map(Number);
-                const startMinutes = hours * 60 + minutes;
-                
-                const processingTimeMinutes = (quantity / portata) * 60;
-                const endMinutes = startMinutes + processingTimeMinutes;
-                
-                const endHours = Math.floor(endMinutes / 60) % 24;
-                const endMins = Math.floor(endMinutes % 60);
-                
-                endTimeInput.value = `${endHours.toString().padStart(2, '0')}:${endMins.toString().padStart(2, '0')}`;
-            }
-        }
+        // Calcolo rese (percentuali indicative)
+        const resa1 = quantita * 0.65; // 65% per prima spremitura
+        const resa2 = quantita * 0.15; // 15% per seconda spremitura
+        const resaTorchiato = quantita * 0.05; // 5% per torchiato
         
-        function toggleBrixField(selectElement) {
-            const row = selectElement.closest('tr');
-            const brixField = row.querySelector('.brix-field');
-            
-            if (selectElement.value === 'CONCENTRATO') {
-                brixField.classList.remove('hidden');
-            } else {
-                brixField.classList.add('hidden');
-                brixField.value = '';
-            }
-        }
-        
-        // Aggiungi una riga iniziale
-        addRow();
-    </script>
-</body>
-</html>
+        container.find(".resa-succo1").val(Math.round(resa1));
+        container.find(".resa-succo2").val(Math.round(resa2));
+        container        </div>
+
+        <!-- Pulsanti Azioni -->
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-success btn-lg me-2" id="btn-salva-programma">
+                    <i class="bi bi-save"></i> Salva Programma
+                </button>
+                <button type="button" class="btn btn-warning btn-lg me-2" id="btn-reset-programma">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </button>
+                <button type="button" class="btn btn-info btn-lg" id="btn-export-programma">
+                    <i class="bi bi-download"></i> Esporta PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+container.find(".resa-torchiato").val(Math.round(resaTorchiato));
+   }
+});
+
+// Calcolo totale disponibile
+$(document).on("input", ".giacenza-input, .entrata-input", function() {
+   let totale = 0;
+   
+   $(".giacenza-input, .entrata-input").each(function() {
+       totale += parseFloat($(this).val()) || 0;
+   });
+   
+   $("#totale-disponibile").text(totale.toLocaleString() + " kg");
+});
+
+// Aggiornamento riepilogo
+function updateRiepilogo() {
+   const riepilogo = {};
+   
+   // Analizza tutte le lavorazioni
+   $(".lavorazione-item").each(function() {
+       const agrume = $(this).find(".tipo-agrume-lavorazione").val();
+       const quantita = parseFloat($(this).find(".quantita-lavorazione").val()) || 0;
+       const linea = $(this).find(".linea-lavorazione").val();
+       const orarioInizio = $(this).find(".orario-inizio").val();
+       const orarioFine = $(this).find(".orario-fine").val();
+       
+       if (agrume && quantita > 0) {
+           if (!riepilogo[agrume]) {
+               riepilogo[agrume] = {
+                   kg: 0,
+                   ore: 0,
+                   linee: new Set(),
+                   fornitori: new Set()
+               };
+           }
+           
+           riepilogo[agrume].kg += quantita;
+           
+           if (orarioInizio && orarioFine) {
+               const [oreInizio, minutiInizio] = orarioInizio.split(':').map(Number);
+               const [oreFine, minutiFine] = orarioFine.split(':').map(Number);
+               const durata = ((oreFine * 60 + minutiFine) - (oreInizio * 60 + minutiInizio)) / 60;
+               riepilogo[agrume].ore += durata;
+           }
+           
+           if (linea) riepilogo[agrume].linee.add(linea);
+       }
+   });
+   
+   // Analizza fornitori per aggiungere ai dati
+   $(".fornitore-item").each(function() {
+       const agrume = $(this).find(".tipo-agrume-fornitore").val();
+       const fornitore = $(this).find(".fornitore-nome").val();
+       
+       if (agrume && fornitore && riepilogo[agrume]) {
+           riepilogo[agrume].fornitori.add(fornitore);
+       }
+   });
+   
+   // Aggiorna tabella riepilogo
+   const tbody = $("#riepilogo-table tbody");
+   tbody.empty();
+   
+   for (const [agrume, data] of Object.entries(riepilogo)) {
+       const row = `
+           <tr>
+               <td><strong>${agrume}</strong></td>
+               <td>${data.kg.toLocaleString()} kg</td>
+               <td>${data.ore.toFixed(1)} h</td>
+               <td>${Array.from(data.linee).join(", ")}</td>
+               <td>${Array.from(data.fornitori).join(", ")}</td>
+           </tr>
+       `;
+       tbody.append(row);
+   }
+}
+
+// Aggiorna riepilogo quando cambiano i dati
+$(document).on("change input", ".lavorazione-item input, .lavorazione-item select, .fornitore-item input, .fornitore-item select", function() {
+   updateRiepilogo();
+});
+
+// Salvataggio programma
+$("#btn-salva-programma").click(function() {
+   // Raccoglie tutti i dati del programma
+   const programma = {
+       data: $("#current-date").text(),
+       giacenze: {},
+       entrate: {},
+       fornitori: [],
+       lavorazioni: []
+   };
+   
+   // Raccoglie giacenze
+   $(".giacenza-input").each(function() {
+       const frutto = $(this).data("frutto");
+       const valore = parseFloat($(this).val()) || 0;
+       programma.giacenze[frutto] = valore;
+   });
+   
+   // Raccoglie entrate
+   $(".entrata-input").each(function() {
+       const frutto = $(this).data("frutto");
+       const valore = parseFloat($(this).val()) || 0;
+       programma.entrate[frutto] = valore;
+   });
+   
+   // Raccoglie fornitori
+   $(".fornitore-item").each(function() {
+       const fornitore = {
+           nome: $(this).find(".fornitore-nome").val(),
+           altroNome: $(this).find(".altro-fornitore").val(),
+           tipoAgrume: $(this).find(".tipo-agrume-fornitore").val(),
+           quantita: parseFloat($(this).find(".quantita-fornitore").val()) || 0,
+           certificazione: $(this).find(".certificazione-fornitore").val(),
+           altraCertificazione: $(this).find(".altra-certificazione").val(),
+           lineaTrasformazione: $(this).find(".linea-trasformazione-fornitore").val()
+       };
+       programma.fornitori.push(fornitore);
+   });
+   
+   // Raccoglie lavorazioni
+   $(".lavorazione-item").each(function() {
+       const lavorazione = {
+           tipoAgrume: $(this).find(".tipo-agrume-lavorazione").val(),
+           quantita: parseFloat($(this).find(".quantita-lavorazione").val()) || 0,
+           linea: $(this).find(".linea-lavorazione").val(),
+           orarioInizio: $(this).find(".orario-inizio").val(),
+           portata: parseFloat($(this).find(".portata").val()) || 0,
+           orarioFine: $(this).find(".orario-fine").val(),
+           resaSucco1: parseFloat($(this).find(".resa-succo1").val()) || 0,
+           resaSucco2: parseFloat($(this).find(".resa-succo2").val()) || 0,
+           resaTorchiato: parseFloat($(this).find(".resa-torchiato").val()) || 0,
+           tenorePolpa: $(this).find(".tenore-polpa").val(),
+           destinazione1: $(this).find(".destinazione1").val(),
+           altraDestinazione1: $(this).find(".altra-destinazione1").val(),
+           gradoBx1: $(this).find(".grado-bx1").val(),
+           destinazione2: $(this).find(".destinazione2").val(),
+           altraDestinazione2: $(this).find(".altra-destinazione2").val(),
+           gradoBx2: $(this).find(".grado-bx2").val(),
+           destinazioneTorchiato: $(this).find(".destinazione-torchiato").val(),
+           altraDestinazioneTorchiato: $(this).find(".altra-destinazione-torchiato").val()
+       };
+       programma.lavorazioni.push(lavorazione);
+   });
+   
+   // Salva nel localStorage (simulazione)
+   localStorage.setItem('programmaGiornaliero_' + new Date().toISOString().split('T')[0], JSON.stringify(programma));
+   
+   alert("Programma giornaliero salvato con successo!\nID: " + new Date().toISOString());
+});
+
+// Reset programma
+$("#btn-reset-programma").click(function() {
+   if (confirm("Attenzione: questa operazione cancellerà tutti i dati inseriti. Continuare?")) {
+       // Reset tutti i campi
+       $(".giacenza-input, .entrata-input").val("");
+       $("#fornitori-container").empty();
+       $("#lavorazioni-container").empty();
+       $("#riepilogo-table tbody").empty();
+       $("#totale-disponibile").text("0 kg");
+       
+       // Reset contatori
+       fornitoreCounter = 1;
+       lavorazioneCounter = 1;
+       
+       alert("Programma resettato con successo!");
+   }
+});
+
+// Esportazione PDF (simulazione)
+$("#btn-export-programma").click(function() {
+   alert("Funzione di esportazione PDF in sviluppo.\nI dati verranno formattati per la stampa.");
+   window.print();
+});
+
+// Inizializza con un fornitore e una lavorazione di esempio
+function initProgrammaGiornaliero() {
+   // Aggiungi pulsante navigazione
+   addNavigationButtons();
+   
+   // Carica dati di esempio se necessario
+   if ($("#fornitori-container").children().length === 0) {
+       $("#btn-add-fornitore").click();
+       $("#btn-add-lavorazione").click();
+   }
+}
+
+// Chiama inizializzazione
+initProgrammaGiornaliero();
+/* Stili per Reparto 4 - Programma Giornaliero */
+.btn-reparto4 {
+    background-color: #6f42c1;
+    color: white;
+}
+
+.btn-reparto4:hover {
+    background-color: #5a359a;
+    color: white;
+}
+
+.fornitore-item, .lavorazione-item {
+    background-color: #f8f9fa;
+    transition: all 0.3s;
+}
+
+.fornitore-item:hover, .lavorazione-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-value-4 { 
+    color: #6f42c1; 
+}
+
+#reparto4 .alert-info {
+    background-color: #e7e3ff;
+    border-color: #6f42c1;
+    color: #5a359a;
+}
+
+#reparto4 .border-bottom {
+    border-color: #6f42c1 !important;
+}
+
+/* Responsive per stampa */
+@media print {
+    .btn, .nav-button {
+        display: none !important;
+    }
+    
+    .container {
+        max-width: 100% !important;
+    }
+    
+    .card {
+        border: 1px solid #000 !important;
+        page-break-inside: avoid;
+    }
+}
